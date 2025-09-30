@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Entre em contato com a equipe Meu Caribe para agendar seu passeio de lancha, aventura aquática em Maragogi-AL ou tirar suas dúvidas. Estamos prontos para te atender.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js" defer></script>
+    <link rel="icon" href="./assets/img/logo.png" type="image/x-icon">
+    <title>Contato - Meu Caribe</title>
+
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <img src="./assets/img/logo.png" alt="Logo Meu Caribe">
+        </div>
+
+        <div class="header-right">
+            <nav id="nav-wrapper">
+                <ul>
+                    <li><a href="index.html">Página Inicial</a></li>
+                    <li><a href="passeios-lancha.html">Passeios de Lancha</a></li>
+                    <li><a href="aventura-aquatica.html">Aventura Aquática</a></li>
+                    <li><a href="sobre.html">Sobre Nós</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+            <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank">
+                <button>Agende seu Passeio</button>
+            </a>
+            <button id="hamburger-btn" aria-label="Abrir menu de navegação" aria-expanded="false"
+                aria-controls="nav-wrapper">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="banner-contato">
+            <h1>Fale Conosco</h1>
+            <p>Estamos prontos para te ajudar a planejar a sua aventura em Maragogi. Preencha o formulário ou use os
+                nossos canais de contato direto.</p>
+        </section>
+
+        <section id="conteudo-contato">
+            <div id="informacoes-contato">
+                <h2>Canais de Atendimento</h2>
+                <address>
+                    <p><i class="fas fa-phone" aria-hidden="true"></i> <strong>Telefone:</strong> <a
+                            href="tel:+558191211006">81 9.81211006</a></p>
+                    <p><i class="fas fa-envelope" aria-hidden="true"></i> <strong>Email:</strong> <a
+                            href="mailto:contato@meucaribe.com.br">meucaribebrasileiro@gmail.com</a></p>
+                    <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <strong>Atendimento:</strong>
+                        Maragogi-AL, Brasil</p>
+                </address>
+                <div class="redes-sociais">
+                    <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
+                        aria-label="Falar no WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.instagram.com/meucaribemaragogi?hl=en" target="_blank"
+                        rel="noopener noreferrer" aria-label="Seguir no Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div id="form-contato">
+                <h2>Envie uma Mensagem</h2>
+                <form action="https://formspree.io/f/your_form_id" method="POST">
+                    <label for="nome">Nome Completo:</label>
+                    <input type="text" id="nome" name="nome" required>
+
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="assunto">Assunto:</label>
+                    <input type="text" id="assunto" name="assunto">
+
+                    <label for="mensagem">Mensagem:</label>
+                    <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
+
+                    <button type="submit">Enviar Mensagem</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="localizacao">
+            <h2>Nossa Localização</h2>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.597793740266!2d-35.1328659!3d-8.913076999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x701831871a3641b%3A0x6b49e295484501a4!2sPraia%20de%20Peroba!5e0!3m2!1spt-BR!2sbr!4v1718742491624!5m2!1spt-BR!2sbr"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Mapa mostrando a localização da Praia de Peroba em Maragogi, AL">
+            </iframe>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-box">
+            <div class="footer-col-1">
+                <a href="index.html" aria-label="Voltar à página inicial">
+                    <img src="./assets/img/logo2.png" alt="Logo Meu Caribe" class="footer-logo">
+                </a>
+                <div class="rede-social" role="complementary" aria-label="Redes sociais">
+                    <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
+                        aria-label="Falar no WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.instagram.com/meucaribemaragogi?hl=en" target="_blank"
+                        rel="noopener noreferrer" aria-label="Seguir no Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-col-2">
+                <h3>Contato</h3>
+                <address>
+                    <p><i class="fas fa-phone" aria-hidden="true"></i> Telefone: <a href="tel:[seu-telefone-com-ddi]">81
+                            9.81211006</a></p>
+                    <p><i class="fas fa-envelope" aria-hidden="true"></i> Email: <a href="mailto:[seu-email]">
+                            meucaribebrasileiro@gmail.com
+                        </a></p>
+                    <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Atendimento: Maragogi-AL, Brasil</p>
+                </address>
+            </div>
+
+            <div class="footer-col-3">
+                <h3>Links Rápidos</h3>
+                <nav role="navigation" aria-label="Links do rodapé" class="footer-links">
+                    <ul>
+                        <li><a href="index.html">Página Inicial</a></li>
+                        <li><a href="passeios-lancha.html">Passeios de Lancha</a></li>
+                        <li><a href="aventura-aquatica.html">Aventura Aquática</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Meu Caribe. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio em Maragogi."
+        class="whatsapp-flutuante" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
+        <span class="whatsapp-texto">Agende seu passeio</span>
+        <i class="fab fa-whatsapp whatsapp-icon"></i>
+    </a>
+
+</body>
+
+</html>
