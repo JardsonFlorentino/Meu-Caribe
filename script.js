@@ -290,6 +290,9 @@ async function fetchTideData(barraEl) {
     const CACHE_KEY = 'meucaribe_mare';
     const CACHE_TTL = 3 * 60 * 60 * 1000; // 3 horas
 
+    // Buscar clima em paralelo
+    fetchWeatherData();
+
     // Verificar cache
     try {
         const cached = localStorage.getItem(CACHE_KEY);
@@ -370,7 +373,15 @@ function renderTideBar(el, tides) {
     const items = tides.map(t =>
         `<span class="tide-item"><i class="fas ${icons[t.type]}" style="font-size:0.7em"></i> <strong>${labels[t.type]}</strong> ${t.time} (${t.height}m)</span>`
     );
-    el.innerHTML = `<span class="tide-item"><i class="fas fa-water"></i></span> ${items.join('<span class="tide-sep">·</span> ')} <span class="tide-item">— <a href="https://www.tabuademares.com/br/alagoas/maragogi" target="_blank" rel="noopener noreferrer" style="color:#F59E0B;text-decoration:underline">Maragogi, AL</a> <i class="fas fa-umbrella-beach"></i></span>`;
+
+    // Weather info (if available)
+    let weatherHtml = '';
+    if (window._weatherData) {
+        const w = window._weatherData;
+        weatherHtml = `<span class="tide-sep">|</span> <span class="tide-item weather-item"><i class="fas ${w.icon}"></i> ${w.temp}°C ${w.desc}</span> <span class="tide-item weather-item"><i class="fas fa-wind"></i> ${w.wind} km/h</span>`;
+    }
+
+    el.innerHTML = `<span class="tide-item"><i class="fas fa-water"></i></span> ${items.join('<span class="tide-sep">·</span> ')} ${weatherHtml} <span class="tide-item">— <a href="https://www.tabuademares.com/br/alagoas/maragogi" target="_blank" rel="noopener noreferrer" style="color:#F59E0B;text-decoration:underline">Maragogi, AL</a> <i class="fas fa-umbrella-beach"></i></span>`;
 }
 
 // Re-render tide bar on language change
@@ -380,3 +391,75 @@ document.addEventListener('langchange', function () {
         if (barraEl) renderTideBar(barraEl, window._tideData);
     }
 });
+
+// Clima — Open-Meteo API (gratuita, sem chave)
+async function fetchWeatherData() {
+    const CACHE_KEY = 'meucaribe_clima';
+    const CACHE_TTL = 30 * 60 * 1000; // 30 minutos
+
+    try {
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+            const data = JSON.parse(cached);
+            if (Date.now() - data.ts < CACHE_TTL) {
+                window._weatherData = data.weather;
+                reRenderBar();
+                return;
+            }
+        }
+    } catch (_) { /* ignora */ }
+
+    try {
+        const res = await fetch(
+            'https://api.open-meteo.com/v1/forecast?latitude=-9.0122&longitude=-35.2225&current=temperature_2m,weather_code,wind_speed_10m&timezone=America/Maceio'
+        );
+        if (!res.ok) throw new Error('Weather fetch failed');
+        const json = await res.json();
+        const current = json.current;
+
+        const weather = {
+            temp: Math.round(current.temperature_2m),
+            wind: Math.round(current.wind_speed_10m),
+            code: current.weather_code,
+            icon: getWeatherIcon(current.weather_code),
+            desc: getWeatherDesc(current.weather_code)
+        };
+
+        try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), weather }));
+        } catch (_) { /* ignora */ }
+
+        window._weatherData = weather;
+        reRenderBar();
+    } catch (_) { /* silencioso — barra funciona sem clima */ }
+}
+
+function reRenderBar() {
+    if (window._tideData) {
+        var barraEl = document.getElementById('barra-mare-info');
+        if (barraEl) renderTideBar(barraEl, window._tideData);
+    }
+}
+
+function getWeatherIcon(code) {
+    if (code === 0) return 'fa-sun';
+    if (code <= 3) return 'fa-cloud-sun';
+    if (code <= 48) return 'fa-smog';
+    if (code <= 67) return 'fa-cloud-rain';
+    if (code <= 77) return 'fa-snowflake';
+    if (code <= 99) return 'fa-bolt';
+    return 'fa-cloud';
+}
+
+function getWeatherDesc(code) {
+    var _t = function(k, fb) { return window.I18N ? window.I18N.t(k, fb) : fb; };
+    if (code === 0) return _t('weather.clear', 'C\u00e9u limpo');
+    if (code <= 2) return _t('weather.partly_cloudy', 'Parcialmente nublado');
+    if (code === 3) return _t('weather.cloudy', 'Nublado');
+    if (code <= 48) return _t('weather.fog', 'Neblina');
+    if (code <= 57) return _t('weather.drizzle', 'Garoa');
+    if (code <= 67) return _t('weather.rain', 'Chuva');
+    if (code <= 77) return _t('weather.snow', 'Neve');
+    if (code <= 99) return _t('weather.storm', 'Tempestade');
+    return _t('weather.cloudy', 'Nublado');
+}

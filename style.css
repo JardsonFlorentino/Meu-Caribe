@@ -282,6 +282,14 @@ img {
     white-space: nowrap;
 }
 
+.barra-topo .weather-item i {
+    color: var(--por-do-sol);
+}
+
+.barra-topo .tide-sep {
+    opacity: 0.5;
+}
+
 .barra-topo a {
     color: var(--por-do-sol);
     text-decoration: underline;
