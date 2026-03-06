@@ -6,19 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Entre em contato com a equipe Meu Caribe para agendar seu passeio de lancha, aventura aquática em Maragogi-AL ou tirar suas dúvidas. Estamos prontos para te atender.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;700&family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
-    <script src="scripts.js" defer></script>
+    <script src="script.js" defer></script>
     <link rel="icon" href="./assets/img/logo.png" type="image/x-icon">
     <title>Contato - Meu Caribe</title>
 
 </head>
 
 <body>
+    <div class="barra-topo">
+        <p id="barra-mare-info"><i class="fas fa-water"></i> <span>Carregando tábua da maré...</span></p>
+    </div>
+
     <header>
         <div class="header-left">
-            <img src="./assets/img/logo.png" alt="Logo Meu Caribe">
+            <a href="index.html">
+                <img src="./assets/img/logo.png" alt="Logo Meu Caribe">
+            </a>
         </div>
 
         <div class="header-right">
@@ -28,78 +39,143 @@
                     <li><a href="passeios-lancha.html">Passeios de Lancha</a></li>
                     <li><a href="aventura-aquatica.html">Aventura Aquática</a></li>
                     <li><a href="sobre.html">Sobre Nós</a></li>
-                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="contato.html" class="nav-ativo">Contato</a></li>
                 </ul>
             </nav>
-            <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank">
-                <button>Agende seu Passeio</button>
+            <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
+                rel="noopener noreferrer" class="btn-header-cta">
+                <i class="fab fa-whatsapp"></i> Agende seu Passeio
             </a>
             <button id="hamburger-btn" aria-label="Abrir menu de navegação" aria-expanded="false"
                 aria-controls="nav-wrapper">
                 <i class="fas fa-bars" aria-hidden="true"></i>
             </button>
         </div>
-        </div>
     </header>
 
     <main>
+        <!-- HERO -->
         <section id="banner-contato">
-            <h1>Fale Conosco</h1>
-            <p>Estamos prontos para te ajudar a planejar a sua aventura em Maragogi. Preencha o formulário ou use os
-                nossos canais de contato direto.</p>
-        </section>
-
-        <section id="conteudo-contato">
-            <div id="informacoes-contato">
-                <h2>Canais de Atendimento</h2>
-                <address>
-                    <p><i class="fas fa-phone" aria-hidden="true"></i> <strong>Telefone:</strong> <a
-                            href="tel:+558191211006">81 9.81211006</a></p>
-                    <p><i class="fas fa-envelope" aria-hidden="true"></i> <strong>Email:</strong> <a
-                            href="mailto:contato@meucaribe.com.br">meucaribebrasileiro@gmail.com</a></p>
-                    <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <strong>Atendimento:</strong>
-                        Maragogi-AL, Brasil</p>
-                </address>
-                <div class="redes-sociais">
+            <div class="banner-overlay"></div>
+            <div class="banner-conteudo fade-in">
+                <span class="banner-tag"><i class="fas fa-envelope"></i> Fale Conosco</span>
+                <h1>Entre em<br><span class="texto-destaque">Contato</span></h1>
+                <p>Estamos prontos para te ajudar a planejar a sua aventura em Maragogi. Preencha o formulário ou use os
+                    nossos canais de contato direto.</p>
+                <div class="banner-botoes">
                     <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
-                        aria-label="Falar no WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
+                        rel="noopener noreferrer" class="btn-primario btn-pulse">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Direto
                     </a>
-                    <a href="https://www.instagram.com/meucaribemaragogi?hl=en" target="_blank"
-                        rel="noopener noreferrer" aria-label="Seguir no Instagram">
-                        <i class="fab fa-instagram"></i>
+                    <a href="#conteudo-contato" class="btn-secundario">
+                        <i class="fas fa-paper-plane"></i> Enviar Mensagem
                     </a>
                 </div>
             </div>
-
-            <div id="form-contato">
-                <h2>Envie uma Mensagem</h2>
-                <form action="https://formspree.io/f/your_form_id" method="POST">
-                    <label for="nome">Nome Completo:</label>
-                    <input type="text" id="nome" name="nome" required>
-
-                    <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" required>
-
-                    <label for="assunto">Assunto:</label>
-                    <input type="text" id="assunto" name="assunto">
-
-                    <label for="mensagem">Mensagem:</label>
-                    <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
-
-                    <button type="submit">Enviar Mensagem</button>
-                </form>
+            <div class="onda-hero">
+                <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                    <path d="M0,64 C360,120 720,0 1080,64 C1260,96 1380,80 1440,64 L1440,120 L0,120 Z" fill="#ffffff" />
+                </svg>
             </div>
         </section>
 
-        <section id="localizacao">
-            <h2>Nossa Localização</h2>
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.597793740266!2d-35.1328659!3d-8.913076999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x701831871a3641b%3A0x6b49e295484501a4!2sPraia%20de%20Peroba!5e0!3m2!1spt-BR!2sbr!4v1718742491624!5m2!1spt-BR!2sbr"
-                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Mapa mostrando a localização da Praia de Peroba em Maragogi, AL">
-            </iframe>
+        <!-- CONTATO INFO + FORM -->
+        <section id="conteudo-contato" class="fade-in">
+            <div class="secao-cabecalho">
+                <span class="secao-tag">Nossos canais</span>
+                <h2>Canais de Atendimento</h2>
+                <p class="secao-subtitulo">Escolha o canal que preferir — respondemos rápido!</p>
+            </div>
+            <div class="contato-grid">
+                <div id="informacoes-contato">
+                    <div class="contato-info-card">
+                        <div class="contato-info-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Telefone</strong>
+                                <a href="tel:+558181211006">81 9.8121-1006</a>
+                            </div>
+                        </div>
+                        <div class="contato-info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <a href="mailto:meucaribebrasileiro@gmail.com">meucaribebrasileiro@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contato-info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Localização</strong>
+                                <span>Praia de Peroba, Maragogi - AL</span>
+                            </div>
+                        </div>
+                        <div class="contato-info-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>Horário</strong>
+                                <span>Diariamente, 8h às 18h</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contato-social">
+                        <p>Siga-nos nas redes:</p>
+                        <div class="redes-sociais">
+                            <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio."
+                                target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="https://www.instagram.com/meucaribemaragogi?hl=en" target="_blank"
+                                rel="noopener noreferrer" aria-label="Seguir no Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="form-contato">
+                    <h3><i class="fas fa-paper-plane"></i> Envie uma Mensagem</h3>
+                    <form action="https://formspree.io/f/your_form_id" method="POST">
+                        <div class="form-grupo">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+                        </div>
+                        <div class="form-grupo">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+                        </div>
+                        <div class="form-grupo">
+                            <label for="assunto">Assunto</label>
+                            <input type="text" id="assunto" name="assunto" placeholder="Ex: Reservar passeio de lancha">
+                        </div>
+                        <div class="form-grupo">
+                            <label for="mensagem">Mensagem</label>
+                            <textarea id="mensagem" name="mensagem" rows="5"
+                                placeholder="Conte-nos como podemos ajudar..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primario btn-form">
+                            <i class="fas fa-paper-plane"></i> Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAPA -->
+        <section id="localizacao" class="fade-in">
+            <div class="secao-cabecalho">
+                <span class="secao-tag">Onde estamos</span>
+                <h2>Nossa Localização</h2>
+                <p class="secao-subtitulo">Praia de Peroba — Maragogi, Alagoas</p>
+            </div>
+            <div class="mapa-wrapper">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.597793740266!2d-35.1328659!3d-8.913076999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x701831871a3641b%3A0x6b49e295484501a4!2sPraia%20de%20Peroba!5e0!3m2!1spt-BR!2sbr!4v1718742491624!5m2!1spt-BR!2sbr"
+                    width="100%" height="450" class="map-iframe" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer"
+                    title="Mapa mostrando a localização da Praia de Peroba em Maragogi, AL">
+                </iframe>
+            </div>
         </section>
     </main>
 
@@ -109,9 +185,10 @@
                 <a href="index.html" aria-label="Voltar à página inicial">
                     <img src="./assets/img/logo2.png" alt="Logo Meu Caribe" class="footer-logo">
                 </a>
+                <p class="footer-descricao">Seu paraíso particular nas águas cristalinas de Maragogi, Alagoas.</p>
                 <div class="rede-social" role="complementary" aria-label="Redes sociais">
                     <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
-                        aria-label="Falar no WhatsApp">
+                        rel="noopener noreferrer" aria-label="Falar no WhatsApp">
                         <i class="fab fa-whatsapp"></i>
                     </a>
                     <a href="https://www.instagram.com/meucaribemaragogi?hl=en" target="_blank"
@@ -124,11 +201,11 @@
             <div class="footer-col-2">
                 <h3>Contato</h3>
                 <address>
-                    <p><i class="fas fa-phone" aria-hidden="true"></i> Telefone: <a href="tel:[seu-telefone-com-ddi]">81
-                            9.81211006</a></p>
-                    <p><i class="fas fa-envelope" aria-hidden="true"></i> Email: <a href="mailto:[seu-email]">
-                            meucaribebrasileiro@gmail.com
-                        </a></p>
+                    <p><i class="fas fa-phone" aria-hidden="true"></i> Telefone: <a href="tel:+558181211006">81
+                            9.8121-1006</a></p>
+                    <p><i class="fas fa-envelope" aria-hidden="true"></i> Email: <a
+                            href="mailto:meucaribebrasileiro@gmail.com">
+                            meucaribebrasileiro@gmail.com</a></p>
                     <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Atendimento: Maragogi-AL, Brasil</p>
                 </address>
             </div>
@@ -150,12 +227,12 @@
             <p>&copy; 2024 Meu Caribe. Todos os direitos reservados.</p>
         </div>
     </footer>
+
     <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio em Maragogi."
         class="whatsapp-flutuante" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
-        <span class="whatsapp-texto">Agende seu passeio</span>
+        <span class="whatsapp-texto">Agende seu passeio!</span>
         <i class="fab fa-whatsapp whatsapp-icon"></i>
     </a>
-
 </body>
 
 </html>
