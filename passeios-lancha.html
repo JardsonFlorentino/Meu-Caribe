@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
+    <script src="i18n.js" defer></script>
     <script src="script.js" defer></script>
     <link rel="icon" href="./assets/img/logo.png" type="image/x-icon">
     <title>Passeios de Lancha em Maragogi - Meu Caribe</title>
@@ -21,7 +22,8 @@
 
 <body>
     <div class="barra-topo">
-        <p id="barra-mare-info"><i class="fas fa-water"></i> <span>Carregando tábua da maré...</span></p>
+        <p id="barra-mare-info"><i class="fas fa-water"></i> <span data-i18n="topbar.loading">Carregando tábua da
+                maré...</span></p>
     </div>
 
     <header>
@@ -33,17 +35,26 @@
         <div class="header-right">
             <nav id="nav-wrapper">
                 <ul>
-                    <li><a href="index.html">Página Inicial</a></li>
-                    <li><a href="passeios-lancha.html" class="nav-ativo">Passeios de Lancha</a></li>
-                    <li><a href="aventura-aquatica.html">Aventura Aquática</a></li>
-                    <li><a href="sobre.html">Sobre Nós</a></li>
-                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="index.html" data-i18n="nav.home">Página Inicial</a></li>
+                    <li><a href="passeios-lancha.html" class="nav-ativo" data-i18n="nav.boat_tours">Passeios de
+                            Lancha</a></li>
+                    <li><a href="aventura-aquatica.html" data-i18n="nav.water_adventure">Aventura Aquática</a></li>
+                    <li><a href="sobre.html" data-i18n="nav.about">Sobre Nós</a></li>
+                    <li><a href="contato.html" data-i18n="nav.contact">Contato</a></li>
                 </ul>
             </nav>
             <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
                 rel="noopener noreferrer" class="btn-header-cta">
-                <i class="fab fa-whatsapp"></i> Agende seu Passeio
+                <i class="fab fa-whatsapp"></i> <span data-i18n="header.cta">Agende seu Passeio</span>
             </a>
+            <div class="lang-selector">
+                <button class="lang-btn" data-lang="pt" title="Português"><img src="./assets/icons/flag-br.svg" alt="PT"
+                        width="22" height="22"></button>
+                <button class="lang-btn" data-lang="en" title="English"><img src="./assets/icons/flag-us.svg" alt="EN"
+                        width="22" height="22"></button>
+                <button class="lang-btn" data-lang="es" title="Español"><img src="./assets/icons/flag-es.svg" alt="ES"
+                        width="22" height="22"></button>
+            </div>
             <button id="hamburger-btn" aria-label="Abrir menu de navegação" aria-expanded="false"
                 aria-controls="nav-wrapper">
                 <i class="fas fa-bars" aria-hidden="true"></i>
@@ -56,18 +67,22 @@
         <section id="banner-lancha">
             <div class="banner-overlay"></div>
             <div class="banner-conteudo fade-in">
-                <span class="banner-tag"><i class="fas fa-ship"></i> Passeios Exclusivos</span>
-                <h1>Passeio de Lancha<br><span class="texto-destaque">em Maragogi</span></h1>
-                <p>Descubra o melhor de Maragogi a bordo de nossas lanchas confortáveis e seguras. Navegue até as
+                <span class="banner-tag"><i class="fas fa-ship"></i> <span data-i18n="lancha.banner.tag">Passeios
+                        Exclusivos</span></span>
+                <h1><span data-i18n="lancha.banner.h1">Passeio de Lancha</span><br><span class="texto-destaque"
+                        data-i18n="lancha.banner.h1_highlight">em Maragogi</span></h1>
+                <p data-i18n="lancha.banner.description">Descubra o melhor de Maragogi a bordo de nossas lanchas
+                    confortáveis e seguras. Navegue até as
                     piscinas
                     naturais e desfrute de um dia de sol e mar inesquecível.</p>
                 <div class="banner-botoes">
                     <a href="https://wa.me/558181211006?text=Olá! Gostaria de reservar um passeio de lancha."
                         target="_blank" rel="noopener noreferrer" class="btn-primario btn-pulse">
-                        <i class="fab fa-whatsapp"></i> Reservar Agora
+                        <i class="fab fa-whatsapp"></i> <span data-i18n="lancha.banner.btn_primary">Reservar
+                            Agora</span>
                     </a>
                     <a href="#opcoes-de-passeio" class="btn-secundario">
-                        <i class="fas fa-anchor"></i> Ver Roteiros
+                        <i class="fas fa-anchor"></i> <span data-i18n="lancha.banner.btn_secondary">Ver Roteiros</span>
                     </a>
                 </div>
             </div>
@@ -81,9 +96,10 @@
         <!-- OPÇÕES DE PASSEIO -->
         <section id="opcoes-de-passeio" class="fade-in">
             <div class="secao-cabecalho">
-                <span class="secao-tag">Escolha seu roteiro</span>
-                <h2>Nossas Opções de Passeio de Lancha</h2>
-                <p class="secao-subtitulo">Roteiros exclusivos com saídas da Praia de Peroba</p>
+                <span class="secao-tag" data-i18n="lancha.options.tag">Escolha seu roteiro</span>
+                <h2 data-i18n="lancha.options.h2">Nossas Opções de Passeio de Lancha</h2>
+                <p class="secao-subtitulo" data-i18n="lancha.options.subtitle">Roteiros exclusivos com saídas da Praia
+                    de Peroba</p>
             </div>
             <div class="passeio-grid">
                 <article class="card-passeio">
@@ -92,38 +108,44 @@
                         <span class="card-badge"><i class="fas fa-star"></i></span>
                     </div>
                     <div class="card-corpo">
-                        <h3>PISCINA EXPERIENCE</h3>
+                        <h3 data-i18n="lancha.piscina.title">PISCINA EXPERIENCE</h3>
                         <div class="passeio-info">
-                            <span class="passeio-detalhe"><i class="fas fa-clock"></i> 2:30h</span>
-                            <span class="passeio-detalhe"><i class="fas fa-users"></i> Até 7 pessoas</span>
+                            <span class="passeio-detalhe"><i class="fas fa-clock"></i> <span
+                                    data-i18n="lancha.piscina.duration">2:30h</span></span>
+                            <span class="passeio-detalhe"><i class="fas fa-users"></i> <span
+                                    data-i18n="lancha.piscina.capacity">Até 7 pessoas</span></span>
                         </div>
                         <div class="passeio-roteiro">
-                            <p class="roteiro-titulo"><i class="fas fa-route"></i> ROTEIRO:</p>
+                            <p class="roteiro-titulo"><i class="fas fa-route"></i> <span
+                                    data-i18n="lancha.piscina.roteiro_label">ROTEIRO:</span></p>
                             <ul>
-                                <li>Caminho da Beleza e Piscinas Naturais</li>
-                                <li>Saída da Praia de Peroba</li>
-                                <li>Caminho da Beleza</li>
-                                <li>Ponta de Mangue</li>
-                                <li>Piscinas Naturais de Maragogi</li>
-                                <li>Banco de Areia da Praia da Bruna</li>
-                                <li>Retorno ao ponto de embarque</li>
+                                <li data-i18n="lancha.piscina.roteiro_header">Caminho da Beleza e Piscinas Naturais</li>
+                                <li data-i18n="lancha.piscina.stop_1">Saída da Praia de Peroba</li>
+                                <li data-i18n="lancha.piscina.stop_2">Caminho da Beleza</li>
+                                <li data-i18n="lancha.piscina.stop_3">Ponta de Mangue</li>
+                                <li data-i18n="lancha.piscina.stop_4">Piscinas Naturais de Maragogi</li>
+                                <li data-i18n="lancha.piscina.stop_5">Banco de Areia da Praia da Bruna</li>
+                                <li data-i18n="lancha.piscina.stop_6">Retorno ao ponto de embarque</li>
                             </ul>
                         </div>
                         <div class="passeio-precos">
                             <div class="preco-item">
-                                <span class="preco-label">Privativo até 7 pessoas</span>
-                                <span class="preco-valor">R$ 900</span>
+                                <span class="preco-label" data-i18n="lancha.piscina.price_private_label">Privativo até 7
+                                    pessoas</span>
+                                <span class="preco-valor" data-i18n="lancha.piscina.price_private_value">R$ 900</span>
                             </div>
                             <div class="preco-item">
-                                <span class="preco-label">Compartilhado por pessoa</span>
-                                <span class="preco-valor">R$ 130</span>
+                                <span class="preco-label" data-i18n="lancha.piscina.price_shared_label">Compartilhado
+                                    por pessoa</span>
+                                <span class="preco-valor" data-i18n="lancha.piscina.price_shared_value">R$ 130</span>
                             </div>
                         </div>
-                        <p class="passeio-obs"><i class="fas fa-info-circle"></i> Para passeios compartilhados não
-                            paramos no CAMINHO DA BELEZA, assim como não será permitido Cooler e JBL.</p>
+                        <p class="passeio-obs"><i class="fas fa-info-circle"></i> <span
+                                data-i18n="lancha.piscina.obs">Para passeios compartilhados não
+                                paramos no CAMINHO DA BELEZA, assim como não será permitido Cooler e JBL.</span></p>
                         <a href="https://wa.me/558181211006?text=Olá! Quero reservar o Piscina Experience."
                             target="_blank" rel="noopener noreferrer" class="btn-primario btn-card">
-                            <i class="fab fa-whatsapp"></i> Reservar
+                            <i class="fab fa-whatsapp"></i> <span data-i18n="lancha.piscina.btn">Reservar</span>
                         </a>
                     </div>
                 </article>
@@ -134,37 +156,41 @@
                         <span class="card-badge"><i class="fas fa-compass"></i></span>
                     </div>
                     <div class="card-corpo">
-                        <h3>ORLA EXPERIENCE</h3>
+                        <h3 data-i18n="lancha.orla.title">ORLA EXPERIENCE</h3>
                         <div class="passeio-info">
-                            <span class="passeio-detalhe"><i class="fas fa-clock"></i> 2:30h</span>
-                            <span class="passeio-detalhe"><i class="fas fa-lock"></i> Privativo</span>
+                            <span class="passeio-detalhe"><i class="fas fa-clock"></i> <span
+                                    data-i18n="lancha.orla.duration">2:30h</span></span>
+                            <span class="passeio-detalhe"><i class="fas fa-lock"></i> <span
+                                    data-i18n="lancha.orla.type">Privativo</span></span>
                         </div>
                         <div class="passeio-roteiro">
-                            <p class="roteiro-titulo"><i class="fas fa-route"></i> ROTEIRO:</p>
+                            <p class="roteiro-titulo"><i class="fas fa-route"></i> <span
+                                    data-i18n="lancha.orla.roteiro_label">ROTEIRO:</span></p>
                             <ul>
-                                <li>Peroba, Dourado, Xaréu, Antunes, Ponta de Mangue</li>
-                                <li>Saída da Praia de Peroba</li>
-                                <li>Ponta de Mangue</li>
-                                <li>Praia do Dourado</li>
-                                <li>Praia do Xaréu</li>
-                                <li>Praia de Antunes (parada para fotos)</li>
-                                <li>Banco de Areia da Bruna</li>
-                                <li>Retorno à Praia de Peroba</li>
+                                <li data-i18n="lancha.orla.roteiro_header">Peroba, Dourado, Xaréu, Antunes, Ponta de
+                                    Mangue</li>
+                                <li data-i18n="lancha.orla.stop_1">Saída da Praia de Peroba</li>
+                                <li data-i18n="lancha.orla.stop_2">Ponta de Mangue</li>
+                                <li data-i18n="lancha.orla.stop_3">Praia do Dourado</li>
+                                <li data-i18n="lancha.orla.stop_4">Praia do Xaréu</li>
+                                <li data-i18n="lancha.orla.stop_5">Praia de Antunes (parada para fotos)</li>
+                                <li data-i18n="lancha.orla.stop_6">Banco de Areia da Bruna</li>
+                                <li data-i18n="lancha.orla.stop_7">Retorno à Praia de Peroba</li>
                             </ul>
                         </div>
                         <div class="passeio-precos">
                             <div class="preco-item">
-                                <span class="preco-label">Até 8 pessoas</span>
-                                <span class="preco-valor">R$ 900</span>
+                                <span class="preco-label" data-i18n="lancha.orla.price_8_label">Até 8 pessoas</span>
+                                <span class="preco-valor" data-i18n="lancha.orla.price_8_value">R$ 900</span>
                             </div>
                             <div class="preco-item">
-                                <span class="preco-label">Até 13 pessoas</span>
-                                <span class="preco-valor">Consulte</span>
+                                <span class="preco-label" data-i18n="lancha.orla.price_13_label">Até 13 pessoas</span>
+                                <span class="preco-valor" data-i18n="lancha.orla.price_13_value">Consulte</span>
                             </div>
                         </div>
                         <a href="https://wa.me/558181211006?text=Olá! Quero reservar o Orla Experience." target="_blank"
                             rel="noopener noreferrer" class="btn-primario btn-card">
-                            <i class="fab fa-whatsapp"></i> Reservar
+                            <i class="fab fa-whatsapp"></i> <span data-i18n="lancha.orla.btn">Reservar</span>
                         </a>
                     </div>
                 </article>
@@ -173,58 +199,65 @@
                     <div class="card-img-wrapper">
                         <img src="./assets/img/lancha35.jpg" alt="Meu Caribe Deluxe em Maragogi" loading="lazy">
                         <span class="card-badge badge-destaque"><i class="fas fa-crown"></i></span>
-                        <span class="card-tag-destaque">Mais Vendido</span>
+                        <span class="card-tag-destaque" data-i18n="lancha.deluxe.badge">Mais Vendido</span>
                     </div>
                     <div class="card-corpo">
-                        <h3>MEU CARIBE DELUXE</h3>
+                        <h3 data-i18n="lancha.deluxe.title">MEU CARIBE DELUXE</h3>
                         <div class="passeio-info">
-                            <span class="passeio-detalhe"><i class="fas fa-clock"></i> 4:30h</span>
-                            <span class="passeio-detalhe"><i class="fas fa-lock"></i> Privativo</span>
+                            <span class="passeio-detalhe"><i class="fas fa-clock"></i> <span
+                                    data-i18n="lancha.deluxe.duration">4:30h</span></span>
+                            <span class="passeio-detalhe"><i class="fas fa-lock"></i> <span
+                                    data-i18n="lancha.deluxe.type">Privativo</span></span>
                         </div>
                         <div class="passeio-roteiro">
-                            <p class="roteiro-titulo"><i class="fas fa-route"></i> ROTEIRO:</p>
+                            <p class="roteiro-titulo"><i class="fas fa-route"></i> <span
+                                    data-i18n="lancha.deluxe.roteiro_label">ROTEIRO:</span></p>
                             <ul>
-                                <li>Peroba</li>
-                                <li>Caminho da Beleza</li>
-                                <li>Ponta de Mangue</li>
-                                <li>Piscinas Naturais de Ponta de Mangue</li>
-                                <li>Praia do Dourado</li>
-                                <li>Praia do Xaréu</li>
-                                <li>Praia de Antunes (Coqueirinhos)</li>
-                                <li>Barra Grande</li>
-                                <li>Caminho de Moisés</li>
-                                <li>Burgalhal</li>
-                                <li>Banco de Areia da Bruna</li>
+                                <li data-i18n="lancha.deluxe.stop_1">Peroba</li>
+                                <li data-i18n="lancha.deluxe.stop_2">Caminho da Beleza</li>
+                                <li data-i18n="lancha.deluxe.stop_3">Ponta de Mangue</li>
+                                <li data-i18n="lancha.deluxe.stop_4">Piscinas Naturais de Ponta de Mangue</li>
+                                <li data-i18n="lancha.deluxe.stop_5">Praia do Dourado</li>
+                                <li data-i18n="lancha.deluxe.stop_6">Praia do Xaréu</li>
+                                <li data-i18n="lancha.deluxe.stop_7">Praia de Antunes (Coqueirinhos)</li>
+                                <li data-i18n="lancha.deluxe.stop_8">Barra Grande</li>
+                                <li data-i18n="lancha.deluxe.stop_9">Caminho de Moisés</li>
+                                <li data-i18n="lancha.deluxe.stop_10">Burgalhal</li>
+                                <li data-i18n="lancha.deluxe.stop_11">Banco de Areia da Bruna</li>
                             </ul>
                         </div>
                         <div class="passeio-precos">
                             <div class="preco-item">
-                                <span class="preco-label">Deluxe Privativo até 7 pessoas</span>
-                                <span class="preco-valor">R$ 1.600</span>
+                                <span class="preco-label" data-i18n="lancha.deluxe.price_private_label">Deluxe Privativo
+                                    até 7 pessoas</span>
+                                <span class="preco-valor" data-i18n="lancha.deluxe.price_private_value">R$ 1.600</span>
                             </div>
                             <div class="preco-item">
-                                <span class="preco-label">Deluxe + Churrasco até 6 pessoas</span>
-                                <span class="preco-valor">R$ 2.400</span>
+                                <span class="preco-label" data-i18n="lancha.deluxe.price_bbq_label">Deluxe + Churrasco
+                                    até 6 pessoas</span>
+                                <span class="preco-valor" data-i18n="lancha.deluxe.price_bbq_value">R$ 2.400</span>
                             </div>
                         </div>
                         <div class="churrasco-incluso">
-                            <p class="churrasco-titulo"><i class="fas fa-fire"></i> Churrasco inclui:</p>
-                            <p>Duração 1:30h no Banco de Areia da Bruna com JBL Boombox. Para 2 a 7 pessoas.</p>
+                            <p class="churrasco-titulo"><i class="fas fa-fire"></i> <span
+                                    data-i18n="lancha.deluxe.bbq_title">Churrasco inclui:</span></p>
+                            <p data-i18n="lancha.deluxe.bbq_description">Duração 1:30h no Banco de Areia da Bruna com
+                                JBL Boombox. Para 2 a 7 pessoas.</p>
                             <div class="churrasco-itens">
-                                <span>Chandon ou 12 Coronas</span>
-                                <span>2L Refrigerante ou Suco</span>
-                                <span>6 Águas 500ml</span>
-                                <span>1kg Picanha</span>
-                                <span>1kg Maminha</span>
-                                <span>1kg Toscana</span>
-                                <span>Pão de Alho</span>
-                                <span>500g Amendoim</span>
-                                <span>Carvão + Cooler + 2kg Gelo</span>
+                                <span data-i18n="lancha.deluxe.bbq_item_1">Chandon ou 12 Coronas</span>
+                                <span data-i18n="lancha.deluxe.bbq_item_2">2L Refrigerante ou Suco</span>
+                                <span data-i18n="lancha.deluxe.bbq_item_3">6 Águas 500ml</span>
+                                <span data-i18n="lancha.deluxe.bbq_item_4">1kg Picanha</span>
+                                <span data-i18n="lancha.deluxe.bbq_item_5">1kg Maminha</span>
+                                <span data-i18n="lancha.deluxe.bbq_item_6">1kg Toscana</span>
+                                <span data-i18n="lancha.deluxe.bbq_item_7">Pão de Alho</span>
+                                <span data-i18n="lancha.deluxe.bbq_item_8">500g Amendoim</span>
+                                <span data-i18n="lancha.deluxe.bbq_item_9">Carvão + Cooler + 2kg Gelo</span>
                             </div>
                         </div>
                         <a href="https://wa.me/558181211006?text=Olá! Quero reservar o Meu Caribe Deluxe."
                             target="_blank" rel="noopener noreferrer" class="btn-primario btn-card">
-                            <i class="fab fa-whatsapp"></i> Reservar
+                            <i class="fab fa-whatsapp"></i> <span data-i18n="lancha.deluxe.btn">Reservar</span>
                         </a>
                     </div>
                 </article>
@@ -234,9 +267,10 @@
         <!-- GALERIA -->
         <section id="galeria-lancha" class="fade-in">
             <div class="secao-cabecalho">
-                <span class="secao-tag">Momentos inesquecíveis</span>
-                <h2>Galeria de Fotos</h2>
-                <p class="secao-subtitulo">Inspire-se com fotos de nossos passeios e da beleza de Maragogi.</p>
+                <span class="secao-tag" data-i18n="lancha.gallery.tag">Momentos inesquecíveis</span>
+                <h2 data-i18n="lancha.gallery.h2">Galeria de Fotos</h2>
+                <p class="secao-subtitulo" data-i18n="lancha.gallery.subtitle">Inspire-se com fotos de nossos passeios e
+                    da beleza de Maragogi.</p>
             </div>
             <div class="galeria-wrapper">
                 <button class="galeria-seta galeria-seta-esq" aria-label="Anterior"><i
@@ -260,9 +294,10 @@
         <!-- VÍDEOS -->
         <section id="galeria-videos" class="fade-in">
             <div class="secao-cabecalho">
-                <span class="secao-tag">Sinta a energia</span>
-                <h2>Nossos Vídeos</h2>
-                <p class="secao-subtitulo">Assista e sinta a energia dos nossos passeios.</p>
+                <span class="secao-tag" data-i18n="lancha.videos.tag">Sinta a energia</span>
+                <h2 data-i18n="lancha.videos.h2">Nossos Vídeos</h2>
+                <p class="secao-subtitulo" data-i18n="lancha.videos.subtitle">Assista e sinta a energia dos nossos
+                    passeios.</p>
             </div>
             <div class="galeria-wrapper">
                 <button class="galeria-seta galeria-seta-esq" aria-label="Anterior"><i
@@ -297,53 +332,69 @@
         <!-- FAQ -->
         <section id="faqs-lancha" class="fade-in">
             <div class="secao-cabecalho">
-                <span class="secao-tag">Dúvidas frequentes</span>
-                <h2>Perguntas Frequentes</h2>
+                <span class="secao-tag" data-i18n="lancha.faq.tag">Dúvidas frequentes</span>
+                <h2 data-i18n="lancha.faq.h2">Perguntas Frequentes</h2>
             </div>
             <div class="faq-item">
-                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> O passeio inclui mergulho?</h3>
-                <p class="faq-resposta">Sim, o passeio de lancha inclui tempo livre para mergulho e contemplação da vida
+                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> <span data-i18n="lancha.faq.q1">O
+                        passeio inclui mergulho?</span></h3>
+                <p class="faq-resposta" data-i18n="lancha.faq.a1">Sim, o passeio de lancha inclui tempo livre para
+                    mergulho e contemplação da vida
                     marinha. Temos equipamentos disponíveis para aluguel.</p>
             </div>
             <div class="faq-item">
-                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> Qual é a duração do passeio?</h3>
-                <p class="faq-resposta">Os passeios de lancha geralmente duram entre 3 a 5 horas, dependendo do roteiro
+                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> <span
+                        data-i18n="lancha.faq.q2">Qual é a duração do passeio?</span></h3>
+                <p class="faq-resposta" data-i18n="lancha.faq.a2">Os passeios de lancha geralmente duram entre 3 a 5
+                    horas, dependendo do roteiro
                     escolhido. Consulte nossos pacotes para mais detalhes.</p>
             </div>
             <div class="faq-item">
-                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> É necessário fazer reserva
-                    antecipada?</h3>
-                <p class="faq-resposta">Sim, recomendamos fazer a reserva com antecedência para garantir sua vaga,
+                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> <span data-i18n="lancha.faq.q3">É
+                        necessário fazer reserva
+                        antecipada?</span></h3>
+                <p class="faq-resposta" data-i18n="lancha.faq.a3">Sim, recomendamos fazer a reserva com antecedência
+                    para garantir sua vaga,
                     especialmente durante a alta temporada.</p>
             </div>
             <div class="faq-item">
-                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> Qual é o custo do passeio?</h3>
-                <p class="faq-resposta">Os custos variam dependendo do pacote escolhido. Consulte nossos pacotes para
+                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> <span
+                        data-i18n="lancha.faq.q4">Qual é o custo do passeio?</span></h3>
+                <p class="faq-resposta" data-i18n="lancha.faq.a4">Os custos variam dependendo do pacote escolhido.
+                    Consulte nossos pacotes para
                     mais detalhes.</p>
             </div>
             <div class="faq-item">
-                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> Quais são as medidas de segurança
-                    adotadas?</h3>
-                <p class="faq-resposta">Nossas lanchas são equipadas com coletes salva-vidas e seguimos todas as normas
+                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> <span
+                        data-i18n="lancha.faq.q5">Quais são as medidas de segurança
+                        adotadas?</span></h3>
+                <p class="faq-resposta" data-i18n="lancha.faq.a5">Nossas lanchas são equipadas com coletes salva-vidas e
+                    seguimos todas as normas
                     de segurança marítima. A tripulação é treinada para garantir uma experiência segura para todos os
                     passageiros.</p>
             </div>
             <div class="faq-item">
-                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> O que devo levar para o passeio?
-                </h3>
-                <p class="faq-resposta">Recomendamos levar protetor solar, chapéu, óculos de sol, roupa de banho, toalha
+                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> <span data-i18n="lancha.faq.q6">O
+                        que devo levar para o passeio?
+                    </span></h3>
+                <p class="faq-resposta" data-i18n="lancha.faq.a6">Recomendamos levar protetor solar, chapéu, óculos de
+                    sol, roupa de banho, toalha
                     e uma câmera fotográfica para capturar os momentos especiais.</p>
             </div>
             <div class="faq-item">
-                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> Há opções de alimentação durante
-                    o passeio?</h3>
-                <p class="faq-resposta">Alguns pacotes incluem lanches e bebidas. Verifique os detalhes do pacote
+                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> <span
+                        data-i18n="lancha.faq.q7">Há opções de alimentação durante
+                        o passeio?</span></h3>
+                <p class="faq-resposta" data-i18n="lancha.faq.a7">Alguns pacotes incluem lanches e bebidas. Verifique os
+                    detalhes do pacote
                     escolhido ou entre em contato conosco para mais informações.</p>
             </div>
             <div class="faq-item">
-                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> O passeio é adequado para
-                    crianças?</h3>
-                <p class="faq-resposta">Sim, nossos passeios são adequados para todas as idades. No entanto,
+                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> <span data-i18n="lancha.faq.q8">O
+                        passeio é adequado para
+                        crianças?</span></h3>
+                <p class="faq-resposta" data-i18n="lancha.faq.a8">Sim, nossos passeios são adequados para todas as
+                    idades. No entanto,
                     recomendamos que crianças menores de 5 anos estejam acompanhadas por um adulto e usem coletes
                     salva-vidas o tempo todo.</p>
             </div>
@@ -353,11 +404,12 @@
         <section id="contato-final" class="fade-in">
             <div class="contato-conteudo">
                 <i class="fas fa-ship contato-icone"></i>
-                <h2>Pronto para Navegar?</h2>
-                <p>Clique abaixo e garanta sua vaga para o passeio de lancha mais incrível de Maragogi!</p>
+                <h2 data-i18n="lancha.cta.h2">Pronto para Navegar?</h2>
+                <p data-i18n="lancha.cta.description">Clique abaixo e garanta sua vaga para o passeio de lancha mais
+                    incrível de Maragogi!</p>
                 <a href="https://wa.me/558181211006?text=Olá! Gostaria de reservar um passeio de lancha."
                     target="_blank" rel="noopener noreferrer" class="btn-primario btn-pulse btn-grande">
-                    <i class="fab fa-whatsapp"></i> Reservar meu Passeio
+                    <i class="fab fa-whatsapp"></i> <span data-i18n="lancha.cta.btn">Reservar meu Passeio</span>
                 </a>
             </div>
         </section>
@@ -369,7 +421,8 @@
                 <a href="index.html" aria-label="Voltar à página inicial">
                     <img src="./assets/img/logo2.png" alt="Logo Meu Caribe" class="footer-logo">
                 </a>
-                <p class="footer-descricao">Seu paraíso particular nas águas cristalinas de Maragogi, Alagoas.</p>
+                <p class="footer-descricao" data-i18n="footer.description">Seu paraíso particular nas águas cristalinas
+                    de Maragogi, Alagoas.</p>
                 <div class="rede-social" role="complementary" aria-label="Redes sociais">
                     <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
                         rel="noopener noreferrer" aria-label="Falar no WhatsApp">
@@ -383,38 +436,40 @@
             </div>
 
             <div class="footer-col-2">
-                <h3>Contato</h3>
+                <h3 data-i18n="footer.contact_title">Contato</h3>
                 <address>
-                    <p><i class="fas fa-phone" aria-hidden="true"></i> Telefone: <a href="tel:+558181211006">81
+                    <p><i class="fas fa-phone" aria-hidden="true"></i> <span
+                            data-i18n="footer.phone_label">Telefone:</span> <a href="tel:+558181211006">81
                             9.8121-1006</a></p>
-                    <p><i class="fas fa-envelope" aria-hidden="true"></i> Email: <a
-                            href="mailto:meucaribebrasileiro@gmail.com">
+                    <p><i class="fas fa-envelope" aria-hidden="true"></i> <span
+                            data-i18n="footer.email_label">Email:</span> <a href="mailto:meucaribebrasileiro@gmail.com">
                             meucaribebrasileiro@gmail.com</a></p>
-                    <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Atendimento: Maragogi-AL, Brasil</p>
+                    <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <span
+                            data-i18n="footer.location">Atendimento: Maragogi-AL, Brasil</span></p>
                 </address>
             </div>
 
             <div class="footer-col-3">
-                <h3>Links Rápidos</h3>
+                <h3 data-i18n="footer.links_title">Links Rápidos</h3>
                 <nav role="navigation" aria-label="Links do rodapé" class="footer-links">
                     <ul>
-                        <li><a href="index.html">Página Inicial</a></li>
-                        <li><a href="passeios-lancha.html">Passeios de Lancha</a></li>
-                        <li><a href="aventura-aquatica.html">Aventura Aquática</a></li>
-                        <li><a href="sobre.html">Sobre Nós</a></li>
-                        <li><a href="contato.html">Contato</a></li>
+                        <li><a href="index.html" data-i18n="nav.home">Página Inicial</a></li>
+                        <li><a href="passeios-lancha.html" data-i18n="nav.boat_tours">Passeios de Lancha</a></li>
+                        <li><a href="aventura-aquatica.html" data-i18n="nav.water_adventure">Aventura Aquática</a></li>
+                        <li><a href="sobre.html" data-i18n="nav.about">Sobre Nós</a></li>
+                        <li><a href="contato.html" data-i18n="nav.contact">Contato</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 Meu Caribe. Todos os direitos reservados.</p>
+            <p data-i18n="footer.copyright">&copy; 2024 Meu Caribe. Todos os direitos reservados.</p>
         </div>
     </footer>
 
     <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio em Maragogi."
         class="whatsapp-flutuante" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
-        <span class="whatsapp-texto">Agende seu passeio!</span>
+        <span class="whatsapp-texto" data-i18n="whatsapp.text">Agende seu passeio!</span>
         <i class="fab fa-whatsapp whatsapp-icon"></i>
     </a>
 </body>

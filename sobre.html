@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
+    <script src="i18n.js" defer></script>
     <script src="script.js" defer></script>
     <link rel="icon" href="./assets/img/logo.png" type="image/x-icon">
     <title>Sobre Nós - Meu Caribe</title>
@@ -23,7 +24,8 @@
 
 <body>
     <div class="barra-topo">
-        <p id="barra-mare-info"><i class="fas fa-water"></i> <span>Carregando tábua da maré...</span></p>
+        <p id="barra-mare-info"><i class="fas fa-water"></i> <span data-i18n="topbar.loading">Carregando tábua da
+                maré...</span></p>
     </div>
 
     <header>
@@ -36,17 +38,25 @@
         <div class="header-right">
             <nav id="nav-wrapper">
                 <ul>
-                    <li><a href="index.html">Página Inicial</a></li>
-                    <li><a href="passeios-lancha.html">Passeios de Lancha</a></li>
-                    <li><a href="aventura-aquatica.html">Aventura Aquática</a></li>
-                    <li><a href="sobre.html" class="nav-ativo">Sobre Nós</a></li>
-                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="index.html" data-i18n="nav.home">Página Inicial</a></li>
+                    <li><a href="passeios-lancha.html" data-i18n="nav.boat_tours">Passeios de Lancha</a></li>
+                    <li><a href="aventura-aquatica.html" data-i18n="nav.water_adventure">Aventura Aquática</a></li>
+                    <li><a href="sobre.html" class="nav-ativo" data-i18n="nav.about">Sobre Nós</a></li>
+                    <li><a href="contato.html" data-i18n="nav.contact">Contato</a></li>
                 </ul>
             </nav>
             <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
                 rel="noopener noreferrer" class="btn-header-cta">
-                <i class="fab fa-whatsapp"></i> Agende seu Passeio
+                <i class="fab fa-whatsapp"></i> <span data-i18n="header.cta">Agende seu Passeio</span>
             </a>
+            <div class="lang-selector">
+                <button class="lang-btn" data-lang="pt" title="Português"><img src="./assets/icons/flag-br.svg" alt="PT"
+                        width="22" height="22"></button>
+                <button class="lang-btn" data-lang="en" title="English"><img src="./assets/icons/flag-us.svg" alt="EN"
+                        width="22" height="22"></button>
+                <button class="lang-btn" data-lang="es" title="Español"><img src="./assets/icons/flag-es.svg" alt="ES"
+                        width="22" height="22"></button>
+            </div>
             <button id="hamburger-btn" aria-label="Abrir menu de navegação" aria-expanded="false"
                 aria-controls="nav-wrapper">
                 <i class="fas fa-bars" aria-hidden="true"></i>
@@ -59,13 +69,16 @@
         <section id="banner-sobre">
             <div class="banner-overlay"></div>
             <div class="banner-conteudo fade-in">
-                <span class="banner-tag"><i class="fas fa-heart"></i> Quem Somos</span>
-                <h1>Descubra Quem Somos<br><span class="texto-destaque">Meu Caribe</span></h1>
-                <p>Conheça a nossa história e a paixão que temos em criar experiências inesquecíveis nas águas de
+                <span class="banner-tag"><i class="fas fa-heart"></i> <span data-i18n="sobre.banner.tag">Quem
+                        Somos</span></span>
+                <h1><span data-i18n="sobre.banner.h1">Descubra Quem Somos</span><br><span class="texto-destaque"
+                        data-i18n="sobre.banner.h1_highlight">Meu Caribe</span></h1>
+                <p data-i18n="sobre.banner.description">Conheça a nossa história e a paixão que temos em criar
+                    experiências inesquecíveis nas águas de
                     Maragogi.</p>
                 <div class="banner-botoes">
                     <a href="#nossa-historia" class="btn-secundario">
-                        <i class="fas fa-book-open"></i> Nossa História
+                        <i class="fas fa-book-open"></i> <span data-i18n="sobre.banner.btn">Nossa História</span>
                     </a>
                 </div>
             </div>
@@ -79,8 +92,8 @@
         <!-- HISTÓRIA -->
         <section id="nossa-historia" class="fade-in">
             <div class="secao-cabecalho">
-                <span class="secao-tag">Como tudo começou</span>
-                <h2>Nossa História</h2>
+                <span class="secao-tag" data-i18n="sobre.history.tag">Como tudo começou</span>
+                <h2 data-i18n="sobre.history.h2">Nossa História</h2>
             </div>
             <div class="historia-conteudo">
                 <div class="historia-imagem">
@@ -88,11 +101,14 @@
                         loading="lazy">
                 </div>
                 <div class="historia-texto">
-                    <p>O <strong>Meu Caribe</strong> nasceu do amor pelas praias paradisíacas de Maragogi e o desejo de
+                    <p data-i18n-html="sobre.history.p1">O <strong>Meu Caribe</strong> nasceu do amor pelas praias
+                        paradísíacas de Maragogi e o desejo de
                         compartilhar sua beleza com o mundo.</p>
-                    <p>Desde o nosso início, nos dedicamos a oferecer serviços de qualidade, com segurança e um
+                    <p data-i18n="sobre.history.p2">Desde o nosso início, nos dedicamos a oferecer serviços de
+                        qualidade, com segurança e um
                         atendimento que faz nossos clientes se sentirem parte da nossa família.</p>
-                    <p>Hoje somos referência em passeios de lancha e aventuras aquáticas em Maragogi, proporcionando
+                    <p data-i18n="sobre.history.p3">Hoje somos referência em passeios de lancha e aventuras aquáticas em
+                        Maragogi, proporcionando
                         experiências únicas que ficam na memória de cada visitante.</p>
                 </div>
             </div>
@@ -101,9 +117,10 @@
         <!-- MISSÃO E VALORES -->
         <section id="missao-valores" class="fade-in">
             <div class="secao-cabecalho">
-                <span class="secao-tag">O que nos move</span>
-                <h2>Nossa Missão e Valores</h2>
-                <p class="secao-subtitulo">Ser a principal referência em passeios e aventuras aquáticas em Maragogi,
+                <span class="secao-tag" data-i18n="sobre.mission.tag">O que nos move</span>
+                <h2 data-i18n="sobre.mission.h2">Nossa Missão e Valores</h2>
+                <p class="secao-subtitulo" data-i18n="sobre.mission.subtitle">Ser a principal referência em passeios e
+                    aventuras aquáticas em Maragogi,
                     superando as expectativas de cada cliente.</p>
             </div>
             <div class="valores-grid">
@@ -111,29 +128,33 @@
                     <div class="valor-icone">
                         <i class="fas fa-shield-halved"></i>
                     </div>
-                    <h3>Segurança</h3>
-                    <p>Nossa prioridade máxima. Equipamentos certificados e tripulação treinada.</p>
+                    <h3 data-i18n="sobre.value_safety.title">Segurança</h3>
+                    <p data-i18n="sobre.value_safety.description">Nossa prioridade máxima. Equipamentos certificados e
+                        tripulação treinada.</p>
                 </article>
                 <article class="valor-card">
                     <div class="valor-icone">
                         <i class="fas fa-gem"></i>
                     </div>
-                    <h3>Excelência</h3>
-                    <p>Em cada detalhe, do atendimento ao serviço a bordo.</p>
+                    <h3 data-i18n="sobre.value_excellence.title">Excelência</h3>
+                    <p data-i18n="sobre.value_excellence.description">Em cada detalhe, do atendimento ao serviço a
+                        bordo.</p>
                 </article>
                 <article class="valor-card">
                     <div class="valor-icone">
                         <i class="fas fa-leaf"></i>
                     </div>
-                    <h3>Sustentabilidade</h3>
-                    <p>Respeito e preservação do ecossistema marinho de Maragogi.</p>
+                    <h3 data-i18n="sobre.value_sustainability.title">Sustentabilidade</h3>
+                    <p data-i18n="sobre.value_sustainability.description">Respeito e preservação do ecossistema marinho
+                        de Maragogi.</p>
                 </article>
                 <article class="valor-card">
                     <div class="valor-icone">
                         <i class="fas fa-heart"></i>
                     </div>
-                    <h3>Paixão</h3>
-                    <p>Amamos o que fazemos e isso se reflete em cada passeio.</p>
+                    <h3 data-i18n="sobre.value_passion.title">Paixão</h3>
+                    <p data-i18n="sobre.value_passion.description">Amamos o que fazemos e isso se reflete em cada
+                        passeio.</p>
                 </article>
             </div>
         </section>
@@ -141,29 +162,29 @@
         <!-- NÚMEROS / DIFERENCIAIS -->
         <section id="diferenciais" class="fade-in">
             <div class="secao-cabecalho">
-                <span class="secao-tag">Por que nos escolher</span>
-                <h2>Nossos Diferenciais</h2>
+                <span class="secao-tag" data-i18n="sobre.differentials.tag">Por que nos escolher</span>
+                <h2 data-i18n="sobre.differentials.h2">Nossos Diferenciais</h2>
             </div>
             <div class="diferenciais-grid">
                 <div class="diferencial-item">
                     <i class="fas fa-users"></i>
                     <span class="diferencial-numero">1000+</span>
-                    <p>Clientes satisfeitos</p>
+                    <p data-i18n="sobre.diff_clients.label">Clientes satisfeitos</p>
                 </div>
                 <div class="diferencial-item">
                     <i class="fas fa-ship"></i>
                     <span class="diferencial-numero">3</span>
-                    <p>Roteiros exclusivos</p>
+                    <p data-i18n="sobre.diff_routes.label">Roteiros exclusivos</p>
                 </div>
                 <div class="diferencial-item">
                     <i class="fas fa-star"></i>
                     <span class="diferencial-numero">5★</span>
-                    <p>Avaliação no Google</p>
+                    <p data-i18n="sobre.diff_rating.label">Avaliação no Google</p>
                 </div>
                 <div class="diferencial-item">
                     <i class="fas fa-map-marked-alt"></i>
                     <span class="diferencial-numero">10+</span>
-                    <p>Praias visitadas</p>
+                    <p data-i18n="sobre.diff_beaches.label">Praias visitadas</p>
                 </div>
             </div>
         </section>
@@ -172,11 +193,12 @@
         <section id="contato-final" class="fade-in">
             <div class="contato-conteudo">
                 <i class="fas fa-anchor contato-icone"></i>
-                <h2>Pronto para Viver o Caribe?</h2>
-                <p>Entre em contato e descubra como podemos tornar a sua viagem a Maragogi inesquecível.</p>
+                <h2 data-i18n="sobre.cta.h2">Pronto para Viver o Caribe?</h2>
+                <p data-i18n="sobre.cta.description">Entre em contato e descubra como podemos tornar a sua viagem a
+                    Maragogi inesquecível.</p>
                 <a href="https://wa.me/558181211006?text=Olá! Gostaria de saber mais sobre o Meu Caribe."
                     target="_blank" rel="noopener noreferrer" class="btn-primario btn-pulse btn-grande">
-                    <i class="fab fa-whatsapp"></i> Fale Conosco
+                    <i class="fab fa-whatsapp"></i> <span data-i18n="sobre.cta.btn">Fale Conosco</span>
                 </a>
             </div>
         </section>
@@ -188,7 +210,8 @@
                 <a href="index.html" aria-label="Voltar à página inicial">
                     <img src="./assets/img/logo2.png" alt="Logo Meu Caribe" class="footer-logo">
                 </a>
-                <p class="footer-descricao">Seu paraíso particular nas águas cristalinas de Maragogi, Alagoas.</p>
+                <p class="footer-descricao" data-i18n="footer.description">Seu paraíso particular nas águas cristalinas
+                    de Maragogi, Alagoas.</p>
                 <div class="rede-social" role="complementary" aria-label="Redes sociais">
                     <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
                         rel="noopener noreferrer" aria-label="Falar no WhatsApp">
@@ -202,38 +225,40 @@
             </div>
 
             <div class="footer-col-2">
-                <h3>Contato</h3>
+                <h3 data-i18n="footer.contact_title">Contato</h3>
                 <address>
-                    <p><i class="fas fa-phone" aria-hidden="true"></i> Telefone: <a href="tel:+558181211006">81
+                    <p><i class="fas fa-phone" aria-hidden="true"></i> <span
+                            data-i18n="footer.phone_label">Telefone:</span> <a href="tel:+558181211006">81
                             9.8121-1006</a></p>
-                    <p><i class="fas fa-envelope" aria-hidden="true"></i> Email: <a
-                            href="mailto:meucaribebrasileiro@gmail.com">
+                    <p><i class="fas fa-envelope" aria-hidden="true"></i> <span
+                            data-i18n="footer.email_label">Email:</span> <a href="mailto:meucaribebrasileiro@gmail.com">
                             meucaribebrasileiro@gmail.com</a></p>
-                    <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Atendimento: Maragogi-AL, Brasil</p>
+                    <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <span
+                            data-i18n="footer.location">Atendimento: Maragogi-AL, Brasil</span></p>
                 </address>
             </div>
 
             <div class="footer-col-3">
-                <h3>Links Rápidos</h3>
+                <h3 data-i18n="footer.links_title">Links Rápidos</h3>
                 <nav role="navigation" aria-label="Links do rodapé" class="footer-links">
                     <ul>
-                        <li><a href="index.html">Página Inicial</a></li>
-                        <li><a href="passeios-lancha.html">Passeios de Lancha</a></li>
-                        <li><a href="aventura-aquatica.html">Aventura Aquática</a></li>
-                        <li><a href="sobre.html">Sobre Nós</a></li>
-                        <li><a href="contato.html">Contato</a></li>
+                        <li><a href="index.html" data-i18n="nav.home">Página Inicial</a></li>
+                        <li><a href="passeios-lancha.html" data-i18n="nav.boat_tours">Passeios de Lancha</a></li>
+                        <li><a href="aventura-aquatica.html" data-i18n="nav.water_adventure">Aventura Aquática</a></li>
+                        <li><a href="sobre.html" data-i18n="nav.about">Sobre Nós</a></li>
+                        <li><a href="contato.html" data-i18n="nav.contact">Contato</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 Meu Caribe. Todos os direitos reservados.</p>
+            <p data-i18n="footer.copyright">&copy; 2024 Meu Caribe. Todos os direitos reservados.</p>
         </div>
     </footer>
 
     <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio em Maragogi."
         class="whatsapp-flutuante" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
-        <span class="whatsapp-texto">Agende seu passeio!</span>
+        <span class="whatsapp-texto" data-i18n="whatsapp.text">Agende seu passeio!</span>
         <i class="fab fa-whatsapp whatsapp-icon"></i>
     </a>
 </body>

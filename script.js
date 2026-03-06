@@ -352,18 +352,31 @@ async function fetchTideData(barraEl) {
             }));
         } catch (_) { /* ignora erro de cache */ }
 
+        window._tideData = todayTides;
         renderTideBar(barraEl, todayTides);
     } catch (err) {
         // Fallback: mensagem genérica com link
-        barraEl.innerHTML = '<i class="fas fa-water"></i> Hor\u00e1rios conforme a t\u00e1bua da mar\u00e9 \u2014 <a href="https://www.tabuademares.com/br/alagoas/maragogi" target="_blank" rel="noopener noreferrer" style="color:#F59E0B;text-decoration:underline">Consulte aqui</a> ou fale conosco! <i class="fas fa-umbrella-beach"></i>';
+        var fb = window.I18N ? window.I18N.t('topbar.fallback', 'Hor\u00e1rios conforme a t\u00e1bua da mar\u00e9 \u2014') : 'Hor\u00e1rios conforme a t\u00e1bua da mar\u00e9 \u2014';
+        var fl = window.I18N ? window.I18N.t('topbar.fallback_link', 'Consulte aqui') : 'Consulte aqui';
+        var fe = window.I18N ? window.I18N.t('topbar.fallback_end', 'ou fale conosco!') : 'ou fale conosco!';
+        barraEl.innerHTML = '<i class="fas fa-water"></i> ' + fb + ' <a href="https://www.tabuademares.com/br/alagoas/maragogi" target="_blank" rel="noopener noreferrer" style="color:#F59E0B;text-decoration:underline">' + fl + '</a> ' + fe + ' <i class="fas fa-umbrella-beach"></i>';
     }
 }
 
 function renderTideBar(el, tides) {
+    var _t = function(k, fb) { return window.I18N ? window.I18N.t(k, fb) : fb; };
     const icons = { alta: 'fa-arrow-up', baixa: 'fa-arrow-down' };
-    const labels = { alta: 'Mar\u00e9 Alta', baixa: 'Mar\u00e9 Baixa' };
-    const parts = tides.map(t =>
-        `<i class="fas ${icons[t.type]}" style="font-size:0.7em"></i> <strong>${labels[t.type]}</strong> ${t.time} (${t.height}m)`
+    const labels = { alta: _t('topbar.tide_high', 'Mar\u00e9 Alta'), baixa: _t('topbar.tide_low', 'Mar\u00e9 Baixa') };
+    const items = tides.map(t =>
+        `<span class="tide-item"><i class="fas ${icons[t.type]}" style="font-size:0.7em"></i> <strong>${labels[t.type]}</strong> ${t.time} (${t.height}m)</span>`
     );
-    el.innerHTML = `<i class="fas fa-water"></i> ${parts.join(' &nbsp;\u00b7&nbsp; ')} \u2014 <a href="https://www.tabuademares.com/br/alagoas/maragogi" target="_blank" rel="noopener noreferrer" style="color:#F59E0B;text-decoration:underline">Maragogi, AL</a> <i class="fas fa-umbrella-beach"></i>`;
+    el.innerHTML = `<span class="tide-item"><i class="fas fa-water"></i></span> ${items.join('<span class="tide-sep">·</span> ')} <span class="tide-item">— <a href="https://www.tabuademares.com/br/alagoas/maragogi" target="_blank" rel="noopener noreferrer" style="color:#F59E0B;text-decoration:underline">Maragogi, AL</a> <i class="fas fa-umbrella-beach"></i></span>`;
 }
+
+// Re-render tide bar on language change
+document.addEventListener('langchange', function () {
+    if (window._tideData) {
+        var barraEl = document.getElementById('barra-mare-info');
+        if (barraEl) renderTideBar(barraEl, window._tideData);
+    }
+});

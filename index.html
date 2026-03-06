@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
+    <script src="i18n.js" defer></script>
     <script src="script.js" defer></script>
     <link rel="icon" href="./assets/img/logo.png" type="image/x-icon">
     <title>Meu Caribe - Passeios de Lancha, Jet Ski, Banana Boat e Colchão Boat em Maragogi-AL</title>
@@ -22,7 +23,8 @@
 <body>
     <!-- Barra de anúncio topo -->
     <div class="barra-topo">
-        <p id="barra-mare-info"><i class="fas fa-water"></i> <span>Carregando tábua da maré...</span></p>
+        <p id="barra-mare-info"><i class="fas fa-water"></i> <span data-i18n="topbar.loading">Carregando tábua da
+                maré...</span></p>
     </div>
 
     <header>
@@ -35,17 +37,25 @@
         <div class="header-right">
             <nav id="nav-wrapper">
                 <ul>
-                    <li><a href="index.html" class="nav-ativo">Página Inicial</a></li>
-                    <li><a href="passeios-lancha.html">Passeios de Lancha</a></li>
-                    <li><a href="aventura-aquatica.html">Aventura Aquática</a></li>
-                    <li><a href="sobre.html">Sobre Nós</a></li>
-                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="index.html" class="nav-ativo" data-i18n="nav.home">Página Inicial</a></li>
+                    <li><a href="passeios-lancha.html" data-i18n="nav.boat_tours">Passeios de Lancha</a></li>
+                    <li><a href="aventura-aquatica.html" data-i18n="nav.water_adventure">Aventura Aquática</a></li>
+                    <li><a href="sobre.html" data-i18n="nav.about">Sobre Nós</a></li>
+                    <li><a href="contato.html" data-i18n="nav.contact">Contato</a></li>
                 </ul>
             </nav>
             <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
                 rel="noopener noreferrer" class="btn-header-cta">
-                <i class="fab fa-whatsapp"></i> Agende seu Passeio
+                <i class="fab fa-whatsapp"></i> <span data-i18n="header.cta">Agende seu Passeio</span>
             </a>
+            <div class="lang-selector">
+                <button class="lang-btn" data-lang="pt" title="Português"><img src="./assets/icons/flag-br.svg" alt="PT"
+                        width="22" height="22"></button>
+                <button class="lang-btn" data-lang="en" title="English"><img src="./assets/icons/flag-us.svg" alt="EN"
+                        width="22" height="22"></button>
+                <button class="lang-btn" data-lang="es" title="Español"><img src="./assets/icons/flag-es.svg" alt="ES"
+                        width="22" height="22"></button>
+            </div>
             <button id="hamburger-btn" aria-label="Abrir menu de navegação" aria-expanded="false"
                 aria-controls="nav-wrapper">
                 <i class="fas fa-bars" aria-hidden="true"></i>
@@ -58,18 +68,23 @@
         <section id="banner">
             <div class="banner-overlay"></div>
             <div class="banner-conteudo fade-in">
-                <span class="banner-tag"><i class="fas fa-map-marker-alt"></i> Maragogi, Alagoas</span>
-                <h1>Maragogi: O Seu<br><span class="texto-destaque">Paraíso Particular!</span></h1>
-                <p>Descubra uma Maragogi feita para você, com passeios exclusivos às piscinas naturais e aventuras
+                <span class="banner-tag"><i class="fas fa-map-marker-alt"></i> <span
+                        data-i18n="index.banner.tag">Maragogi, Alagoas</span></span>
+                <h1><span data-i18n="index.banner.h1">Maragogi: O Seu</span><br><span class="texto-destaque"
+                        data-i18n="index.banner.h1_highlight">Paraíso Particular!</span></h1>
+                <p data-i18n="index.banner.description">Descubra uma Maragogi feita para você, com passeios exclusivos
+                    às piscinas naturais e aventuras
                     aquáticas
                     que superam todas as expectativas.</p>
                 <div class="banner-botoes">
                     <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
                         rel="noopener noreferrer" class="btn-primario btn-pulse">
-                        <i class="fab fa-whatsapp"></i> Agende seu Passeio Agora
+                        <i class="fab fa-whatsapp"></i> <span data-i18n="index.banner.btn_primary">Agende seu Passeio
+                            Agora</span>
                     </a>
                     <a href="#servicos" class="btn-secundario">
-                        <i class="fas fa-anchor"></i> Nossos Passeios
+                        <i class="fas fa-anchor"></i> <span data-i18n="index.banner.btn_secondary">Nossos
+                            Passeios</span>
                     </a>
                 </div>
             </div>
@@ -84,9 +99,10 @@
         <!-- SERVIÇOS -->
         <section id="servicos" class="fade-in">
             <div class="secao-cabecalho">
-                <span class="secao-tag">O que oferecemos</span>
-                <h2>Nossos Passeios</h2>
-                <p class="secao-subtitulo">Escolha sua aventura perfeita nas águas cristalinas de Maragogi</p>
+                <span class="secao-tag" data-i18n="index.services.tag">O que oferecemos</span>
+                <h2 data-i18n="index.services.h2">Nossos Passeios</h2>
+                <p class="secao-subtitulo" data-i18n="index.services.subtitle">Escolha sua aventura perfeita nas águas
+                    cristalinas de Maragogi</p>
             </div>
             <div class="servicos-grid">
                 <article class="card-servico">
@@ -95,11 +111,12 @@
                         <span class="card-badge"><i class="fas fa-ship"></i></span>
                     </div>
                     <div class="card-corpo">
-                        <h3>Passeio de Lancha</h3>
-                        <p>Navegue pelas águas cristalinas até as famosas piscinas naturais. Perfeito para relaxar e
+                        <h3 data-i18n="index.card_lancha.title">Passeio de Lancha</h3>
+                        <p data-i18n="index.card_lancha.description">Navegue pelas águas cristalinas até as famosas
+                            piscinas naturais. Perfeito para relaxar e
                             mergulhar em um aquário natural.</p>
-                        <a href="passeios-lancha.html" class="card-link">Saiba mais <i
-                                class="fas fa-arrow-right"></i></a>
+                        <a href="passeios-lancha.html" class="card-link"><span data-i18n="index.card_lancha.link">Saiba
+                                mais</span> <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
 
@@ -109,11 +126,12 @@
                         <span class="card-badge"><i class="fas fa-water"></i></span>
                     </div>
                     <div class="card-corpo">
-                        <h3>Jet Ski</h3>
-                        <p>Sinta a adrenalina e a liberdade de pilotar um jet ski nas águas de Maragogi. Uma experiência
+                        <h3 data-i18n="index.card_jet.title">Jet Ski</h3>
+                        <p data-i18n="index.card_jet.description">Sinta a adrenalina e a liberdade de pilotar um jet ski
+                            nas águas de Maragogi. Uma experiência
                             cheia de emoção!</p>
-                        <a href="aventura-aquatica.html" class="card-link">Saiba mais <i
-                                class="fas fa-arrow-right"></i></a>
+                        <a href="aventura-aquatica.html" class="card-link"><span data-i18n="index.card_jet.link">Saiba
+                                mais</span> <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
 
@@ -123,11 +141,13 @@
                         <span class="card-badge"><i class="fas fa-users"></i></span>
                     </div>
                     <div class="card-corpo">
-                        <h3>Banana Boat</h3>
-                        <p>Diversão garantida para toda a família e amigos! Embarque no Banana Boat e prepare-se para
+                        <h3 data-i18n="index.card_banana.title">Banana Boat</h3>
+                        <p data-i18n="index.card_banana.description">Diversão garantida para toda a família e amigos!
+                            Embarque no Banana Boat e prepare-se para
                             boas
                             risadas.</p>
-                        <a href="aventura-aquatica.html" class="card-link">Saiba mais <i
+                        <a href="aventura-aquatica.html" class="card-link"><span
+                                data-i18n="index.card_banana.link">Saiba mais</span> <i
                                 class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
@@ -138,11 +158,12 @@
                         <span class="card-badge"><i class="fas fa-couch"></i></span>
                     </div>
                     <div class="card-corpo">
-                        <h3>Sofá Boat</h3>
-                        <p>Relaxe e divirta-se nas águas calmas de Maragogi com o nosso Sofá Boat. Uma experiência
+                        <h3 data-i18n="index.card_sofa.title">Sofá Boat</h3>
+                        <p data-i18n="index.card_sofa.description">Relaxe e divirta-se nas águas calmas de Maragogi com
+                            o nosso Sofá Boat. Uma experiência
                             única para toda a família!</p>
-                        <a href="aventura-aquatica.html" class="card-link">Saiba mais <i
-                                class="fas fa-arrow-right"></i></a>
+                        <a href="aventura-aquatica.html" class="card-link"><span data-i18n="index.card_sofa.link">Saiba
+                                mais</span> <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
             </div>
@@ -151,9 +172,10 @@
         <!-- GALERIA -->
         <section id="galeria" class="fade-in">
             <div class="secao-cabecalho">
-                <span class="secao-tag">Momentos inesquecíveis</span>
-                <h2>Galeria de Fotos</h2>
-                <p class="secao-subtitulo">Veja a alegria dos nossos clientes e a beleza dos nossos passeios.</p>
+                <span class="secao-tag" data-i18n="index.gallery.tag">Momentos inesquecíveis</span>
+                <h2 data-i18n="index.gallery.h2">Galeria de Fotos</h2>
+                <p class="secao-subtitulo" data-i18n="index.gallery.subtitle">Veja a alegria dos nossos clientes e a
+                    beleza dos nossos passeios.</p>
             </div>
             <div class="galeria-wrapper">
                 <button class="galeria-seta galeria-seta-esq" aria-label="Anterior"><i
@@ -179,8 +201,8 @@
         <!-- DEPOIMENTOS -->
         <section id="depoimentos" class="fade-in">
             <div class="secao-cabecalho">
-                <span class="secao-tag">Prova social</span>
-                <h2>O que Nossos Clientes Dizem</h2>
+                <span class="secao-tag" data-i18n="index.testimonials.tag">Prova social</span>
+                <h2 data-i18n="index.testimonials.h2">O que Nossos Clientes Dizem</h2>
             </div>
             <div class="depoimentos-wrapper">
                 <button class="galeria-seta galeria-seta-esq" aria-label="Anterior"><i
@@ -244,11 +266,11 @@
         <section id="contato" class="fade-in">
             <div class="contato-conteudo">
                 <i class="fas fa-umbrella-beach contato-icone"></i>
-                <h2>Pronto para Viver Essa Aventura?</h2>
-                <p>Entre em contato conosco e reserve o seu passeio inesquecível!</p>
+                <h2 data-i18n="index.cta.h2">Pronto para Viver Essa Aventura?</h2>
+                <p data-i18n="index.cta.description">Entre em contato conosco e reserve o seu passeio inesquecível!</p>
                 <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
                     rel="noopener noreferrer" class="btn-primario btn-pulse btn-grande">
-                    <i class="fab fa-whatsapp"></i> Agendar meu Passeio
+                    <i class="fab fa-whatsapp"></i> <span data-i18n="index.cta.btn">Agendar meu Passeio</span>
                 </a>
             </div>
         </section>
@@ -260,7 +282,8 @@
                 <a href="index.html" aria-label="Voltar à página inicial">
                     <img src="./assets/img/logo2.png" alt="Logo Meu Caribe" class="footer-logo">
                 </a>
-                <p class="footer-descricao">Seu paraíso particular nas águas cristalinas de Maragogi, Alagoas.</p>
+                <p class="footer-descricao" data-i18n="footer.description">Seu paraíso particular nas águas cristalinas
+                    de Maragogi, Alagoas.</p>
                 <div class="rede-social" role="complementary" aria-label="Redes sociais">
                     <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
                         rel="noopener noreferrer" aria-label="Falar no WhatsApp">
@@ -274,39 +297,41 @@
             </div>
 
             <div class="footer-col-2">
-                <h3>Contato</h3>
+                <h3 data-i18n="footer.contact_title">Contato</h3>
                 <address>
-                    <p><i class="fas fa-phone" aria-hidden="true"></i> Telefone: <a href="tel:+558181211006">81
+                    <p><i class="fas fa-phone" aria-hidden="true"></i> <span
+                            data-i18n="footer.phone_label">Telefone:</span> <a href="tel:+558181211006">81
                             9.8121-1006</a></p>
-                    <p><i class="fas fa-envelope" aria-hidden="true"></i> Email: <a
-                            href="mailto:meucaribebrasileiro@gmail.com">
+                    <p><i class="fas fa-envelope" aria-hidden="true"></i> <span
+                            data-i18n="footer.email_label">Email:</span> <a href="mailto:meucaribebrasileiro@gmail.com">
                             meucaribebrasileiro@gmail.com
                         </a></p>
-                    <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Atendimento: Maragogi-AL, Brasil</p>
+                    <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <span
+                            data-i18n="footer.location">Atendimento: Maragogi-AL, Brasil</span></p>
                 </address>
             </div>
 
             <div class="footer-col-3">
-                <h3>Links Rápidos</h3>
+                <h3 data-i18n="footer.links_title">Links Rápidos</h3>
                 <nav role="navigation" aria-label="Links do rodapé" class="footer-links">
                     <ul>
-                        <li><a href="index.html">Página Inicial</a></li>
-                        <li><a href="passeios-lancha.html">Passeios de Lancha</a></li>
-                        <li><a href="aventura-aquatica.html">Aventura Aquática</a></li>
-                        <li><a href="sobre.html">Sobre Nós</a></li>
-                        <li><a href="contato.html">Contato</a></li>
+                        <li><a href="index.html" data-i18n="nav.home">Página Inicial</a></li>
+                        <li><a href="passeios-lancha.html" data-i18n="nav.boat_tours">Passeios de Lancha</a></li>
+                        <li><a href="aventura-aquatica.html" data-i18n="nav.water_adventure">Aventura Aquática</a></li>
+                        <li><a href="sobre.html" data-i18n="nav.about">Sobre Nós</a></li>
+                        <li><a href="contato.html" data-i18n="nav.contact">Contato</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 Meu Caribe. Todos os direitos reservados.</p>
+            <p data-i18n="footer.copyright">&copy; 2024 Meu Caribe. Todos os direitos reservados.</p>
         </div>
     </footer>
 
     <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio em Maragogi."
         class="whatsapp-flutuante" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
-        <span class="whatsapp-texto">Agende seu passeio!</span>
+        <span class="whatsapp-texto" data-i18n="whatsapp.text">Agende seu passeio!</span>
         <i class="fab fa-whatsapp whatsapp-icon"></i>
     </a>
 </body>
