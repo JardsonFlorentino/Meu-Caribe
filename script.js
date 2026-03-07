@@ -23,6 +23,25 @@
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
+    // --- FORMULÁRIO PARA WHATSAPP ---
+    const formWhats = document.getElementById('form-whatsapp');
+    if (formWhats) {
+        formWhats.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const nome = formWhats.querySelector('#nome').value.trim();
+            const email = formWhats.querySelector('#email').value.trim();
+            const assunto = formWhats.querySelector('#assunto').value.trim();
+            const mensagem = formWhats.querySelector('#mensagem').value.trim();
+            let texto = `*Novo contato pelo site*%0A`;
+            if (nome) texto += `*Nome:* ${nome}%0A`;
+            if (email) texto += `*E-mail:* ${email}%0A`;
+            if (assunto) texto += `*Assunto:* ${assunto}%0A`;
+            if (mensagem) texto += `*Mensagem:* ${mensagem}%0A`;
+            const fone = '558181211006'; // Substitua pelo seu número com DDI e DDD
+            const url = `https://wa.me/${fone}?text=${encodeURI(texto)}`;
+            window.open(url, '_blank');
+        });
+    }
 
     // --- SCROLL PROGRESS BAR ---
     const scrollProgress = document.createElement('div');
@@ -281,6 +300,8 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchTideData(barraInfo);
     }
 
+    initConsoleEasterEgg();
+
 });
 
 // Tábua da maré — módulo separado (fora do DOMContentLoaded)
@@ -462,4 +483,28 @@ function getWeatherDesc(code) {
     if (code <= 77) return _t('weather.snow', 'Neve');
     if (code <= 99) return _t('weather.storm', 'Tempestade');
     return _t('weather.cloudy', 'Nublado');
+}
+
+/* ----------------------------------------------------------------------------
+ * Console Easter Egg
+ * ------------------------------------------------------------------------- */
+function initConsoleEasterEgg() {
+  const styles = [
+    'color: #3B82F6',
+    'font-size: 16px',
+    'font-weight: bold',
+    'padding: 10px'
+  ].join(';');
+
+  const styles2 = [
+    'color: #60A5FA',
+    'font-size: 14px'
+  ].join(';');
+
+  console.log('%c👋 Olá, Dev Curioso!', styles);
+  console.log('%cInteressado no código? Vamos conversar!', styles2);
+  console.log('%c💼 jardsonflorentino@gmail.com', styles2);
+  console.log('%c🔗 https://github.com/JardsonFlorentino', styles2);
+  console.log('%c🌐 https://www.jardsonflorentino.com.br/', styles2);
+  console.log('%c\n🚀 Site construído com HTML, CSS e JavaScript', 'color: #9ca3af; font-size: 12px');
 }
