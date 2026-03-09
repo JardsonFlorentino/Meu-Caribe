@@ -2047,7 +2047,7 @@ header {
 
 #banner-lancha { background-image: url('./assets/img/lancha37.jpg'); }
 #banner-aventura { background-image: url('./assets/img/jet8.jpg'); }
-#banner-sobre { background-image: url('./assets/img/lancha2.JPG'); }
+#banner-sobre { background-image: url('./assets/img/lancha2.jpeg'); }
 #banner-contato { background-image: url('./assets/img/sobre.jpg'); }
 
 /* Internal banner content animations */
@@ -3114,7 +3114,7 @@ header {
     content: '';
     position: absolute;
     inset: 0;
-    background: url('./assets/img/lancha2.JPG') center/cover no-repeat;
+    background: url('./assets/img/lancha2.jpeg') center/cover no-repeat;
     opacity: 0.15;
     z-index: 0;
     pointer-events: none;
