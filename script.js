@@ -300,6 +300,116 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchTideData(barraInfo);
     }
 
+    // --- VIDEO CAROUSEL ---
+    document.querySelectorAll('.video-carousel').forEach(carousel => {
+        const track = carousel.querySelector('.carousel-track');
+        const cards = track.querySelectorAll('.video-experience-card');
+        const arrowLeft = carousel.querySelector('.carousel-arrow-left');
+        const arrowRight = carousel.querySelector('.carousel-arrow-right');
+        const indicatorsContainer = carousel.closest('.video-experience-section').querySelector('.carousel-indicators');
+
+        if (!track || cards.length === 0) return;
+
+        let currentIndex = 0;
+
+        function getVisibleCount() {
+            if (window.innerWidth <= 600) return 1;
+            if (window.innerWidth <= 1024) return 2;
+            return 4;
+        }
+
+        function getMaxIndex() {
+            return Math.max(0, cards.length - getVisibleCount());
+        }
+
+        function getCardWidthPercent() {
+            const visible = getVisibleCount();
+            const gap = visible === 1 ? 16 : 24;
+            return { visible, gap };
+        }
+
+        function updateCarousel() {
+            const { visible, gap } = getCardWidthPercent();
+            const cardWidth = (track.offsetWidth - gap * (visible - 1)) / visible;
+            const offset = currentIndex * (cardWidth + gap);
+            track.style.transform = `translateX(-${offset}px)`;
+
+            if (arrowLeft) arrowLeft.disabled = currentIndex <= 0;
+            if (arrowRight) arrowRight.disabled = currentIndex >= getMaxIndex();
+
+            updateIndicators();
+        }
+
+        function buildIndicators() {
+            if (!indicatorsContainer) return;
+            indicatorsContainer.innerHTML = '';
+            const totalDots = getMaxIndex() + 1;
+            for (let i = 0; i < totalDots; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Slide ${i + 1}`);
+                dot.addEventListener('click', () => {
+                    currentIndex = i;
+                    updateCarousel();
+                });
+                indicatorsContainer.appendChild(dot);
+            }
+        }
+
+        function updateIndicators() {
+            if (!indicatorsContainer) return;
+            indicatorsContainer.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        if (arrowLeft) {
+            arrowLeft.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+        }
+
+        if (arrowRight) {
+            arrowRight.addEventListener('click', () => {
+                if (currentIndex < getMaxIndex()) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+        }
+
+        // Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        track.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+        track.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0 && currentIndex < getMaxIndex()) currentIndex++;
+                else if (diff < 0 && currentIndex > 0) currentIndex--;
+                updateCarousel();
+            }
+        }, { passive: true });
+
+        // Resize
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                if (currentIndex > getMaxIndex()) currentIndex = getMaxIndex();
+                buildIndicators();
+                updateCarousel();
+            }, 150);
+        });
+
+        buildIndicators();
+        updateCarousel();
+    });
+
     initConsoleEasterEgg();
 
 });

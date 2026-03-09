@@ -1,0 +1,20 @@
+{
+    "rewrites": [
+        {
+            "source": "/passeios-lancha",
+            "destination": "/passeios-lancha.html"
+        },
+        {
+            "source": "/aventura-aquatica",
+            "destination": "/aventura-aquatica.html"
+        },
+        {
+            "source": "/sobre",
+            "destination": "/sobre.html"
+        },
+        {
+            "source": "/contato",
+            "destination": "/contato.html"
+        }
+    ]
+}

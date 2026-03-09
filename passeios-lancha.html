@@ -5,7 +5,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Navegue pelas águas cristalinas de Maragogi em nossos passeios de lancha exclusivos. Visite as piscinas naturais, Galés e Taocas. Reserve seu passeio privativo ou em grupo.">
+        content="Passeios de lancha em Maragogi-AL. Visite piscinas naturais, Galés, Taocas e viva experiências exclusivas. Reserve seu passeio privativo ou em grupo!">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://meucaribemaragogi.com.br/passeios-lancha.html">
+    <!-- SEO LocalBusiness JSON-LD -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Meu Caribe",
+            "image": "https://meucaribemaragogi.com.br/assets/img/logo.png",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Maragogi",
+                "addressLocality": "Maragogi",
+                "addressRegion": "AL",
+                "addressCountry": "BR"
+            },
+            "telephone": "+558181211006",
+            "email": "meucaribebrasileiro@gmail.com",
+            "url": "https://meucaribemaragogi.com.br/",
+            "priceRange": "R$",
+            "description": "Passeios de lancha, jet ski, banana boat e sofá boat em Maragogi-AL.",
+            "areaServed": "Maragogi, AL, Brasil",
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": -9.012222,
+                "longitude": -35.222778
+            },
+            "sameAs": [
+                "https://www.instagram.com/meucaribemaragogi?hl=pt-br",
+                "https://wa.me/558181211006"
+            ]
+        }
+        </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -16,7 +49,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="i18n.js" defer></script>
     <script src="script.js" defer></script>
-    <link rel="icon" href="./assets/img/logo.png" type="image/x-icon">
+    <link rel="icon" href="favicon.png" type="image/png">
     <title>Passeios de Lancha em Maragogi - Meu Caribe</title>
 </head>
 
@@ -35,16 +68,17 @@
         <div class="header-right">
             <nav id="nav-wrapper">
                 <ul>
-                    <li><a href="index.html" data-i18n="nav.home">Página Inicial</a></li>
-                    <li><a href="passeios-lancha.html" class="nav-ativo" data-i18n="nav.boat_tours">Passeios de
+                    <li><a href="/" data-i18n="nav.home">Página Inicial</a></li>
+                    <li><a href="/passeios-lancha" class="nav-ativo" data-i18n="nav.boat_tours">Passeios de
                             Lancha</a></li>
-                    <li><a href="aventura-aquatica.html" data-i18n="nav.water_adventure">Aventura Aquática</a></li>
-                    <li><a href="sobre.html" data-i18n="nav.about">Sobre Nós</a></li>
-                    <li><a href="contato.html" data-i18n="nav.contact">Contato</a></li>
+                    <li><a href="/aventura-aquatica" data-i18n="nav.water_adventure">Aventura Aquática</a></li>
+                    <li><a href="/sobre" data-i18n="nav.about">Sobre Nós</a></li>
+                    <li><a href="/contato" data-i18n="nav.contact">Contato</a></li>
                 </ul>
             </nav>
             <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
-                rel="noopener noreferrer" class="btn-header-cta">
+                rel="noopener noreferrer" class="btn-header-cta"
+                href="https://wa.me/558181211006?text=Olá! Encontrei vocês pelo site e quero saber mais sobre os passeios de lancha em Maragogi. Pode me passar detalhes e valores? Obrigado!">
                 <i class="fab fa-whatsapp"></i> <span data-i18n="header.cta">Agende seu Passeio</span>
             </a>
             <div class="lang-selector">
@@ -297,41 +331,78 @@
         </section>
 
         <!-- VÍDEOS -->
-        <section id="galeria-videos" class="fade-in">
-            <div class="secao-cabecalho">
+        <section class="video-experience-section fade-in">
+            <div class="secao-cabecalho video-experience-header">
                 <span class="secao-tag" data-i18n="lancha.videos.tag">Sinta a energia</span>
                 <h2 data-i18n="lancha.videos.h2">Nossos Vídeos</h2>
                 <p class="secao-subtitulo" data-i18n="lancha.videos.subtitle">Assista e sinta a energia dos nossos
                     passeios.</p>
             </div>
-            <div class="galeria-wrapper">
-                <button class="galeria-seta galeria-seta-esq" aria-label="Anterior"><i
+            <div class="video-carousel">
+                <button class="carousel-arrow carousel-arrow-left" aria-label="Anterior"><i
                         class="fas fa-chevron-left"></i></button>
-                <div class="galeria-scroll">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ID_DO_SEU_VIDEO_1"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ID_DO_SEU_VIDEO_2"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ID_DO_SEU_VIDEO_3"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ID_DO_SEU_VIDEO_4"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ID_DO_SEU_VIDEO_5"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
+                <div class="carousel-track-wrapper">
+                    <div class="carousel-track">
+                        <div class="video-experience-card">
+                            <div class="video-iframe-container">
+                                <iframe src="https://youtube.com/embed/rVrGwkbu-WE?si=lbcP6OecEknePUaj"
+                                    title="YouTube Vídeo 1" frameborder="0" allowfullscreen loading="lazy"></iframe>
+                            </div>
+                        </div>
+                        <div class="video-experience-card">
+                            <div class="video-iframe-container">
+                                <iframe src="https://youtube.com/embed/pQhcEaOEd78?si=QJkEp5rY5766khfd"
+                                    title="YouTube Vídeo 2" frameborder="0" allowfullscreen loading="lazy"></iframe>
+                            </div>
+                        </div>
+                        <div class="video-experience-card">
+                            <div class="video-iframe-container">
+                                <iframe src="https://youtube.com/embed/rnQsNZI-tE4?si=iVPGqATSL0lchOCY"
+                                    title="YouTube Vídeo 3" frameborder="0" allowfullscreen loading="lazy"></iframe>
+                            </div>
+                        </div>
+                        <div class="video-experience-card">
+                            <div class="video-iframe-container">
+                                <iframe src="https://youtube.com/embed/D439lFgjULE?si=S7h8u8xGs2y4_ePY"
+                                    title="YouTube Vídeo 4" frameborder="0" allowfullscreen loading="lazy"></iframe>
+                            </div>
+                        </div>
+                        <div class="video-experience-card">
+                            <div class="video-iframe-container">
+                                <iframe src="https://youtube.com/embed/hINmkYQG8qk?si=tRGtGIOH2tkg_nSM"
+                                    title="YouTube Vídeo 5" frameborder="0" allowfullscreen loading="lazy"></iframe>
+                            </div>
+                        </div>
+                        <div class="video-experience-card">
+                            <div class="video-iframe-container">
+                                <iframe src="https://youtube.com/embed/hZLbmXndumc?si=wqbajq2HWkM6xpAl"
+                                    title="YouTube Vídeo 6" frameborder="0" allowfullscreen loading="lazy"></iframe>
+                            </div>
+                        </div>
+                        <div class="video-experience-card">
+                            <div class="video-iframe-container">
+                                <iframe src="https://youtube.com/embed/0sOShLyaPOA?si=e5AavP_dSEBfE7sN"
+                                    title="YouTube Vídeo 7" frameborder="0" allowfullscreen loading="lazy"></iframe>
+                            </div>
+                        </div>
+                        <div class="video-experience-card">
+                            <div class="video-iframe-container">
+                                <iframe src="https://youtube.com/embed/OlHKpaFVcBA?si=3suGDZNrI30f_m0l"
+                                    title="YouTube Vídeo 8" frameborder="0" allowfullscreen loading="lazy"></iframe>
+                            </div>
+                        </div>
+                        <div class="video-experience-card">
+                            <div class="video-iframe-container">
+                                <iframe src="https://youtube.com/embed/odX4Ts1titY?si=HYl-9a89D8REzzpl"
+                                    title="YouTube Vídeo 9" frameborder="0" allowfullscreen loading="lazy"></iframe>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button class="galeria-seta galeria-seta-dir" aria-label="Próximo"><i
+                <button class="carousel-arrow carousel-arrow-right" aria-label="Próximo"><i
                         class="fas fa-chevron-right"></i></button>
             </div>
+            <div class="carousel-indicators"></div>
         </section>
 
         <!-- FAQ -->
@@ -458,11 +529,11 @@
                 <h3 data-i18n="footer.links_title">Links Rápidos</h3>
                 <nav role="navigation" aria-label="Links do rodapé" class="footer-links">
                     <ul>
-                        <li><a href="index.html" data-i18n="nav.home">Página Inicial</a></li>
-                        <li><a href="passeios-lancha.html" data-i18n="nav.boat_tours">Passeios de Lancha</a></li>
-                        <li><a href="aventura-aquatica.html" data-i18n="nav.water_adventure">Aventura Aquática</a></li>
-                        <li><a href="sobre.html" data-i18n="nav.about">Sobre Nós</a></li>
-                        <li><a href="contato.html" data-i18n="nav.contact">Contato</a></li>
+                        <li><a href="/" data-i18n="nav.home">Página Inicial</a></li>
+                        <li><a href="/passeios-lancha" data-i18n="nav.boat_tours">Passeios de Lancha</a></li>
+                        <li><a href="/aventura-aquatica" data-i18n="nav.water_adventure">Aventura Aquática</a></li>
+                        <li><a href="/sobre" data-i18n="nav.about">Sobre Nós</a></li>
+                        <li><a href="/contato" data-i18n="nav.contact">Contato</a></li>
                     </ul>
                 </nav>
             </div>

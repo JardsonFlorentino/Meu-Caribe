@@ -1,3 +1,281 @@
+/* === SEÇÃO DE VÍDEOS - CARROSSEL (YouTube Shorts) === */
+.video-experience-section {
+    padding: 60px 0 40px 0;
+    background: #f8fafc;
+}
+
+.video-experience-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.video-experience-header h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #1a2233;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    font-family: var(--font-titulo, 'Bebas Neue', Arial, sans-serif);
+}
+
+.video-experience-header p {
+    font-size: 1.15rem;
+    color: #4b5563;
+    margin: 0;
+    font-family: var(--font-subtitulo, 'Montserrat', sans-serif);
+}
+
+/* Carrossel */
+.video-carousel {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 56px;
+}
+
+.carousel-track-wrapper {
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 24px;
+    transition: transform 0.45s cubic-bezier(.4, 0, .2, 1);
+    will-change: transform;
+}
+
+.carousel-track .video-experience-card {
+    flex: 0 0 calc((100% - 72px) / 4);
+    min-width: 0;
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(30, 58, 138, 0.18);
+    color: var(--azul-profundo, #1E3A8A);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.carousel-arrow:hover {
+    background: var(--turquesa, #0EA5E9);
+    color: #fff;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 24px rgba(14, 165, 233, 0.3);
+}
+
+.carousel-arrow:disabled {
+    opacity: 0.35;
+    cursor: default;
+    pointer-events: none;
+}
+
+.carousel-arrow-left {
+    left: 4px;
+}
+
+.carousel-arrow-right {
+    right: 4px;
+}
+
+/* Indicadores */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: #cbd5e1;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.25s;
+    padding: 0;
+}
+
+.carousel-dot.active {
+    background: var(--turquesa, #0EA5E9);
+    transform: scale(1.3);
+}
+
+/* Cards */
+.video-experience-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px 0 rgba(30, 41, 59, 0.10);
+    overflow: hidden;
+    transition: transform 0.25s cubic-bezier(.4,2,.3,1), box-shadow 0.25s;
+    will-change: transform;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.video-experience-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 8px 32px 0 rgba(30, 41, 59, 0.16);
+}
+
+.video-iframe-container {
+    position: relative;
+    width: 100%;
+    padding-top: 177.78%; /* 9:16 */
+    background: #e5e7eb;
+    overflow: hidden;
+}
+
+.video-iframe-container iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 0 0 20px 20px;
+    object-fit: cover;
+    background: #000;
+}
+
+/* Responsivo carrossel */
+@media (max-width: 1024px) {
+    .carousel-track .video-experience-card {
+        flex: 0 0 calc((100% - 24px) / 2);
+    }
+}
+
+@media (max-width: 600px) {
+    .video-experience-section {
+        padding: 36px 0 24px 0;
+    }
+    .video-carousel {
+        padding: 0 40px;
+    }
+    .carousel-track .video-experience-card {
+        flex: 0 0 100%;
+    }
+    .carousel-track {
+        gap: 16px;
+    }
+    .video-experience-header h2 {
+        font-size: 1.5rem;
+    }
+    .video-experience-card {
+        border-radius: 14px;
+    }
+    .video-iframe-container iframe {
+        border-radius: 0 0 14px 14px;
+    }
+    .carousel-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+    .carousel-arrow-left { left: 0; }
+    .carousel-arrow-right { right: 0; }
+}
+/* --- Seção de vídeos aprimorada --- */
+.videos-bg {
+    background: linear-gradient(135deg, #e0f7fa 60%, #fff 100%);
+    border-radius: 32px;
+    padding: 3rem 2vw 3.5rem 2vw;
+    margin: 0 auto 3rem auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    max-width: 1200px;
+}
+
+.videos-cabecalho {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    justify-items: center;
+}
+
+@media (min-width: 600px) {
+    .video-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (min-width: 1000px) {
+    .video-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-bottom: 56.25%; /* 16:9 */
+    background: #000;
+    border-radius: 18px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+.video-wrapper:hover {
+    transform: scale(1.025);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+.video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    border: 0;
+    border-radius: 18px;
+    display: block;
+}
+/* --- Vídeos responsivos e grid --- */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    background: #000;
+    border-radius: 18px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    overflow: hidden;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 18px;
+}
 /* ===================================================
    MEU CARIBE - MARAGOGI/AL
    Paleta Oceânica Premium + Layout Responsivo
