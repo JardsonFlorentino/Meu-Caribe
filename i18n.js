@@ -65,8 +65,11 @@
             // data-i18n → textContent
             var self = this;
             document.querySelectorAll('[data-i18n]').forEach(function (el) {
-                var val = self.translations[el.getAttribute('data-i18n')];
-                if (val) el.textContent = val;
+                var key = el.getAttribute('data-i18n');
+                var val = self.translations[key];
+                if (val) {
+                    el.textContent = val;
+                }
             });
 
             // data-i18n-html → innerHTML (for content with <strong> etc.)

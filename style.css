@@ -1,3 +1,149 @@
+/* ====== CARD FOOTER MODERN LAYOUT ====== */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0.7em 0 0.2em 0;
+    border-top: 1px solid #e0e7ef;
+    margin-top: 1.2em;
+    gap: 38px; /* Increased gap for more separation */
+}
+.people-info {
+        font-size: 1.04em;
+        color: var(--texto-escuro, #1e293b);
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        flex: 1 1 0;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+}
+/* === BLOCO DE PREÇO PROMOCIONAL (de/por) === */
+.price-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.15;
+    gap: 1px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.price-box .price-old {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    font-size: 0.78rem;
+    color: #a0a0a0;
+    font-weight: 400;
+    text-decoration: line-through;
+    text-decoration-color: #c0c0c0;
+}
+.price-box .price-new {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--azul-profundo, #1e3a8a);
+    background: none;
+    padding: 0;
+}
+.price-box .label {
+    font-size: 0.65rem;
+    color: #999;
+    font-weight: 400;
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+}
+.price-box .old-value {
+    font-size: inherit;
+    color: inherit;
+}
+.price-box .new-value {
+    font-size: inherit;
+    color: inherit;
+    font-weight: inherit;
+}
+@media (max-width: 600px) {
+    .card-footer {
+        gap: 10px;
+        padding: 0.6em 0 0.1em 0;
+    }
+    .price-box {
+        align-items: flex-end;
+    }
+    .people-info {
+        font-size: 0.99em;
+    }
+}
+/* Selo de promoção SALE nos cards */
+.card-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.sale-stamp{
+    width:50px;
+    transform:rotate(-12deg);
+    animation:pulseSale 2.4s ease-in-out infinite;
+}
+
+@keyframes pulseSale{
+    0%, 100%{
+        transform:rotate(-12deg) scale(1);
+    }
+    50%{
+        transform:rotate(-12deg) scale(1.05);
+    }
+}
+
+/* Acessibilidade: respeitar preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+    .sale-stamp {
+        animation: none;
+    }
+    .card-passeio,
+    .card-passeio::before,
+    .card-passeio::after,
+    .churrasco-incluso,
+    .card-tag-destaque {
+        animation: none;
+        transition: none;
+    }
+}
+/* Unidade do preço compartilhado */
+.preco-unit {
+    font-size: 0.72rem;
+    color: #999;
+    font-weight: 400;
+}
+.preco-unit-inline {
+    display: block;
+    font-size: 0.65rem;
+    color: #999;
+    font-weight: 400;
+    text-align: right;
+    margin-top: -1px;
+    line-height: 1;
+}
+
+/* Badge de desconto nos preços */
+.discount-badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #10b981, #059669);
+    padding: 1px 6px;
+    border-radius: 50px;
+    margin-left: 4px;
+    letter-spacing: 0.03em;
+    vertical-align: middle;
+    line-height: 1.5;
+    white-space: nowrap;
+}
 /* === SEÇÃO DE VÍDEOS - CARROSSEL (YouTube Shorts) === */
 .video-experience-section {
     padding: 60px 0 40px 0;
@@ -1062,6 +1208,18 @@ header {
     transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
     border: 2px solid rgba(14, 165, 233, 0.45);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-servico .card-corpo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-servico .btn-card {
+    margin-top: auto;
 }
 
 .card-servico::before {
@@ -2314,12 +2472,8 @@ header {
 .preco-valor {
     font-family: var(--font-subtitulo);
     font-weight: 700;
-    font-size: 1.15rem;
+    font-size: 0.92rem;
     color: var(--azul-profundo);
-    background: linear-gradient(135deg, var(--azul-profundo), var(--turquesa));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     white-space: nowrap;
     flex-shrink: 0;
 }
@@ -3171,9 +3325,7 @@ header {
    =================================================== */
 
 @media (max-width: 900px) {
-    .passeio-grid {
-        grid-template-columns: 1fr;
-    }
+
 
     .valores-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -3270,5 +3422,21 @@ header {
     .card-passeio:hover,
     .valor-card:hover {
         transform: translateY(-4px) !important;
+    }
+
+    /* Pre\u00e7os em telas muito pequenas */
+    .preco-item {
+        flex-wrap: wrap;
+    }
+    .preco-label {
+        flex: 1 1 100%;
+        font-size: 0.82rem;
+    }
+    .price-box {
+        margin-left: auto;
+    }
+    .discount-badge {
+        font-size: 0.55rem;
+        padding: 1px 5px;
     }
 }
