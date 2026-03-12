@@ -1,4 +1,101 @@
+// === MODAL PROMOÇÃO ESPECIAL (NOVO) ===
+document.addEventListener('DOMContentLoaded', function () {
+    var modal = document.getElementById('promo-modal');
+    if (!modal) return;
+    var closeBtn = modal.querySelector('.promo-modal-close');
+    var ctaBtn = modal.querySelector('.promo-modal-cta');
+    var adventuresLink = modal.querySelector('.promo-modal-link');
+
+    function showModal() {
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function hideModal() {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+        sessionStorage.setItem('promoModalClosed', '1');
+    }
+
+    // Só mostra se não fechou nesta sessão
+    if (!sessionStorage.getItem('promoModalClosed')) {
+        setTimeout(showModal, 5000);
+    }
+
+    closeBtn.addEventListener('click', hideModal);
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) hideModal();
+    });
+    // Acessibilidade: ESC fecha
+    document.addEventListener('keydown', function (e) {
+        if (modal.classList.contains('show') && (e.key === 'Escape' || e.key === 'Esc')) hideModal();
+    });
+    // Botão principal (opcional, já é <a>)
+    if (ctaBtn) {
+        ctaBtn.addEventListener('click', function() {
+            hideModal();
+        });
+    }
+    // Link de aventuras
+    if (adventuresLink) {
+        adventuresLink.addEventListener('click', function() {
+            hideModal();
+        });
+    }
+});
 // ===================================================
+
+// --- YOUTUBE SEQUENCIAL (vídeos das páginas de passeios e aventura) ---
+document.addEventListener('DOMContentLoaded', function () {
+    // Detecta se está em uma das páginas de vídeo
+    const isAventura = window.location.pathname.includes('aventura-aquatica');
+    const isLancha = window.location.pathname.includes('passeios-lancha');
+    if (!isAventura && !isLancha) return;
+
+    // IDs dos iframes em ordem
+    const ytIds = isAventura
+        ? ['yt-aventura-1', 'yt-aventura-2', 'yt-aventura-3', 'yt-aventura-4']
+        : ['yt-lancha-1', 'yt-lancha-2', 'yt-lancha-3', 'yt-lancha-4', 'yt-lancha-5', 'yt-lancha-6', 'yt-lancha-7', 'yt-lancha-8', 'yt-lancha-9'];
+
+    // Carrega a YouTube IFrame API se necessário
+    if (!window.YT) {
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.body.appendChild(tag);
+    }
+
+    // Armazena os players
+    let ytPlayers = [];
+    let ytReady = false;
+
+    window.onYouTubeIframeAPIReady = function () {
+        ytReady = true;
+        ytPlayers = ytIds.map((id, idx) => {
+            const el = document.getElementById(id);
+            if (!el) return null;
+            return new YT.Player(id, {
+                events: {
+                    'onStateChange': function (event) {
+                        // Quando terminar, vai para o próximo
+                        if (event.data === YT.PlayerState.ENDED) {
+                            const nextIdx = idx + 1;
+                            if (ytPlayers[nextIdx]) {
+                                ytPlayers[nextIdx].playVideo();
+                                // Scroll suave até o próximo vídeo
+                                ytPlayers[nextIdx].getIframe().scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    };
+
+    // Se a API já estiver pronta (caso de navegação SPA), inicializa imediatamente
+    if (window.YT && window.YT.Player && !ytReady) {
+        window.onYouTubeIframeAPIReady();
+    }
+});
 // MEU CARIBE - MARAGOGI/AL
 // Menu mobile, animações scroll, navegação galeria,
 // efeitos premium, contadores, parallax
