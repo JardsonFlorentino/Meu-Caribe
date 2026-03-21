@@ -1,0 +1,387 @@
+/* Calendário compacto de marés (iframe) — usa variáveis do style.css */
+
+:root {
+  font-size: 12px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--branco);
+  color: var(--texto-corpo);
+}
+
+body {
+  font-family: var(--font-corpo);
+  line-height: 1.25;
+}
+
+.mare-cal-wrap {
+  padding: 12px;
+}
+
+.mare-cal-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.mare-cal-title {
+  margin: 0;
+  font-family: var(--font-subtitulo);
+  font-weight: 900;
+  font-size: 16px;
+  color: var(--azul-profundo);
+  letter-spacing: 0.2px;
+  line-height: 1.15;
+  text-shadow: 0 12px 30px color-mix(in srgb, var(--azul-profundo) 25%, transparent);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .mare-cal-title {
+    background-image: var(--grad-primario);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.mare-cal-subtitle {
+  margin: 2px 0 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cinza-medio);
+  letter-spacing: 0.2px;
+}
+
+.mare-cal-hint {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  margin: 0;
+  font-size: 11px;
+  color: var(--cinza-medio);
+}
+
+.mare-cal-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-family: var(--font-subtitulo);
+  font-weight: 800;
+  line-height: 1;
+  border: 2px solid rgba(15, 23, 42, 0.10);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
+  white-space: nowrap;
+}
+
+.mare-cal-pillArrow {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.mare-cal-pill--verde {
+  background: #dcfce7;
+  color: #166534;
+  border-color: rgba(22, 101, 52, 0.25);
+}
+
+.mare-cal-pill--verde .mare-cal-pillArrow {
+  background: #dcfce7;
+  color: #166534;
+  border-color: rgba(22, 101, 52, 0.25);
+}
+
+.mare-cal-pill--amarelo {
+  background: rgba(245, 158, 11, 0.18);
+  color: #92400e;
+  border-color: rgba(245, 158, 11, 0.28);
+}
+
+.mare-cal-pill--amarelo .mare-cal-pillArrow {
+  background: rgba(245, 158, 11, 0.18);
+  color: #92400e;
+  border-color: rgba(245, 158, 11, 0.28);
+}
+
+.mare-cal-pill--vermelho {
+  background: rgba(185, 28, 28, 0.12);
+  color: #b91c1c;
+  border-color: rgba(185, 28, 28, 0.22);
+}
+
+.mare-cal-pill--vermelho .mare-cal-pillArrow {
+  background: rgba(185, 28, 28, 0.12);
+  color: #b91c1c;
+  border-color: rgba(185, 28, 28, 0.22);
+}
+
+.mare-cal-status {
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--cinza-claro);
+  color: var(--texto-corpo);
+}
+
+.mare-cal-status[hidden] {
+  display: none;
+}
+
+.mare-cal-tableWrap {
+  overflow: auto;
+  border-radius: var(--border-radius);
+  box-shadow: var(--sombra-card);
+  background: var(--branco);
+}
+
+.mare-cal-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.mare-cal-table th,
+.mare-cal-table td {
+  border: 1px solid color-mix(in srgb, var(--cinza-medio) 35%, transparent);
+  vertical-align: top;
+  padding: 8px;
+}
+
+.mare-cal-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--cinza-claro);
+  color: var(--texto-escuro);
+  font-family: var(--font-subtitulo);
+  font-weight: 800;
+  text-align: left;
+  white-space: normal;
+}
+
+.mare-cal-th {
+  display: grid;
+  gap: 6px;
+}
+
+.mare-cal-thDay {
+  line-height: 1.1;
+}
+
+.mare-cal-thSub {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 8px;
+  padding-top: 6px;
+  border-top: 1px solid color-mix(in srgb, var(--cinza-medio) 25%, transparent);
+  font-size: 11px;
+  font-family: var(--font-subtitulo);
+  font-weight: 800;
+  color: var(--cinza-medio);
+}
+
+.mare-cal-empty {
+  background: color-mix(in srgb, var(--cinza-claro) 55%, transparent);
+}
+
+.mare-cal-date {
+  font-weight: 900;
+  color: var(--texto-escuro);
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Eventos: 2 colunas (Hr | Altura) */
+.mare-cal-eventRow {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px dashed color-mix(in srgb, var(--cinza-medio) 25%, transparent);
+}
+
+.mare-cal-eventRow:last-child {
+  border-bottom: 0;
+}
+
+.mare-cal-hourCell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-subtitulo);
+  font-weight: 800;
+  color: var(--texto-escuro);
+  font-variant-numeric: tabular-nums;
+}
+
+.mare-cal-hourText {
+  line-height: 1.05;
+}
+
+.mare-cal-heightCell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--texto-corpo);
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+
+.mare-cal-heightText {
+  line-height: 1.05;
+}
+
+.mare-cal-arrow {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.mare-cal-arrow--verde {
+  background: #dcfce7;
+  color: #166534;
+  border-color: rgba(22, 101, 52, 0.25);
+}
+
+.mare-cal-arrow--amarelo {
+  background: rgba(245, 158, 11, 0.18);
+  color: #92400e;
+  border-color: rgba(245, 158, 11, 0.28);
+}
+
+.mare-cal-arrow--vermelho {
+  background: rgba(185, 28, 28, 0.12);
+  color: #b91c1c;
+  border-color: rgba(185, 28, 28, 0.22);
+}
+
+.mare-cal-legends {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid color-mix(in srgb, var(--cinza-medio) 35%, transparent);
+}
+
+.mare-cal-legend {
+  margin: 0 0 6px;
+  color: var(--texto-corpo);
+}
+
+.mare-cal-legend strong {
+  color: var(--texto-escuro);
+}
+
+@media (max-width: 520px) {
+  .mare-cal-wrap {
+    padding: 10px;
+  }
+
+  .mare-cal-hint {
+    display: none;
+  }
+
+  .mare-cal-title {
+    font-size: 13px;
+  }
+
+  .mare-cal-table th,
+  .mare-cal-table td {
+    padding: 7px;
+  }
+
+  .mare-cal-eventRow {
+    grid-template-columns: 58px 1fr;
+    gap: 6px;
+  }
+
+  .mare-cal-thSub {
+    grid-template-columns: 58px 1fr;
+    gap: 6px;
+  }
+}
+
+/* Stacked layout for very small screens: transforma tabela em cartões por dia */
+@media (max-width: 720px) {
+  /* Esconde a tabela tradicional em telas pequenas e mostra os cartões */
+  .mare-cal-table { display: none !important; }
+  .mare-cal-cards { display: grid; gap: 10px; grid-template-columns: repeat(2, 1fr); }
+  .mare-cal-cards .mare-day-card { background: var(--branco); border: 1px solid color-mix(in srgb, var(--cinza-medio) 25%, transparent); border-radius: 8px; padding: 8px; box-shadow: var(--sombra-card); }
+  .mare-day-card__head { font-weight: 800; color: var(--azul-profundo); margin-bottom: 6px; font-family: var(--font-subtitulo); }
+  .mare-day-card__date { font-size: 0.95rem; }
+  .mare-day-card__body { display: flex; flex-direction: column; gap: 6px; }
+  .mare-cal-cards { margin-top: 10px; }
+}
+
+/* Visual polish for cards */
+.mare-day-card {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+.mare-day-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(2,132,199,0.12);
+}
+.mare-day-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.mare-day-card__flag {
+  width: 10px;
+  height: 36px;
+  border-radius: 6px;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+.mare-day-card--verde .mare-day-card__flag { background: linear-gradient(180deg,#34d399,#059669); }
+.mare-day-card--amarelo .mare-day-card__flag { background: linear-gradient(180deg,#fbbf24,#f97316); }
+.mare-day-card--vermelho .mare-day-card__flag { background: linear-gradient(180deg,#fb7185,#ef4444); }
+.mare-day-card__date { flex: 1 1 auto; font-weight: 800; }
+.mare-day-card__badge {
+  font-size: 0.78rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-weight: 800;
+  color: #fff;
+}
+.mare-day-card--verde .mare-day-card__badge { background: #059669; }
+.mare-day-card--amarelo .mare-day-card__badge { background: #f59e0b; }
+.mare-day-card--vermelho .mare-day-card__badge { background: #dc2626; }
+
+.mare-cal-eventRow { background: rgba(15,23,42,0.02); padding: 6px; border-radius: 8px; }
+.mare-cal-hourCell { font-weight: 800; color: var(--azul-profundo); }
+.mare-cal-heightText { color: var(--texto-escuro); font-weight: 700; }
+
+/* Empty day */
+.mare-cal-empty-day { color: var(--cinza-medio); padding: 8px 0; text-align: center; }
+
+@media (min-width: 421px) and (max-width: 920px) {
+  /* Em telas maiores, permitir 3 colunas */
+  .mare-cal-table { display: none !important; }
+  .mare-cal-cards { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 921px) {
+  .mare-cal-cards { display: none !important; }
+}

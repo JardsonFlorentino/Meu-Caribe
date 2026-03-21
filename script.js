@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ? ['yt-aventura-1', 'yt-aventura-2', 'yt-aventura-3', 'yt-aventura-4']
         : ['yt-lancha-1', 'yt-lancha-2', 'yt-lancha-3', 'yt-lancha-4', 'yt-lancha-5', 'yt-lancha-6', 'yt-lancha-7', 'yt-lancha-8', 'yt-lancha-9'];
 
-    // Carrega a YouTube IFrame API se necessário
+    // Carrega o script do YouTube IFrame (se necessário)
     if (!window.YT) {
         const tag = document.createElement('script');
         tag.src = 'https://www.youtube.com/iframe_api';
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
-    // Se a API já estiver pronta (caso de navegação SPA), inicializa imediatamente
+    // Se o script já estiver pronto (caso de navegação SPA), inicializa imediatamente
     if (window.YT && window.YT.Player && !ytReady) {
         window.onYouTubeIframeAPIReady();
     }
@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
         heroH1.style.animation = 'fadeInUp 0.8s 0.5s both';
     }
 
-    // --- TÁBUA DA MARÉ — Dados de Maragogi via scraping ---
+    // --- BARRA DO TOPO — Maré + Clima (fontes oficiais) ---
     const barraInfo = document.getElementById('barra-mare-info');
     if (barraInfo) {
         fetchTideData(barraInfo);
@@ -511,186 +511,282 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-// Tábua da maré — módulo separado (fora do DOMContentLoaded)
-async function fetchTideData(barraEl) {
-    const PROXY = 'https://api.codetabs.com/v1/proxy?quest=';
-    const TARGET = 'https://www.tabuademares.com/br/alagoas/maragogi';
-    const CACHE_KEY = 'meucaribe_mare';
-    const CACHE_TTL = 3 * 60 * 60 * 1000; // 3 horas
-
-    // Buscar clima em paralelo
-    fetchWeatherData();
-
-    // Verificar cache
+// Barra do topo (maré + clima) — via /api (Vercel)
+function formatISODateInTimeZone(date, timeZone) {
     try {
-        const cached = localStorage.getItem(CACHE_KEY);
-        if (cached) {
-            const data = JSON.parse(cached);
-            const today = new Date().toDateString();
-            if (data.date === today && Date.now() - data.ts < CACHE_TTL) {
-                renderTideBar(barraEl, data.tides);
-                return;
-            }
-        }
-    } catch (_) { /* ignora erro de cache */ }
+        const parts = new Intl.DateTimeFormat('en-CA', {
+            timeZone,
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        }).formatToParts(date);
+        const get = (type) => (parts.find(p => p.type === type) || {}).value;
+        const y = get('year');
+        const m = get('month');
+        const d = get('day');
+        if (y && m && d) return `${y}-${m}-${d}`;
+    } catch (_) {
+        // ignore
+    }
 
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+}
+
+async function fetchJsonWithTimeout(url, timeoutMs) {
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), timeoutMs);
     try {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 10000);
-
-        const res = await fetch(PROXY + encodeURIComponent(TARGET), {
-            signal: controller.signal
+        const r = await fetch(url, {
+            signal: controller.signal,
+            headers: { 'accept': 'application/json' }
         });
-        clearTimeout(timeout);
-
-        if (!res.ok) throw new Error('Fetch failed');
-        const html = await res.text();
-
-        // Extrair arrays gm.mareas_x e gm.mareas_y
-        const xMatches = [...html.matchAll(/gm\.mareas_x\[(\d+)\]=(\d+)/g)];
-        const yMatches = [...html.matchAll(/gm\.mareas_y\[(\d+)\]=([\d.]+)/g)];
-
-        if (xMatches.length < 4 || yMatches.length < 4) throw new Error('Data insuficiente');
-
-        const mareas = [];
-        for (let i = 0; i < xMatches.length; i++) {
-            const idx = parseInt(xMatches[i][1], 10);
-            const minutes = parseInt(xMatches[i][2], 10);
-            const height = parseFloat(yMatches[i][2]);
-            mareas.push({ idx, minutes, height });
-        }
-
-        // Filtrar apenas marés do dia (índices 1, 2, 3 tipicamente)
-        // Marés com minutos entre 0 e 1440 que não sejam do dia anterior/seguinte
-        const todayTides = mareas
-            .filter((_, i) => i >= 1 && i <= 3)
-            .map(m => {
-                const hours = Math.floor(m.minutes / 60);
-                const mins = m.minutes % 60;
-                const time = `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
-                const type = m.height > 1.0 ? 'alta' : 'baixa';
-                return { time, height: m.height.toFixed(1), type };
-            });
-
-        if (todayTides.length === 0) throw new Error('Sem marés para hoje');
-
-        // Salvar no cache
-        try {
-            localStorage.setItem(CACHE_KEY, JSON.stringify({
-                date: new Date().toDateString(),
-                ts: Date.now(),
-                tides: todayTides
-            }));
-        } catch (_) { /* ignora erro de cache */ }
-
-        window._tideData = todayTides;
-        renderTideBar(barraEl, todayTides);
-    } catch (err) {
-        // Fallback: mensagem genérica com link
-        var fb = window.I18N ? window.I18N.t('topbar.fallback', 'Hor\u00e1rios conforme a t\u00e1bua da mar\u00e9 \u2014') : 'Hor\u00e1rios conforme a t\u00e1bua da mar\u00e9 \u2014';
-        var fl = window.I18N ? window.I18N.t('topbar.fallback_link', 'Consulte aqui') : 'Consulte aqui';
-        var fe = window.I18N ? window.I18N.t('topbar.fallback_end', 'ou fale conosco!') : 'ou fale conosco!';
-        barraEl.innerHTML = '<i class="fas fa-water"></i> ' + fb + ' <a href="https://www.tabuademares.com/br/alagoas/maragogi" target="_blank" rel="noopener noreferrer" style="color:#F59E0B;text-decoration:underline">' + fl + '</a> ' + fe + ' <i class="fas fa-umbrella-beach"></i>';
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return await r.json();
+    } finally {
+        clearTimeout(t);
     }
 }
 
-function renderTideBar(el, tides) {
-    var _t = function(k, fb) { return window.I18N ? window.I18N.t(k, fb) : fb; };
-    const icons = { alta: 'fa-arrow-up', baixa: 'fa-arrow-down' };
-    const labels = { alta: _t('topbar.tide_high', 'Mar\u00e9 Alta'), baixa: _t('topbar.tide_low', 'Mar\u00e9 Baixa') };
-    const items = tides.map(t =>
-        `<span class="tide-item"><i class="fas ${icons[t.type]}" style="font-size:0.7em"></i> <strong>${labels[t.type]}</strong> ${t.time} (${t.height}m)</span>`
-    );
+function isLocalDevHost() {
+    const h = window.location.hostname;
+    return h === 'localhost' || h === '127.0.0.1' || h === '0.0.0.0';
+}
 
-    // Weather info (if available)
-    let weatherHtml = '';
-    if (window._weatherData) {
-        const w = window._weatherData;
-        weatherHtml = `<span class="tide-sep">|</span> <span class="tide-item weather-item"><i class="fas ${w.icon}"></i> ${w.temp}°C ${w.desc}</span> <span class="tide-item weather-item"><i class="fas fa-wind"></i> ${w.wind} km/h</span>`;
+function mapOpenMeteoWeatherCode(code) {
+    const c = Number(code);
+    if (Number.isNaN(c)) return 'cloudy';
+    if (c === 0) return 'clear';
+    if (c === 1 || c === 2) return 'partly_cloudy';
+    if (c === 3) return 'cloudy';
+    if (c === 45 || c === 48) return 'fog';
+    if ([51, 53, 55, 56, 57].includes(c)) return 'drizzle';
+    if ([61, 63, 65, 66, 67, 80, 81, 82].includes(c)) return 'rain';
+    if ([71, 73, 75, 77, 85, 86].includes(c)) return 'snow';
+    if ([95, 96, 99].includes(c)) return 'storm';
+    return 'cloudy';
+}
+
+async function fetchWeatherDirectOpenMeteo() {
+    // Same data as /api/weather, but works on static dev servers.
+    const url = new URL('https://api.open-meteo.com/v1/forecast');
+    url.searchParams.set('latitude', '-9.0122');
+    url.searchParams.set('longitude', '-35.2225');
+    url.searchParams.set('current', 'temperature_2m,weather_code,wind_speed_10m');
+    url.searchParams.set('timezone', 'America/Maceio');
+
+    const json = await fetchJsonWithTimeout(url.toString(), 6500);
+    const current = json?.current || {};
+    const temperatureC = Number(current.temperature_2m);
+    const windKmh = Number(current.wind_speed_10m);
+    const conditionKey = mapOpenMeteoWeatherCode(current.weather_code);
+
+    return {
+        location: 'Maragogi, AL',
+        temperatureC: Number.isFinite(temperatureC) ? temperatureC : null,
+        windKmh: Number.isFinite(windKmh) ? windKmh : null,
+        conditionKey,
+        source: 'open-meteo'
+    };
+}
+
+function monthKeyPt(monthNumber) {
+    const months = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+    return months[monthNumber - 1] || null;
+}
+
+async function fetchTideFromLocalJson(dateStr) {
+    // Uses assets/data/mare-maragogi.json so it works on static dev servers.
+    const parsed = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/.exec(dateStr);
+    if (!parsed) return null;
+    const month = Number(parsed[2]);
+    const day = Number(parsed[3]);
+    const key = monthKeyPt(month);
+    if (!key) return null;
+
+    const data = await fetchJsonWithTimeout('/assets/data/mare-maragogi.json', 6500);
+    const monthData = data?.dadosBase?.[key];
+    if (!Array.isArray(monthData)) return null;
+
+    const rec = monthData.find(d => Number(d?.dia) === day);
+    if (!rec) return null;
+
+    const timeToMinutes = (hhmm) => {
+        const m = /^([0-9]{1,2}):([0-9]{2})$/.exec(String(hhmm || '').trim());
+        if (!m) return NaN;
+        const h = Number(m[1]);
+        const min = Number(m[2]);
+        if (!Number.isInteger(h) || !Number.isInteger(min)) return NaN;
+        if (h < 0 || h > 23) return NaN;
+        if (min < 0 || min > 59) return NaN;
+        return h * 60 + min;
+    };
+
+    const tides = [];
+    if (rec.mareBaixa1) tides.push({ type: 'baixa', time: rec.mareBaixa1, height: rec.altura1 });
+    if (rec.mareAlta1) tides.push({ type: 'alta', time: rec.mareAlta1, height: rec.altura_alta1 });
+    if (rec.mareBaixa2) tides.push({ type: 'baixa', time: rec.mareBaixa2, height: rec.altura2 });
+    if (rec.mareAlta2) tides.push({ type: 'alta', time: rec.mareAlta2, height: rec.altura_alta2 });
+
+    tides.sort((a, b) => {
+        const am = timeToMinutes(a.time);
+        const bm = timeToMinutes(b.time);
+        if (!Number.isFinite(am) && !Number.isFinite(bm)) return 0;
+        if (!Number.isFinite(am)) return 1;
+        if (!Number.isFinite(bm)) return -1;
+        return am - bm;
+    });
+
+    return tides.length ? tides : null;
+}
+
+async function fetchTideViaCodetabsScrape() {
+    // Legacy dev fallback (used before). May be rate-limited; keep only for localhost.
+    const PROXY = 'https://api.codetabs.com/v1/proxy?quest=';
+    const TARGET = 'https://www.tabuademares.com/br/alagoas/maragogi';
+    const html = await (await fetchJsonWithTimeout(PROXY + encodeURIComponent(TARGET), 10000).catch(async () => {
+        // fetchJsonWithTimeout expects JSON; for HTML we do a raw fetch.
+        const controller = new AbortController();
+        const t = setTimeout(() => controller.abort(), 10000);
+        try {
+            const r = await fetch(PROXY + encodeURIComponent(TARGET), { signal: controller.signal });
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return await r.text();
+        } finally {
+            clearTimeout(t);
+        }
+    }));
+
+    const xMatches = [...String(html).matchAll(/gm\.mareas_x\[(\d+)\]=(\d+)/g)];
+    const yMatches = [...String(html).matchAll(/gm\.mareas_y\[(\d+)\]=([\d.]+)/g)];
+    if (xMatches.length < 4 || yMatches.length < 4) return null;
+
+    const mareas = [];
+    for (let i = 0; i < xMatches.length; i++) {
+        const minutes = parseInt(xMatches[i][2], 10);
+        const height = parseFloat(yMatches[i]?.[2]);
+        if (!Number.isFinite(minutes) || !Number.isFinite(height)) continue;
+        mareas.push({ minutes, height });
     }
 
-    el.innerHTML = `<span class="tide-item"><i class="fas fa-water"></i></span> ${items.join('<span class="tide-sep">·</span> ')} ${weatherHtml} <span class="tide-item">— <a href="https://www.tabuademares.com/br/alagoas/maragogi" target="_blank" rel="noopener noreferrer" style="color:#F59E0B;text-decoration:underline">Maragogi, AL</a> <i class="fas fa-umbrella-beach"></i></span>`;
+    const today = mareas
+        .filter(m => m.minutes >= 0 && m.minutes <= 1440)
+        .sort((a, b) => a.minutes - b.minutes)
+        .slice(0, 4);
+
+    if (!today.length) return null;
+
+    return today.map(m => {
+        const hours = Math.floor(m.minutes / 60);
+        const mins = m.minutes % 60;
+        const time = `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
+        const type = m.height >= 1.0 ? 'alta' : 'baixa';
+        return { type, time, height: m.height };
+    });
+}
+
+async function fetchTideData(barraEl) {
+    const tz = 'America/Maceio';
+    const dateStr = formatISODateInTimeZone(new Date(), tz);
+
+    // Sempre usa apenas dados locais e open-meteo, nunca chama /api/tide ou /api/weather
+    let finalTides = null;
+    let finalWeather = null;
+
+    try { finalWeather = await fetchWeatherDirectOpenMeteo(); } catch (_) { /* ignore */ }
+    try { finalTides = await fetchTideFromLocalJson(dateStr); } catch (_) { /* ignore */ }
+    if (!finalTides) {
+        try { finalTides = await fetchTideViaCodetabsScrape(); } catch (_) { /* ignore */ }
+    }
+
+    window._tideData = finalTides;
+    window._weatherData = finalWeather;
+    renderTopBar(barraEl, finalTides, finalWeather);
+}
+
+function renderTopBar(el, tides, weather) {
+    var _t = function (k, fb) { return window.I18N ? window.I18N.t(k, fb) : fb; };
+
+    const tideFallback = _t('topbar.fallback', 'Hor\u00e1rios conforme a t\u00e1bua da mar\u00e9');
+    const locationLabel = 'Maragogi, AL';
+
+    let tideItemsHtml = '';
+    if (Array.isArray(tides) && tides.length) {
+        const icons = { alta: 'fa-arrow-up', baixa: 'fa-arrow-down' };
+        const labels = {
+            alta: _t('topbar.tide_high', 'Mar\u00e9 Alta'),
+            baixa: _t('topbar.tide_low', 'Mar\u00e9 Baixa')
+        };
+        const limited = tides.slice(0, 4);
+        tideItemsHtml = limited.map(t => {
+            const icon = icons[t.type] || 'fa-water';
+            const label = labels[t.type] || '';
+            const h = (t.height != null && !Number.isNaN(Number(t.height))) ? ` (${Number(t.height).toFixed(2)}m)` : '';
+            return `<span class="tide-item"><i class="fas ${icon}" style="font-size:0.7em"></i> <strong>${label}</strong> ${t.time}${h}</span>`;
+        }).join('<span class="tide-sep">·</span> ');
+    }
+
+    let weatherHtml = '';
+    if (weather && (weather.temperatureC != null || weather.conditionKey)) {
+        const temp = Number(weather.temperatureC);
+        const tempTxt = Number.isFinite(temp) ? `${Math.round(temp)}°C` : '';
+        const wind = Number(weather.windKmh);
+        const windTxt = Number.isFinite(wind) ? `${Math.round(wind)} km/h` : '';
+        const conditionKey = String(weather.conditionKey || '');
+        const conditionTxt = conditionKey ? _t(`weather.${conditionKey}`, '') : '';
+
+        const iconByKey = {
+            clear: 'fa-sun',
+            partly_cloudy: 'fa-cloud-sun',
+            cloudy: 'fa-cloud',
+            fog: 'fa-smog',
+            drizzle: 'fa-cloud-rain',
+            rain: 'fa-cloud-showers-heavy',
+            snow: 'fa-snowflake',
+            storm: 'fa-bolt'
+        };
+        const icon = iconByKey[conditionKey] || 'fa-cloud-sun';
+
+        const parts = [tempTxt, conditionTxt].filter(Boolean);
+        const hasMain = parts.length > 0;
+        const hasWind = Boolean(windTxt);
+
+        if (hasMain || hasWind) {
+            const main = hasMain
+                ? `<span class="weather-item tide-item"><i class="fas ${icon}" aria-hidden="true"></i> ${parts.join(' • ')}</span>`
+                : '';
+            const windHtml = hasWind
+                ? `<span class="weather-item tide-item"><i class="fas fa-wind" aria-hidden="true"></i> ${windTxt}</span>`
+                : '';
+
+            weatherHtml = `<span class="tide-sep">·</span> ${[main, windHtml].filter(Boolean).join(' <span class="tide-sep">·</span> ')}`;
+        }
+    }
+
+    if (tideItemsHtml) {
+        el.innerHTML = `<span class="tide-item"><i class="fas fa-water" aria-hidden="true"></i></span> ${tideItemsHtml}${weatherHtml} <span class="tide-item">\u2014 ${locationLabel} <i class="fas fa-umbrella-beach" aria-hidden="true"></i></span>`;
+        return;
+    }
+
+    // Fallback simples.
+    el.innerHTML = `<span class="tide-item"><i class="fas fa-water" aria-hidden="true"></i></span> <span class="tide-item">${tideFallback}</span>${weatherHtml} <span class="tide-item">\u2014 ${locationLabel} <i class="fas fa-umbrella-beach" aria-hidden="true"></i></span>`;
 }
 
 // Re-render tide bar on language change
 document.addEventListener('langchange', function () {
-    if (window._tideData) {
-        var barraEl = document.getElementById('barra-mare-info');
-        if (barraEl) renderTideBar(barraEl, window._tideData);
+    var barraEl = document.getElementById('barra-mare-info');
+    if (!barraEl) return;
+
+    if (window._tideData || window._weatherData) {
+        renderTopBar(barraEl, window._tideData, window._weatherData);
+        return;
     }
+
+    fetchTideData(barraEl);
 });
 
-// Clima — Open-Meteo API (gratuita, sem chave)
-async function fetchWeatherData() {
-    const CACHE_KEY = 'meucaribe_clima';
-    const CACHE_TTL = 30 * 60 * 1000; // 30 minutos
-
-    try {
-        const cached = localStorage.getItem(CACHE_KEY);
-        if (cached) {
-            const data = JSON.parse(cached);
-            if (Date.now() - data.ts < CACHE_TTL) {
-                window._weatherData = data.weather;
-                reRenderBar();
-                return;
-            }
-        }
-    } catch (_) { /* ignora */ }
-
-    try {
-        const res = await fetch(
-            'https://api.open-meteo.com/v1/forecast?latitude=-9.0122&longitude=-35.2225&current=temperature_2m,weather_code,wind_speed_10m&timezone=America/Maceio'
-        );
-        if (!res.ok) throw new Error('Weather fetch failed');
-        const json = await res.json();
-        const current = json.current;
-
-        const weather = {
-            temp: Math.round(current.temperature_2m),
-            wind: Math.round(current.wind_speed_10m),
-            code: current.weather_code,
-            icon: getWeatherIcon(current.weather_code),
-            desc: getWeatherDesc(current.weather_code)
-        };
-
-        try {
-            localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), weather }));
-        } catch (_) { /* ignora */ }
-
-        window._weatherData = weather;
-        reRenderBar();
-    } catch (_) { /* silencioso — barra funciona sem clima */ }
-}
-
-function reRenderBar() {
-    if (window._tideData) {
-        var barraEl = document.getElementById('barra-mare-info');
-        if (barraEl) renderTideBar(barraEl, window._tideData);
-    }
-}
-
-function getWeatherIcon(code) {
-    if (code === 0) return 'fa-sun';
-    if (code <= 3) return 'fa-cloud-sun';
-    if (code <= 48) return 'fa-smog';
-    if (code <= 67) return 'fa-cloud-rain';
-    if (code <= 77) return 'fa-snowflake';
-    if (code <= 99) return 'fa-bolt';
-    return 'fa-cloud';
-}
-
-function getWeatherDesc(code) {
-    var _t = function(k, fb) { return window.I18N ? window.I18N.t(k, fb) : fb; };
-    if (code === 0) return _t('weather.clear', 'C\u00e9u limpo');
-    if (code <= 2) return _t('weather.partly_cloudy', 'Parcialmente nublado');
-    if (code === 3) return _t('weather.cloudy', 'Nublado');
-    if (code <= 48) return _t('weather.fog', 'Neblina');
-    if (code <= 57) return _t('weather.drizzle', 'Garoa');
-    if (code <= 67) return _t('weather.rain', 'Chuva');
-    if (code <= 77) return _t('weather.snow', 'Neve');
-    if (code <= 99) return _t('weather.storm', 'Tempestade');
-    return _t('weather.cloudy', 'Nublado');
-}
 
 /* ----------------------------------------------------------------------------
  * Console Easter Egg

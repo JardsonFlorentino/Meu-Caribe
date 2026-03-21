@@ -25,6 +25,7 @@
             await this._loadLang(this.currentLang);
             this._apply();
             this._bindSelector();
+            this._bindStorageSync();
         },
 
         _detectLang: function () {
@@ -103,6 +104,22 @@
                     var lang = btn.getAttribute('data-lang');
                     if (lang === self.currentLang) return;
                     await self._loadLang(lang);
+                    self._apply();
+                });
+            });
+        },
+
+        _bindStorageSync: function () {
+            var self = this;
+            window.addEventListener('storage', function (e) {
+                if (!e || e.key !== 'meucaribe_lang') return;
+                if (!e.newValue) return;
+
+                var lang = String(e.newValue);
+                if (lang === self.currentLang) return;
+                if (self.supported.indexOf(lang) === -1) return;
+
+                self._loadLang(lang).then(function () {
                     self._apply();
                 });
             });

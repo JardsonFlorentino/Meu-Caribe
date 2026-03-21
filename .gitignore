@@ -1,0 +1,25 @@
+# Local env files (do not commit secrets)
+.env
+.env.local
+
+# Local logs
+*.log
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OCR outputs (generated)
+tools/ocr-out/
+tools/ocr-out-*/
+assets/data/*.draft.json
+
+# Tesseract traineddata (downloaded artifacts)
+*.traineddata

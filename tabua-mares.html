@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Tábua de marés de Maragogi-AL. Consulte os horários de maré baixa e alta para planejar seu passeio nas piscinas naturais com segurança.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://meucaribemaragogi.com.br/tabua-mares">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://meucaribemaragogi.com.br/tabua-mares">
+    <meta property="og:title" content="Tábua de Marés em Maragogi - Meu Caribe">
+    <meta property="og:description"
+        content="Confira os horários de maré baixa e alta em Maragogi. Planeje seu passeio nas piscinas naturais com segurança.">
+    <meta property="og:image" content="https://meucaribemaragogi.com.br/assets/img/imagem19.jpg">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tábua de Marés em Maragogi - Meu Caribe">
+    <meta name="twitter:description"
+        content="Confira os horários de maré baixa e alta em Maragogi. Planeje seu passeio nas piscinas naturais.">
+    <meta name="twitter:image" content="https://meucaribemaragogi.com.br/assets/img/imagem19.jpg">
+    <!-- SEO LocalBusiness JSON-LD -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Meu Caribe",
+            "image": "https://meucaribemaragogi.com.br/assets/img/logo.png",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Maragogi",
+                "addressLocality": "Maragogi",
+                "addressRegion": "AL",
+                "addressCountry": "BR"
+            },
+            "telephone": "+558181211006",
+            "email": "meucaribebrasileiro@gmail.com",
+            "url": "https://meucaribemaragogi.com.br/",
+            "priceRange": "R$",
+            "description": "Passeios de lancha, jet ski, banana boat e sofá boat em Maragogi-AL.",
+            "areaServed": "Maragogi, AL, Brasil",
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": -9.012222,
+                "longitude": -35.222778
+            },
+            "sameAs": [
+                "https://www.instagram.com/meucaribemaragogi?hl=pt-br",
+                "https://wa.me/558181211006"
+            ]
+        }
+        </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;700&family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+    <script src="i18n.js" defer></script>
+    <script src="script.js" defer></script>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title data-i18n="tide.title">Tábua de Marés - Meu Caribe</title>
+</head>
+
+<body class="pagina-mareas">
+
+    <a class="skip-link" href="#tabela-completa">Pular para a tabela de marés</a>
+
+    <div class="barra-topo">
+        <p id="barra-mare-info"><i class="fas fa-water"></i> <span data-i18n="topbar.loading">Carregando dados de
+                maré...</span></p>
+    </div>
+
+    <header>
+        <div class="header-left">
+            <a href="index.html">
+                <img src="./assets/img/logo.png" alt="Logo Meu Caribe">
+            </a>
+        </div>
+
+        <div class="header-right">
+            <nav id="nav-wrapper" role="navigation">
+                <ul>
+                    <li><a href="/" data-i18n="nav.home">Página Inicial</a></li>
+                    <li><a href="/passeios-lancha" data-i18n="nav.boat_tours">Passeios de Lancha</a></li>
+                    <li><a href="/aventura-aquatica" data-i18n="nav.water_adventure">Aventura Aquática</a></li>
+                    <li><a href="/tabua-mares" class="nav-ativo" data-i18n="nav.tide_table">Tábua de Marés</a>
+                    </li>
+                    <li><a href="/sobre" data-i18n="nav.about">Sobre Nós</a></li>
+                    <li><a href="/contato" data-i18n="nav.contact">Contato</a></li>
+                </ul>
+            </nav>
+            <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
+                rel="noopener noreferrer" class="btn-header-cta">
+                <i class="fab fa-whatsapp"></i> <span data-i18n="header.cta">Agende seu Passeio</span>
+            </a>
+            <div class="lang-selector">
+                <button class="lang-btn" data-lang="pt" title="Português"><img src="./assets/icons/flag-br.svg" alt="PT"
+                        width="22" height="22"></button>
+                <button class="lang-btn" data-lang="en" title="English"><img src="./assets/icons/flag-us.svg" alt="EN"
+                        width="22" height="22"></button>
+                <button class="lang-btn" data-lang="es" title="Español"><img src="./assets/icons/flag-es.svg" alt="ES"
+                        width="22" height="22"></button>
+            </div>
+            <button id="hamburger-btn" aria-label="Abrir menu de navegação" aria-expanded="false"
+                aria-controls="nav-wrapper">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO BANNER -->
+        <section id="banner-mareas">
+            <div class="banner-overlay"></div>
+            <div class="banner-conteudo fade-in">
+                <span class="banner-tag"><i class="fas fa-water"></i> <span data-i18n="tide.banner.tag">Planeje seu
+                        Passeio</span></span>
+                <h1><span data-i18n="tide.banner.h1">Tábua de</span><br><span class="texto-destaque"
+                        data-i18n="tide.banner.h1_highlight">Marés</span></h1>
+                <p data-i18n="tide.banner.description">Consulte os horários de maré baixa e alta de Maragogi para
+                    escolher os melhores dias e explorar as piscinas naturais com segurança.</p>
+                <div class="banner-botoes">
+                    <a href="#tabela-completa" class="btn-primario btn-pulse">
+                        <i class="fas fa-table"></i> <span data-i18n="tide.banner.btn_primary">Ver Tábua
+                            Completa</span>
+                    </a>
+                    <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
+                        rel="noopener noreferrer" class="btn-secundario">
+                        <i class="fab fa-whatsapp"></i> <span data-i18n="tide.banner.btn_secondary">Agendar</span>
+                    </a>
+                </div>
+            </div>
+            <div class="onda-hero">
+                <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                    <path d="M0,64 C360,120 720,0 1080,64 C1260,96 1380,80 1440,64 L1440,120 L0,120 Z" fill="#ffffff" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section id="faq-mareas" class="fade-in">
+            <div class="secao-cabecalho">
+                <span class="secao-tag" data-i18n="tide.faq.tag">Entenda as Marés</span>
+                <h2 data-i18n="tide.faq.h2">Perguntas Frequentes</h2>
+                <p class="secao-subtitulo" data-i18n="tide.faq.subtitle">Tudo o que você precisa saber sobre marés em
+                    Maragogi</p>
+            </div>
+
+            <div class="faq-item">
+                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> <span data-i18n="tide.faq.q1">O
+                        que é maré e por que ela muda?</span></h3>
+                <p class="faq-resposta" data-i18n="tide.faq.a1">As marés são variações naturais no nível do mar
+                    causadas principalmente pela influência gravitacional da Lua e do Sol. Esse fenômeno é
+                    absolutamente previsível e se repete diariamente, permitindo que você escolha o melhor momento
+                    para seu passeio!</p>
+            </div>
+
+            <div class="faq-item">
+                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> <span
+                        data-i18n="tide.faq.q2">Qual é o melhor momento para visitar as piscinas naturais?</span></h3>
+                <p class="faq-resposta" data-i18n="tide.faq.a2">A maré baixa é quando o nível da água desce,
+                    expondo mais as piscinas naturais de Maragogi. Porém, não é necessário esperar a maré MÍNIMA!
+                    Mesmo em marés médias (0.30m a 0.70m), as piscinas são absolutamente acessíveis, bonitas e seguras
+                    para passeios. Quanto mais baixa, mais pedras ficam expostas, mas em qualquer maré você terá uma
+                    experiência incrível!</p>
+            </div>
+
+            <div class="faq-item">
+                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> <span data-i18n="tide.faq.q3">E
+                        se a maré estiver alta?</span></h3>
+                <p class="faq-resposta" data-i18n="tide.faq.a3">Mesmo em marés altas (acima de 0.70m), o passeio
+                    continua excelente! A água fica mais profunda, permitindo explorar regiões diferentes, nadar em
+                    torno das pedras e apreciar a beleza das formações rochosas. Cada maré oferece uma experiência
+                    única!</p>
+            </div>
+
+            <div class="faq-item">
+                <h3 class="faq-pergunta"><i class="fas fa-chevron-right faq-icon"></i> <span
+                        data-i18n="tide.faq.q4">Como usar essa tabela para escolher meu melhor dia?</span></h3>
+                <p class="faq-resposta" data-i18n="tide.faq.a4">Consulte a tábua de marés e escolha um dia com a cor
+                    verde (maré baixa) se quiser explorar as pedras expostas, ou qualquer outro dia que se encaixe
+                    melhor na sua agenda. Todos os dias são bons para visitar Maragogi!</p>
+            </div>
+        </section>
+
+        <!-- TIDE TABLE SECTION -->
+        <section id="tabela-completa" class="fade-in">
+            <div class="secao-cabecalho">
+                <span class="secao-tag" data-i18n="tide.table.tag">Consulte a Tábua</span>
+                <h2 data-i18n="tide.table.h2">Tábua de Marés Completa</h2>
+                <p class="secao-subtitulo" data-i18n="tide.table.subtitle">Escolha o mês para ver os horários de maré
+                    baixa e alta</p>
+                <p class="secao-subtitulo fonte-oficial" data-i18n-html="tide.table.source">Fonte oficial: <a
+                        href="https://www.marinha.mil.br/chm/dados-do-segnav/tabelas-de-mares" target="_blank"
+                        rel="noopener noreferrer">Marinha do Brasil / CHM</a></p>
+            </div>
+
+            <!-- MONTH SELECTOR -->
+            <div class="meses-botoes mes-filter" role="tablist" aria-label="Meses do ano">
+                <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="janeiro"><span
+                        data-i18n="months.january">Janeiro</span></button>
+                <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="fevereiro"><span
+                        data-i18n="months.february">Fevereiro</span></button>
+                <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="marco"><span
+                        data-i18n="months.march">Março</span></button>
+                <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="abril"><span
+                        data-i18n="months.april">Abril</span></button>
+                <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="maio"><span
+                        data-i18n="months.may">Maio</span></button>
+                <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="junho"><span
+                        data-i18n="months.june">Junho</span></button>
+                <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="julho"><span
+                        data-i18n="months.july">Julho</span></button>
+                <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="agosto"><span
+                        data-i18n="months.august">Agosto</span></button>
+                <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="setembro"><span
+                        data-i18n="months.september">Setembro</span></button>
+                <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="outubro"><span
+                        data-i18n="months.october">Outubro</span></button>
+                <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="novembro"><span
+                        data-i18n="months.november">Novembro</span></button>
+                <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="dezembro"><span
+                        data-i18n="months.december">Dezembro</span></button>
+            </div>
+
+            <!-- TABLES CONTAINER -->
+            <div id="tabelas-container" class="tabelas-wrapper">
+                <p class="carregando"><i class="fas fa-spinner fa-spin"></i> Carregando dados...</p>
+            </div>
+        </section>
+
+        <!-- LEGEND SECTION -->
+        <section id="legenda-mareas" class="fade-in">
+            <div class="secao-cabecalho">
+                <span class="secao-tag" data-i18n="tide.legend.tag">Como Entender</span>
+                <h2 data-i18n="tide.legend.h2">Como Ler a Tabela e Entender as Cores</h2>
+            </div>
+
+            <div class="legenda-grid">
+                <div class="legenda-card" role="group" aria-label="Maré muito baixa: 0.00 a 0.35 metros">
+                    <div class="legenda-indicador verde" aria-hidden="true"><i class="fas fa-arrow-down"></i></div>
+                    <h3 data-i18n="tide.legend.green">Verde (0.00-0.35m)</h3>
+                    <p data-i18n="tide.legend.green_meaning">Maré MUITO baixa. Piscinas super expostas!</p>
+                </div>
+
+                <div class="legenda-card" role="group" aria-label="Maré média: 0.35 a 0.60 metros">
+                    <div class="legenda-indicador amarelo" aria-hidden="true"><i class="fas fa-arrow-right"></i></div>
+                    <h3 data-i18n="tide.legend.yellow">Amarelo (0.35-0.60m)</h3>
+                    <p data-i18n="tide.legend.yellow_meaning">Maré média. Perfeita para passeios em geral!</p>
+                </div>
+
+                <div class="legenda-card" role="group" aria-label="Maré alta: acima de 0.60 metros">
+                    <div class="legenda-indicador vermelho" aria-hidden="true"><i class="fas fa-arrow-up"></i></div>
+                    <h3 data-i18n="tide.legend.red">Vermelho (0.60m+)</h3>
+                    <p data-i18n="tide.legend.red_meaning">Maré alta. Sugerimos passeio de Orla.</p>
+                </div>
+            </div>
+
+            <div class="legenda-explicacao fade-in">
+                <h3 data-i18n="tide.legend.summary">Resumindo:</h3>
+                <p data-i18n="tide.legend.summary_desc">Use a tabela para escolher o horário que melhor se adapta a sua
+                    agenda. Não existe "hora errada" para visitar Maragogi - cada maré oferece uma experiência única!
+                </p>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section id="contato-final" class="fade-in mares">
+            <div class="contato-conteudo">
+                <i class="fas fa-water contato-icone" aria-hidden="true"></i>
+                <h2 data-i18n="tide.cta.h2">Escolha o Melhor Dia para sua Aventura!</h2>
+                <p data-i18n="tide.cta.description">Agora que você sabe como escolher o melhor dia pela maré, reserve
+                    seu passeio conosco e viva uma experiência inesquecível em Maragogi!</p>
+                <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio em Maragogi. Pode me ajudar?"
+                    target="_blank" rel="noopener noreferrer" class="btn-primario btn-pulse btn-grande">
+                    <i class="fab fa-whatsapp"></i> <span data-i18n="tide.cta.btn">Reservar Agora</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-box">
+            <div class="footer-col-1">
+                <a href="index.html" aria-label="Voltar à página inicial">
+                    <img src="./assets/img/logo2.png" alt="Logo Meu Caribe" class="footer-logo">
+                </a>
+                <p class="footer-descricao" data-i18n="footer.description">Seu paraíso particular nas águas cristalinas
+                    de Maragogi, Alagoas.</p>
+                <div class="rede-social" role="complementary" aria-label="Redes sociais">
+                    <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
+                        rel="noopener noreferrer" aria-label="Falar no WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.instagram.com/meucaribemaragogi?hl=en" target="_blank"
+                        rel="noopener noreferrer" aria-label="Seguir no Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-col-2">
+                <h3 data-i18n="footer.contact_title">Contato</h3>
+                <address>
+                    <p><i class="fas fa-phone" aria-hidden="true"></i> <span
+                            data-i18n="footer.phone_label">Telefone:</span>
+                        <a href="tel:+558181211006">81 9.8121-1006</a>
+                    </p>
+                    <p><i class="fas fa-envelope" aria-hidden="true"></i> <span
+                            data-i18n="footer.email_label">Email:</span>
+                        <a href="mailto:meucaribebrasileiro@gmail.com">meucaribebrasileiro@gmail.com</a>
+                    </p>
+                    <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <span
+                            data-i18n="footer.location">Atendimento:
+                            Maragogi-AL, Brasil</span></p>
+                </address>
+            </div>
+
+            <div class="footer-col-3">
+                <h3 data-i18n="footer.links_title">Links Rápidos</h3>
+                <nav role="navigation" aria-label="Links do rodapé" class="footer-links">
+                    <ul>
+                        <li><a href="/" data-i18n="nav.home">Página Inicial</a></li>
+                        <li><a href="/passeios-lancha" data-i18n="nav.boat_tours">Passeios de Lancha</a></li>
+                        <li><a href="/aventura-aquatica" data-i18n="nav.water_adventure">Aventura Aquática</a></li>
+                        <li><a href="/tabua-mares" data-i18n="nav.tide_table">Tábua de Marés</a></li>
+                        <li><a href="/sobre" data-i18n="nav.about">Sobre Nós</a></li>
+                        <li><a href="/contato" data-i18n="nav.contact">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footer.copyright">&copy;2026 Meu Caribe. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio em Maragogi."
+        class="whatsapp-flutuante" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
+        <span class="whatsapp-texto" data-i18n="whatsapp.text">Agende seu passeio!</span>
+        <i class="fab fa-whatsapp whatsapp-icon"></i>
+    </a>
+
+    <script>
+        // === TÁBUA DE MARÉS (OFFLINE) ===
+        // Sem imagens no site: carrega as tabelas prontas em /tabelas/<mes>.html
+
+        const MESES_KEYS = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+
+        function setMesAtivo(mesKey, focus = false) {
+            const tabs = Array.from(document.querySelectorAll('.mes-btn'));
+            tabs.forEach(b => {
+                b.classList.remove('ativo');
+                b.setAttribute('aria-selected', 'false');
+                b.setAttribute('tabindex', '-1');
+            });
+            const btn = document.querySelector(`.mes-btn[data-mes="${mesKey}"]`);
+            if (btn) {
+                btn.classList.add('ativo');
+                btn.setAttribute('aria-selected', 'true');
+                btn.setAttribute('tabindex', '0');
+                if (focus) btn.focus();
+            }
+        }
+
+        function ensureOfflineEmbedUI(container) {
+            if (container.querySelector('#tabela-iframe')) return;
+
+            const links = MESES_KEYS
+                .map((k) => `<a class="tabela-link" href="tabelas/${k}.html" target="_blank" rel="noopener noreferrer">${k}</a>`)
+                .join(' · ');
+
+            container.innerHTML = `
+                <div class="tide-status" id="tideStatus" role="status" aria-live="polite"></div>
+                <iframe id="tabela-iframe" class="tabela-iframe" title="Tabela de marés do mês" loading="lazy" style="min-height:320px;"></iframe>
+                <noscript>
+                    <p>Ative o JavaScript para alternar os meses aqui.</p>
+                    <p>${links}</p>
+                </noscript>
+            `;
+        }
+
+        function setStatus(container, text, isError) {
+            const el = container.querySelector('#tideStatus');
+            if (!el) return;
+            if (!text) {
+                el.style.display = 'none';
+                return;
+            }
+            el.style.display = 'block';
+            el.textContent = text;
+            el.classList.toggle('tide-status--error', Boolean(isError));
+        }
+
+        function renderizarMes(mesKey, focusTab = false) {
+            const container = document.getElementById('tabelas-container');
+            if (!container) return;
+            if (!MESES_KEYS.includes(mesKey)) return;
+
+            ensureOfflineEmbedUI(container);
+            setMesAtivo(mesKey, focusTab);
+
+            const iframe = container.querySelector('#tabela-iframe');
+            if (!iframe) return;
+
+            setStatus(container, 'Carregando tabela…', false);
+            iframe.src = `tabelas/${mesKey}.html`;
+        }
+
+        // Ajusta a altura do iframe com base no conteúdo (postMessage vindo da tabela)
+        window.addEventListener('message', (event) => {
+            const container = document.getElementById('tabelas-container');
+            const iframe = container ? container.querySelector('#tabela-iframe') : null;
+            // valida origem e fonte (evita aceitar mensagens de outros frames)
+            if (!event || !iframe || event.source !== iframe.contentWindow) return;
+            const data = event.data;
+            if (!data || data.type !== 'tabela-mares:height') return;
+            const h = Number(data.height);
+            if (!Number.isFinite(h) || h < 200) return;
+            if (iframe) {
+                const padded = Math.min(h + 24, 2600);
+                iframe.style.height = `${Math.max(padded, 320)}px`;
+            }
+            if (container) setStatus(container, '', false);
+        });
+
+        // Navegação por mês: clique + teclado (role=tablist)
+        const tablist = document.querySelector('[role="tablist"]');
+        if (tablist) {
+            const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+            tabs.forEach((btn, idx) => {
+                btn.addEventListener('click', function () {
+                    const mesKey = this.getAttribute('data-mes');
+                    renderizarMes(mesKey, true);
+                });
+
+                btn.addEventListener('keydown', function (e) {
+                    const currentIndex = tabs.indexOf(document.activeElement);
+                    if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        const next = tabs[(currentIndex + 1) % tabs.length];
+                        next.focus();
+                        next.click();
+                    } else if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        const prev = tabs[(currentIndex - 1 + tabs.length) % tabs.length];
+                        prev.focus();
+                        prev.click();
+                    } else if (e.key === 'Home') {
+                        e.preventDefault();
+                        tabs[0].focus();
+                        tabs[0].click();
+                    } else if (e.key === 'End') {
+                        e.preventDefault();
+                        tabs[tabs.length - 1].focus();
+                        tabs[tabs.length - 1].click();
+                    }
+                });
+            });
+        }
+
+        // Hamburger: acessibilidade e toggle
+        const hb = document.getElementById('hamburger-btn');
+        const navWrapper = document.getElementById('nav-wrapper');
+        if (hb && navWrapper) {
+            hb.addEventListener('click', () => {
+                const expanded = hb.getAttribute('aria-expanded') === 'true';
+                hb.setAttribute('aria-expanded', String(!expanded));
+                navWrapper.classList.toggle('ativo');
+                if (!expanded) {
+                    // abriu
+                    const firstLink = navWrapper.querySelector('a');
+                    if (firstLink) firstLink.focus();
+                } else {
+                    hb.focus();
+                }
+            });
+        }
+
+        // Move header controls (lang selector + CTA) into nav on small screens (<=900px)
+        (function () {
+            const LANG = document.querySelector('.lang-selector');
+            const CTA = document.querySelector('.btn-header-cta');
+            const headerRight = document.querySelector('.header-right');
+
+            function toNav(el) {
+                if (!el || !navWrapper) return;
+                // wrap element in li for the nav list
+                if (el.__moved) return; // already moved
+                const li = document.createElement('li');
+                li.className = 'nav-extra-item';
+                li.setAttribute('data-moved-from', 'header-right');
+                li.appendChild(el);
+                const ul = navWrapper.querySelector('ul');
+                if (ul) ul.appendChild(li);
+                el.__moved = li;
+            }
+
+            function fromNav(el) {
+                if (!el) return;
+                const marker = el.__moved;
+                if (!marker) return;
+                // restore to headerRight
+                if (headerRight) headerRight.appendChild(el);
+                marker.remove();
+                delete el.__moved;
+            }
+
+            function sync() {
+                try {
+                    const narrow = window.innerWidth <= 900;
+                    if (narrow) {
+                        toNav(LANG);
+                        toNav(CTA);
+                    } else {
+                        fromNav(LANG);
+                        fromNav(CTA);
+                    }
+                } catch (_) { }
+            }
+
+            window.addEventListener('resize', function () {
+                sync();
+            });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // run after initial render
+                sync();
+            });
+        })();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const mesAtual = MESES_KEYS[new Date().getMonth()];
+            renderizarMes(mesAtual);
+            // Ajusta estado ARIA inicial para o mês atual
+            setMesAtivo(mesAtual, false);
+        });
+    </script>
+
+</body>
+
+</html>
