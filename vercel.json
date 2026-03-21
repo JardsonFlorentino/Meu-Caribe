@@ -38,16 +38,7 @@
             "destination": "/",
             "permanent": true
         },
-        {
-            "source": "/:path*",
-            "has": [
-                {
-                    "type": "host",
-                    "value": "www.meucaribemaragogi.com.br"
-                }
-            ],
-            "destination": "https://meucaribemaragogi.com.br/:path*",
-            "permanent": true
-        }
     ]
+}
+]
 }
