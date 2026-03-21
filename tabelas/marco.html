@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-ano="2026" data-mes-index="2" data-mes-key="marco" data-titulo="Tábua de Marés - Março 2026"
+    data-local="Maragogi-AL">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tábua de Marés - Março 2026</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./calendario.css" />
+</head>
+
+<body>
+    <main class="mare-cal-wrap">
+        <div class="mare-cal-header">
+            <div>
+                <h2 id="mareCalTitle" class="mare-cal-title">Tábua de Marés</h2>
+                <p id="mareCalSubtitle" class="mare-cal-subtitle">Maragogi-AL</p>
+            </div>
+            <div class="mare-cal-hint" aria-label="Legenda rápida">
+                <span class="mare-cal-pill mare-cal-pill--verde"><span class="mare-cal-pillArrow"
+                        aria-hidden="true">↓</span>muito baixa</span>
+                <span class="mare-cal-pill mare-cal-pill--amarelo"><span class="mare-cal-pillArrow"
+                        aria-hidden="true">→</span>média</span>
+                <span class="mare-cal-pill mare-cal-pill--vermelho"><span class="mare-cal-pillArrow"
+                        aria-hidden="true">↑</span>alta</span>
+            </div>
+        </div>
+
+        <p id="mareCalStatus" class="mare-cal-status" role="status" aria-live="polite">Carregando dados…</p>
+
+        <div class="mare-cal-tableWrap" role="region" aria-label="Tábua de marés (formato compacto)" tabindex="0">
+            <table class="mare-cal-table" aria-label="Calendário de marés">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <div class="mare-cal-th">
+                                <div class="mare-cal-thDay">Segunda-feira</div>
+                                <div class="mare-cal-thSub" aria-hidden="true"><span>Hora</span><span>Altura</span>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="mare-cal-th">
+                                <div class="mare-cal-thDay">Terça-feira</div>
+                                <div class="mare-cal-thSub" aria-hidden="true"><span>Hora</span><span>Altura</span>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="mare-cal-th">
+                                <div class="mare-cal-thDay">Quarta-feira</div>
+                                <div class="mare-cal-thSub" aria-hidden="true"><span>Hora</span><span>Altura</span>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="mare-cal-th">
+                                <div class="mare-cal-thDay">Quinta-feira</div>
+                                <div class="mare-cal-thSub" aria-hidden="true"><span>Hora</span><span>Altura</span>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="mare-cal-th">
+                                <div class="mare-cal-thDay">Sexta-feira</div>
+                                <div class="mare-cal-thSub" aria-hidden="true"><span>Hora</span><span>Altura</span>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="mare-cal-th">
+                                <div class="mare-cal-thDay">Sábado</div>
+                                <div class="mare-cal-thSub" aria-hidden="true"><span>Hora</span><span>Altura</span>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="mare-cal-th">
+                                <div class="mare-cal-thDay">Domingo</div>
+                                <div class="mare-cal-thSub" aria-hidden="true"><span>Hora</span><span>Altura</span>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="mareCalBody"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="./calendario.js" defer></script>
+    <script src="./embed-height.js" defer></script>
+</body>
+
+</html>

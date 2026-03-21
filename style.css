@@ -757,6 +757,43 @@ img {
     transform: translateY(0);
 }
 
+/*
+   IMPORTANT:
+   `transform` (even translateY(0)) can break `background-attachment: fixed` rendering.
+   If a hero banner uses `.fade-in`, keep the fade via opacity but avoid transform.
+*/
+#banner.fade-in,
+#banner.fade-in.visivel,
+#banner-lancha.fade-in,
+#banner-lancha.fade-in.visivel,
+#banner-aventura.fade-in,
+#banner-aventura.fade-in.visivel,
+#banner-sobre.fade-in,
+#banner-sobre.fade-in.visivel,
+#banner-contato.fade-in,
+#banner-contato.fade-in.visivel,
+#banner-mareas.fade-in,
+#banner-mareas.fade-in.visivel {
+    transform: none !important;
+}
+
+/* Extra fallback: some browsers won't paint `background-attachment: fixed` when the element is being animated.
+   If a banner is using `.fade-in`, keep the image visible by switching attachment mode. */
+#banner.fade-in,
+#banner.fade-in.visivel,
+#banner-lancha.fade-in,
+#banner-lancha.fade-in.visivel,
+#banner-aventura.fade-in,
+#banner-aventura.fade-in.visivel,
+#banner-sobre.fade-in,
+#banner-sobre.fade-in.visivel,
+#banner-contato.fade-in,
+#banner-contato.fade-in.visivel,
+#banner-mareas.fade-in,
+#banner-mareas.fade-in.visivel {
+    background-attachment: scroll !important;
+}
+
 /* Staggered children animation */
 .fade-in.visivel .card-servico,
 .fade-in.visivel .card-passeio,
@@ -850,10 +887,10 @@ img {
     text-align: center;
     padding: 0.5rem 1rem;
     font-family: var(--font-subtitulo);
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    line-height: 1.5;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    line-height: 1.45;
 }
 
 .barra-topo p {
@@ -867,6 +904,10 @@ img {
 
 .barra-topo .tide-item {
     white-space: nowrap;
+}
+
+.barra-topo strong {
+    font-weight: 700;
 }
 
 .barra-topo .weather-item i {
@@ -892,6 +933,7 @@ header {
     background-color: var(--branco);
     padding: 0.6rem 2rem;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(30, 58, 138, 0.08);
@@ -906,8 +948,9 @@ header {
 }
 
 .header-left img {
-    height: 55px;
-    transition: transform 0.3s ease;
+    height: clamp(42px, 5vw, 55px);
+    max-height: 60px;
+    transition: transform 0.3s ease, height 0.2s ease;
 }
 
 .header-left img:hover {
@@ -917,13 +960,18 @@ header {
 .header-right {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.2rem;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    min-width: 0;
 }
 
 #nav-wrapper ul {
     list-style: none;
     display: flex;
     gap: 0.3rem;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 #nav-wrapper a {
@@ -1106,7 +1154,8 @@ header {
 #banner-lancha .banner-overlay,
 #banner-aventura .banner-overlay,
 #banner-sobre .banner-overlay,
-#banner-contato .banner-overlay {
+#banner-contato .banner-overlay,
+#banner-mareas .banner-overlay {
     background: linear-gradient(180deg, rgba(15, 23, 42, 0.65) 0%, rgba(30, 58, 138, 0.75) 100%);
 }
 
@@ -2063,6 +2112,56 @@ header {
     }
 }
 
+/* Header adjustments for narrow screens (tablet -> small desktop) */
+@media (max-width: 900px) {
+    header {
+        padding: 0.5rem 1rem;
+    }
+
+    .header-left img {
+        height: clamp(38px, 4.2vw, 50px);
+    }
+
+    /* show hamburger earlier and hide auxiliary controls to avoid crowding */
+    #hamburger-btn {
+        display: flex;
+    }
+
+    .btn-header-cta {
+        display: none;
+    }
+
+    .lang-selector {
+        display: none;
+    }
+
+    /* keep nav hidden until hamburger opens */
+    #nav-wrapper {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--branco);
+    }
+
+    #nav-wrapper.ativo {
+        display: block;
+    }
+
+    #nav-wrapper ul {
+        flex-direction: column;
+        padding: 0.6rem 0.8rem;
+        gap: 0;
+    }
+
+    #nav-wrapper a {
+        display: block;
+        padding: 0.7rem 0.9rem;
+        font-size: 0.95rem;
+    }
+}
+
     #nossa-historia {
         padding: 2.2rem 0.7rem 2.7rem;
     }
@@ -2128,6 +2227,17 @@ header {
 
     #nav-wrapper.ativo {
         display: block;
+    }
+
+    /* Ajustes do header para evitar sobreposição em telas pequenas */
+    .header-right {
+        gap: 0.6rem;
+        align-items: center;
+    }
+
+    /* Minimiza elementos que conflitam no cabeçalho móvel — serão acessíveis via menu */
+    .header-right .lang-selector {
+        display: none;
     }
 
     #nav-wrapper ul {
@@ -2295,7 +2405,8 @@ header {
     #banner-lancha,
     #banner-aventura,
     #banner-sobre,
-    #banner-contato {
+    #banner-contato,
+    #banner-mareas {
         background-attachment: scroll !important;
     }
 
@@ -2353,7 +2464,8 @@ header {
 #banner-lancha,
 #banner-aventura,
 #banner-sobre,
-#banner-contato {
+#banner-contato,
+#banner-mareas {
     position: relative;
     min-height: 85vh;
     display: flex;
@@ -2370,19 +2482,22 @@ header {
 #banner-aventura { background-image: url('./assets/img/jet8.jpg'); }
 #banner-sobre { background-image: url('./assets/img/lancha2.jpeg'); }
 #banner-contato { background-image: url('./assets/img/sobre.jpg'); }
+#banner-mareas { background-image: url('./assets/img/imagem19.jpg'); }
 
 /* Internal banner content animations */
 #banner-lancha .banner-conteudo,
 #banner-aventura .banner-conteudo,
 #banner-sobre .banner-conteudo,
-#banner-contato .banner-conteudo {
+#banner-contato .banner-conteudo,
+#banner-mareas .banner-conteudo {
     animation: fadeInUp 1s 0.2s both;
 }
 
 #banner-lancha h1,
 #banner-aventura h1,
 #banner-sobre h1,
-#banner-contato h1 {
+#banner-contato h1,
+#banner-mareas h1 {
     font-family: var(--font-titulo);
     font-size: clamp(2.5rem, 6vw, 4.5rem);
     line-height: 1.1;
@@ -2395,7 +2510,8 @@ header {
 #banner-lancha p,
 #banner-aventura p,
 #banner-sobre p,
-#banner-contato p {
+#banner-contato p,
+#banner-mareas p {
     font-size: clamp(1rem, 2vw, 1.2rem);
     margin-bottom: 2rem;
     opacity: 0.95;
@@ -2410,7 +2526,8 @@ header {
 #banner-lancha .banner-tag,
 #banner-aventura .banner-tag,
 #banner-sobre .banner-tag,
-#banner-contato .banner-tag {
+#banner-contato .banner-tag,
+#banner-mareas .banner-tag {
     background: rgba(255, 255, 255, 0.18);
     color: var(--branco);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -3437,6 +3554,16 @@ header {
     pointer-events: none;
 }
 
+#contato-final.mares::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('./assets/img/imagem19.jpg') center/cover no-repeat;
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+}
+
 
 #contato-final .contato-conteudo {
     position: relative;
@@ -3601,5 +3728,1105 @@ header {
     .discount-badge {
         font-size: 0.55rem;
         padding: 1px 5px;
+    }
+}
+/* ===================================================
+   TÁBUA DE MARÉS - ESTILOS ESPECÍFICOS
+   =================================================== */
+
+/* === SEÇÃO TÁBUA DE MARÉS === */
+.secao-tabua-mares {
+    padding: 4rem 1rem;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    min-height: 100vh;
+}
+
+.tabua-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tabua-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+    animation: slideDownFadeIn 0.8s ease-out;
+}
+
+.tabua-header h1 {
+    font-family: 'Bebas Neue', Arial, sans-serif;
+    font-size: clamp(2rem, 8vw, 3.2rem);
+    color: #0c4a6e;
+    margin: 0 0 0.8rem 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.tabua-header-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.tabua-header p {
+    font-size: 1.1rem;
+    color: #0369a1;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.6;
+}
+
+.info-marés {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.1);
+    border-left: 4px solid #0284c7;
+}
+
+.info-marés h3 {
+    color: #0c4a6e;
+    margin: 0 0 1rem 0;
+    font-size: 1.3rem;
+}
+
+.info-marés p {
+    color: #475569;
+    line-height: 1.7;
+    margin: 0.8rem 0;
+}
+
+.info-marés strong {
+    color: #0369a1;
+}
+
+/* === FILTRO DE MÊS === */
+.mes-filter {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+}
+
+.mes-btn {
+    padding: 0.7rem 1.2rem;
+    border: 2px solid #0284c7;
+    background: white;
+    color: #0284c7;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.mes-btn:hover {
+    background: #e0f2fe;
+    transform: translateY(-2px);
+}
+
+.mes-btn.ativo {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+}
+
+/* === TABELA DE MARÉS === */
+.tabela-wrapper {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(2, 132, 199, 0.15);
+    margin-bottom: 2rem;
+}
+
+.tabela-titulo {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: white;
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+
+.tabela-titulo h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-family: 'Bebas Neue', Arial, sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.tabela-mares {
+    width: 100%;
+    border-collapse: collapse;
+    overflow-x: auto;
+}
+
+.tabela-mares thead {
+    background: #f1f5f9;
+    border-bottom: 3px solid #0284c7;
+}
+
+.tabela-mares th {
+    padding: 1.2rem;
+    text-align: left;
+    color: #0c4a6e;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+}
+
+.tabela-mares td {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #475569;
+}
+
+.tabela-mares tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.tabela-mares tbody tr:hover {
+    background-color: #f0f9ff;
+}
+
+.tabela-mares tbody tr:nth-child(odd) {
+    background-color: #f8fafc;
+}
+
+.dia-coluna {
+    font-weight: 600;
+    color: #0369a1;
+    width: 60px;
+}
+
+.hora-celula {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: #0284c7;
+}
+
+.altura-baixa {
+    color: #10b981;
+    font-weight: 600;
+}
+
+.altura-alta {
+    color: #f59e0b;
+    font-weight: 600;
+}
+
+.altura-media {
+    color: #6366f1;
+    font-weight: 600;
+}
+
+.nivel-indicador {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+}
+
+.nivel-baixa {
+    background: #10b981;
+}
+
+.nivel-alta {
+    background: #f59e0b;
+}
+
+.nivel-media {
+    background: #6366f1;
+}
+
+/* === LEGENDA === */
+.tabua-legenda {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-top: 2rem;
+    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.1);
+}
+
+.tabua-legenda h3 {
+    color: #0c4a6e;
+    margin: 0 0 1.5rem 0;
+    font-size: 1.2rem;
+}
+
+.legenda-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.legenda-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.legenda-item strong {
+    color: #0369a1;
+    min-width: 80px;
+}
+
+.legenda-item p {
+    color: #64748b;
+    margin: 0;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+/* === DICA IMPORTANTE === */
+.dica-importante {
+    background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+    border-left: 4px solid #0284c7;
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 2.5rem 0;
+}
+
+.dica-importante h4 {
+    color: #0369a1;
+    margin: 0 0 0.8rem 0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.dica-importante p {
+    color: #0c4a6e;
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+/* === RESPONSIVO TÁBUA DE MARÉS === */
+@media (max-width: 768px) {
+    .secao-tabua-mares {
+        padding: 2.5rem 0.8rem;
+    }
+
+    .tabua-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .tabela-mares {
+        font-size: 0.85rem;
+    }
+
+    .tabela-mares th,
+    .tabela-mares td {
+        padding: 0.8rem 0.6rem;
+    }
+
+    .mes-filter {
+        gap: 0.6rem;
+    }
+
+    .mes-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .info-marés {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .dica-importante {
+        padding: 1.5rem;
+    }
+}
+
+/* === SEÇÃO PERGUNTAS E RESPOSTAS (FAQ) === */
+.faq-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(14, 165, 233, 0.15);
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.faq-item h4 {
+    color: var(--azul-profundo);
+    font-family: var(--font-subtitulo);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.7rem;
+    letter-spacing: 0.5px;
+}
+
+.faq-item p {
+    color: var(--texto-corpo);
+}
+
+/* Accessibility helpers */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+.skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+    width: auto;
+    height: auto;
+    padding: 0.5rem 1rem;
+    background: var(--branco);
+    color: var(--azul-profundo);
+    border: 2px solid var(--turquesa);
+    border-radius: 6px;
+    z-index: 9999;
+}
+
+/* Focus visible for interactive controls */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid rgba(14,165,233,0.22);
+    outline-offset: 3px;
+}
+
+/* Tabs (meses) focus and selected states */
+.mes-btn[role="tab"] {
+    transition: box-shadow 0.18s, transform 0.18s;
+}
+.mes-btn[role="tab"][aria-selected="true"] {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(2,132,199,0.28);
+}
+.mes-btn[role="tab"]:focus-visible {
+    box-shadow: 0 0 0 4px rgba(14,165,233,0.12);
+}
+
+/* Hamburger focus */
+#hamburger-btn:focus-visible {
+    box-shadow: 0 0 0 4px rgba(14,165,233,0.12);
+    border-radius: 8px;
+}
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+/* === LEGENDA COM CORES === */
+.legenda-colors-list {
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.legenda-colors-list li {
+    margin-bottom: 0.5rem;
+}
+
+.legenda-colors-list span {
+    font-weight: 700;
+    display: inline-block;
+    min-width: 200px;
+}
+
+.color-verde {
+    color: #10b981;
+}
+
+.color-roxo {
+    color: #6366f1;
+}
+
+.color-laranja {
+    color: #f59e0b;
+}
+
+/* === CAIXA DE RESUMO/DICA === */
+.legenda-summary {
+    margin-top: 1.5rem;
+    padding: 1.2rem 1.5rem;
+    background: rgba(3, 136, 203, 0.06);
+    border-left: 4px solid var(--turquesa);
+    border-radius: 0.5rem;
+}
+
+.legenda-summary p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--texto-corpo);
+    line-height: 1.6;
+}
+
+.legenda-summary strong {
+    color: var(--azul-profundo);
+}
+
+@media (max-width: 600px) {
+    .tabela-wrapper {
+        overflow-x: auto;
+    }
+
+    .tabela-mares {
+        min-width: 500px;
+    }
+
+    .faq-item h4 {
+        font-size: 1rem;
+    }
+
+    .legenda-colors-list span {
+        min-width: auto;
+        display: block;
+        margin-bottom: 0.3rem;
+    }
+}
+
+/* ===================================================
+   PAGINA TABUA DE MARES - PADRAO VISUAL
+   =================================================== */
+body.pagina-mareas #banner-mareas {
+    /* Usa o mesmo padrão visual dos banners internos (ver bloco “PÁGINAS INTERNAS — PREMIUM OVERRIDES”). */
+    padding: 0;
+}
+
+body.pagina-mareas #faq-mareas,
+body.pagina-mareas #tabela-completa,
+body.pagina-mareas #legenda-mareas {
+    padding: var(--secao-padding);
+    max-width: var(--container-max);
+    margin: 0 auto;
+}
+
+body.pagina-mareas #faq-mareas {
+    max-width: 800px;
+}
+
+body.pagina-mareas .meses-botoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin: 2.2rem 0;
+}
+
+body.pagina-mareas .mes-btn {
+    padding: 0.7rem 1.25rem;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+body.pagina-mareas .mes-btn:hover {
+    border-color: #38bdf8;
+    color: #0284c7;
+    transform: translateY(-1px);
+}
+
+body.pagina-mareas .mes-btn.ativo {
+    background: var(--grad-cta);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 10px 24px rgba(14, 165, 233, 0.28);
+}
+
+body.pagina-mareas .mes-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+body.pagina-mareas .tabelas-wrapper {
+    margin-top: 1.2rem;
+    border-radius: calc(var(--border-radius) + 6px);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(240, 249, 255, 0.92));
+    border: 1px solid rgba(14, 165, 233, 0.12);
+    box-shadow: 0 24px 65px rgba(30, 58, 138, 0.08), 0 6px 18px rgba(14, 165, 233, 0.08);
+    padding: 1rem;
+}
+
+body.pagina-mareas .tabelas-mes {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: var(--sombra-card);
+    overflow: auto;
+    border: 2px solid rgba(14, 165, 233, 0.16);
+}
+
+body.pagina-mareas .tabelas-mes table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+body.pagina-mareas .tabelas-mes thead {
+    background: var(--grad-primario);
+}
+
+body.pagina-mareas .tabelas-mes th {
+    padding: 1rem;
+    text-align: left;
+    color: var(--branco);
+    font-size: 0.92rem;
+    font-weight: 800;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+body.pagina-mareas .tabelas-mes td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid rgba(14, 165, 233, 0.10);
+    color: var(--texto-corpo);
+}
+
+body.pagina-mareas .tabelas-mes td strong {
+    color: var(--azul-profundo);
+}
+
+body.pagina-mareas .mare-hora-stack,
+body.pagina-mareas .mare-altura-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+body.pagina-mareas .mare-hora-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+body.pagina-mareas .mare-hora-item i {
+    font-size: 0.85em;
+    opacity: 0.9;
+}
+
+body.pagina-mareas .tabelas-mes tbody tr:nth-child(even) {
+    background: var(--cinza-claro);
+}
+
+body.pagina-mareas .tabelas-mes tbody tr:hover {
+    background: rgba(14, 165, 233, 0.08);
+}
+
+body.pagina-mareas .altura {
+    display: inline-block;
+    min-width: 64px;
+    padding: 0.38rem 0.64rem;
+    border-radius: 999px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 0.88rem;
+    border: 1px solid rgba(15, 23, 42, 0.10);
+}
+
+body.pagina-mareas .altura.baixa {
+    background: #dcfce7;
+    color: #166534;
+}
+
+body.pagina-mareas .altura.media {
+    background: rgba(245, 158, 11, 0.18);
+    color: #92400e;
+}
+
+body.pagina-mareas .altura.alta {
+    background: rgba(185, 28, 28, 0.12);
+    color: #b91c1c;
+}
+
+body.pagina-mareas .altura.muito-baixa {
+    border-color: rgba(22, 101, 52, 0.35);
+    box-shadow: 0 0 0 4px rgba(22, 101, 52, 0.10);
+}
+
+body.pagina-mareas .erro-mare {
+    padding: 1.2rem 1rem;
+    text-align: center;
+    font-weight: 700;
+    color: var(--texto-corpo);
+}
+
+body.pagina-mareas .legenda-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.4rem;
+    margin: 2rem 0;
+}
+
+body.pagina-mareas .legenda-card {
+    padding: 1.8rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    text-align: center;
+    background: #ffffff;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+body.pagina-mareas .legenda-card:hover {
+    transform: translateY(-4px);
+    border-color: #7dd3fc;
+    box-shadow: 0 16px 28px rgba(14, 165, 233, 0.15);
+}
+
+body.pagina-mareas .legenda-indicador {
+    width: 74px;
+    height: 74px;
+    border-radius: 18px;
+    margin: 0 auto 1rem;
+    display: grid;
+    place-items: center;
+    border: 2px solid rgba(15, 23, 42, 0.10);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+body.pagina-mareas .legenda-indicador i {
+    font-size: 1.65rem;
+}
+
+body.pagina-mareas .legenda-indicador.verde {
+    background: #dcfce7;
+    color: #166534;
+    border-color: rgba(22, 101, 52, 0.25);
+}
+
+body.pagina-mareas .legenda-indicador.amarelo {
+    background: rgba(245, 158, 11, 0.18);
+    color: #92400e;
+    border-color: rgba(245, 158, 11, 0.28);
+}
+
+body.pagina-mareas .legenda-indicador.vermelho {
+    background: rgba(185, 28, 28, 0.12);
+    color: #b91c1c;
+    border-color: rgba(185, 28, 28, 0.22);
+}
+
+body.pagina-mareas .legenda-card h3 {
+    color: #1e293b;
+    margin: 0 0 0.4rem;
+}
+
+body.pagina-mareas .legenda-card p {
+    color: #475569;
+    margin: 0;
+}
+
+body.pagina-mareas .legenda-explicacao {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.10), rgba(255, 255, 255, 0.92));
+    border: 1px solid rgba(14, 165, 233, 0.16);
+    border-left: 4px solid #0ea5e9;
+    padding: 1.6rem;
+    border-radius: 12px;
+    margin-top: 1.2rem;
+    box-shadow: 0 14px 30px rgba(30, 58, 138, 0.10);
+}
+
+body.pagina-mareas .legenda-explicacao h3 {
+    margin-top: 0;
+    color: #1e3a8a;
+}
+
+/* Ajustes de proporção — FAQ da página de marés */
+body.pagina-mareas #faq-mareas .faq-item {
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.7rem;
+}
+
+body.pagina-mareas #faq-mareas .faq-item:hover {
+    transform: none;
+}
+
+body.pagina-mareas #faq-mareas .faq-pergunta {
+    line-height: 1.25;
+}
+
+body.pagina-mareas #faq-mareas .faq-item.ativo .faq-resposta {
+    max-height: 900px;
+}
+
+body.pagina-mareas .carregando {
+    text-align: center;
+    color: #64748b;
+    padding: 2rem;
+    font-size: 1.05rem;
+}
+
+/* Tabela de Marés — layout compacto (ref. imagem) */
+body.pagina-mareas .tide-table {
+    background: #ffffff;
+    border: 1px solid #e0e7ef;
+    border-radius: 16px;
+    padding: 1rem;
+}
+
+body.pagina-mareas .tide-table__title {
+    margin: 0 0 0.85rem 0;
+    text-align: center;
+    color: var(--azul-profundo, #1e3a8a);
+    font-weight: 900;
+    font-size: 1.25rem;
+}
+
+body.pagina-mareas .tide-table__scroller {
+    width: 100%;
+}
+
+body.pagina-mareas .tide-table__image {
+    width: 100%;
+    margin: 0 0 0.85rem 0;
+}
+
+body.pagina-mareas .tide-month-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid #e0e7ef;
+    border-radius: 12px;
+}
+
+body.pagina-mareas .tide-table__pdf {
+    text-align: center;
+    margin: 0 0 0.85rem 0;
+}
+
+body.pagina-mareas .tide-pdf-link {
+    color: var(--azul-profundo, #1e3a8a);
+    font-weight: 800;
+    text-decoration: underline;
+}
+
+body.pagina-mareas table.tide-week {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 6px;
+    table-layout: fixed;
+}
+
+body.pagina-mareas table.tide-week th {
+    background: #ffffff;
+    border: 1px solid #e0e7ef;
+    border-radius: 12px;
+    padding: 0.55rem 0.45rem;
+    font-size: 0.78rem;
+    font-weight: 900;
+    color: #0f172a;
+    text-align: center;
+}
+
+body.pagina-mareas .tide-cell {
+    background: #ffffff;
+    border: 1px solid #e0e7ef;
+    border-radius: 12px;
+    padding: 0.35rem 0.35rem 0.45rem 0.35rem;
+    text-align: center;
+    color: #0f172a;
+    vertical-align: top;
+}
+
+body.pagina-mareas .tide-cell--empty {
+    background: #ffffff;
+    border: 1px solid #f1f5f9;
+    opacity: 0.55;
+}
+
+body.pagina-mareas .tide-cell__day {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #64748b;
+    text-align: left;
+    margin-bottom: 0.15rem;
+}
+
+body.pagina-mareas .tide-cell__time {
+    font-size: 0.92rem;
+    font-weight: 900;
+    line-height: 1.05;
+    color: #0f172a;
+}
+
+body.pagina-mareas .tide-cell__height {
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1.05;
+    color: #0f172a;
+}
+
+body.pagina-mareas .tide-table__legends {
+    margin-top: 0.85rem;
+    display: grid;
+    gap: 0.35rem;
+    color: #0f172a;
+    font-size: 0.92rem;
+}
+
+body.pagina-mareas .tide-legend-line {
+    padding: 0.55rem 0.7rem;
+    border: 1px solid #e0e7ef;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+/* Calendário de Marés */
+body.pagina-mareas .tide-status {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(14, 165, 233, 0.16);
+    color: var(--texto-corpo);
+    font-weight: 700;
+}
+
+body.pagina-mareas .tide-status--error {
+    background: rgba(185, 28, 28, 0.10);
+    border-color: rgba(185, 28, 28, 0.22);
+}
+
+/* Tábua de Marés (offline) — embed das tabelas em /tabelas/*.html */
+body.pagina-mareas .tabela-iframe {
+    width: 100%;
+    border: 0;
+    display: block;
+    border-radius: 16px;
+    background: var(--branco);
+    box-shadow: var(--sombra-card);
+    min-height: 320px;
+}
+
+body.pagina-mareas .tabela-link {
+    color: var(--azul-profundo, #1e3a8a);
+    font-weight: 800;
+    text-decoration: underline;
+    text-transform: capitalize;
+}
+
+body.pagina-mareas .tide-calendar {
+    display: grid;
+    gap: 0.75rem;
+}
+
+body.pagina-mareas .tide-calendar__head,
+body.pagina-mareas .tide-calendar__grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(140px, 1fr));
+    gap: 0.75rem;
+}
+
+body.pagina-mareas .tide-dow {
+    padding: 0.85rem 0.9rem;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(14, 165, 233, 0.14);
+    color: var(--azul-profundo);
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+}
+
+body.pagina-mareas .tide-day {
+    min-height: 118px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(14, 165, 233, 0.14);
+    box-shadow: var(--sombra-card);
+    padding: 0.85rem;
+}
+
+body.pagina-mareas .tide-day--empty {
+    background: rgba(255, 255, 255, 0.55);
+    border-style: dashed;
+    opacity: 0.7;
+}
+
+body.pagina-mareas .tide-day__top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+body.pagina-mareas .tide-day__num {
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--azul-profundo);
+}
+
+body.pagina-mareas .tide-events {
+    display: grid;
+    gap: 0.5rem;
+}
+
+body.pagina-mareas .tide-event {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.65rem;
+    border-radius: 14px;
+    background: rgba(14, 165, 233, 0.06);
+    border: 1px solid rgba(14, 165, 233, 0.10);
+}
+
+body.pagina-mareas .tide-event--high {
+    border-color: rgba(245, 158, 11, 0.22);
+    background: rgba(245, 158, 11, 0.08);
+}
+
+body.pagina-mareas .tide-event--low {
+    border-color: rgba(34, 197, 94, 0.22);
+    background: rgba(34, 197, 94, 0.08);
+}
+
+body.pagina-mareas .tide-event--none {
+    opacity: 0.9;
+}
+
+body.pagina-mareas .tide-pill {
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    border: 1px solid rgba(15, 23, 42, 0.10);
+}
+
+body.pagina-mareas .tide-pill--high {
+    background: rgba(245, 158, 11, 0.18);
+    color: #92400e;
+}
+
+body.pagina-mareas .tide-pill--low {
+    background: rgba(34, 197, 94, 0.18);
+    color: #166534;
+}
+
+body.pagina-mareas .tide-time {
+    font-weight: 900;
+    color: var(--azul-profundo);
+}
+
+body.pagina-mareas .tide-height {
+    font-weight: 900;
+    color: var(--texto-corpo);
+}
+
+body.pagina-mareas .tide-calendar__footer {
+    margin-top: 0.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+body.pagina-mareas .tide-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+body.pagina-mareas .tide-legend__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(14, 165, 233, 0.12);
+    color: var(--texto-corpo);
+    font-weight: 700;
+}
+
+body.pagina-mareas .tide-copyright {
+    color: #64748b;
+    font-size: 0.82rem;
+}
+
+@media (max-width: 900px) {
+    body.pagina-mareas .tabelas-mes {
+        overflow-x: auto;
+    }
+
+    body.pagina-mareas .tabelas-mes table {
+        min-width: 620px;
+    }
+
+    body.pagina-mareas .tide-calendar {
+        overflow-x: auto;
+        padding-bottom: 6px;
+    }
+
+    body.pagina-mareas .tide-calendar__head,
+    body.pagina-mareas .tide-calendar__grid {
+        min-width: 980px;
+    }
+}
+
+@media (max-width: 700px) {
+    /* Mobile: empilha vertical */
+    body.pagina-mareas .tide-table {
+        padding: 0.75rem;
+    }
+
+    body.pagina-mareas table.tide-week,
+    body.pagina-mareas table.tide-week thead,
+    body.pagina-mareas table.tide-week tbody,
+    body.pagina-mareas table.tide-week th,
+    body.pagina-mareas table.tide-week tr,
+    body.pagina-mareas table.tide-week td {
+        display: block;
+        width: 100%;
+    }
+
+    body.pagina-mareas table.tide-week thead {
+        display: none;
+    }
+
+    body.pagina-mareas table.tide-week tr {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+        margin-bottom: 6px;
+    }
+
+    body.pagina-mareas .tide-cell {
+        text-align: left;
+        padding: 0.55rem 0.65rem;
+    }
+
+    body.pagina-mareas .tide-cell__time,
+    body.pagina-mareas .tide-cell__height {
+        display: inline-block;
+        min-width: 84px;
+    }
+}
+
+@media (max-width: 600px) {
+    body.pagina-mareas .mes-btn {
+        font-size: 0.84rem;
+        padding: 0.56rem 0.95rem;
+    }
+
+    body.pagina-mareas .legenda-card {
+        padding: 1.4rem;
     }
 }

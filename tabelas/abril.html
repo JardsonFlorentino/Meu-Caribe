@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-ano="2026" data-mes-index="3" data-mes-key="abril" data-titulo="Tábua de Marés - Abril 2026"
+    data-local="Maragogi-AL">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tábua de Marés - Abril 2026</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./calendario.css" />
+</head>
+
+<body>
+    <main class="mare-cal-wrap">
+        <div class="mare-cal-header">
+            <div>
+                <h2 id="mareCalTitle" class="mare-cal-title" data-i18n="tide.calendar.title">Tábua de Marés</h2>
+                <p id="mareCalSubtitle" class="mare-cal-subtitle">Maragogi-AL</p>
+            </div>
+            <div class="mare-cal-hint" aria-label="Legenda rápida">
+                <span class="mare-cal-pill mare-cal-pill--verde"><span class="mare-cal-pillArrow"
+                        aria-hidden="true">↓</span><span data-i18n="tide.calendar.pill.very_low">muito
+                        baixa</span></span>
+                <span class="mare-cal-pill mare-cal-pill--amarelo"><span class="mare-cal-pillArrow"
+                        aria-hidden="true">→</span><span data-i18n="tide.calendar.pill.medium">média</span></span>
+                <span class="mare-cal-pill mare-cal-pill--vermelho"><span class="mare-cal-pillArrow"
+                        aria-hidden="true">↑</span><span data-i18n="tide.calendar.pill.high">alta</span></span>
+            </div>
+        </div>
+
+        <p id="mareCalStatus" class="mare-cal-status" role="status" aria-live="polite"
+            data-i18n="tide.calendar.loading">Carregando dados…</p>
+
+        <div class="mare-cal-tableWrap" role="region" aria-label="Tábua de marés (formato tradicional)" tabindex="0">
+            <table class="mare-cal-table" aria-label="Calendário de marés">
+                <thead>
+                    <tr>
+                        <th scope="col">Dia</th>
+                        <th scope="col">Baixa 1</th>
+                        <th scope="col">Alta 1</th>
+                        <th scope="col">Baixa 2</th>
+                        <th scope="col">Alta 2</th>
+                    </tr>
+                </thead>
+                <tbody id="mareCalBody"></tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <script src="../i18n.js" defer></script>
+    <script src="./calendario.js" defer></script>
+    <script src="./embed-height.js" defer></script>
+</body>
+
+</html>

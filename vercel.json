@@ -1,5 +1,11 @@
 {
+    "cleanUrls": true,
+    "trailingSlash": false,
     "rewrites": [
+        {
+            "source": "/",
+            "destination": "/index.html"
+        },
         {
             "source": "/passeios-lancha",
             "destination": "/passeios-lancha.html"
@@ -15,6 +21,33 @@
         {
             "source": "/contato",
             "destination": "/contato.html"
+        },
+        {
+            "source": "/tabua-mares",
+            "destination": "/tabua-mares.html"
+        }
+    ],
+    "redirects": [
+        {
+            "source": "/:path*.html",
+            "destination": "/:path*",
+            "permanent": true
+        },
+        {
+            "source": "/index.html",
+            "destination": "/",
+            "permanent": true
+        },
+        {
+            "source": "/:path*",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "www.meucaribemaragogi.com.br"
+                }
+            ],
+            "destination": "https://meucaribemaragogi.com.br/:path*",
+            "permanent": true
         }
     ]
 }
