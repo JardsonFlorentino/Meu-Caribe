@@ -57,11 +57,6 @@
             "source": "/tabua-mares.html",
             "destination": "/tabua-mares",
             "permanent": true
-        },
-        {
-            "source": "/www.meucaribemaragogi.com.br/",
-            "destination": "https://meucaribemaragogi.com.br/",
-            "permanent": true
         }
     ]
 }
