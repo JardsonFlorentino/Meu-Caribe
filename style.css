@@ -236,6 +236,12 @@
     white-space: nowrap;
     flex-shrink: 0;
 }
+
+.price-box a,
+a.price-box {
+    text-decoration: none;
+    color: inherit;
+}
 .price-box .price-old {
     display: flex;
     align-items: baseline;
@@ -2756,6 +2762,11 @@ header {
     color: var(--azul-profundo);
     white-space: nowrap;
     flex-shrink: 0;
+}
+
+a.preco-valor {
+    text-decoration: none;
+    color: inherit;
 }
 
 .passeio-obs {
