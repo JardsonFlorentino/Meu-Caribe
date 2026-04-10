@@ -271,15 +271,9 @@ function main() {
       let typed = [];
 
       if (userEvents && userEvents.length) {
-        // User events already typed.
+        // Se o usuário informou o dia no TXT, usa exatamente os eventos do TXT.
+        // Isso evita que ruídos do OCR alterem horários/alturas oficiais.
         typed = userEvents;
-
-        // Fill missing with draft events when possible.
-        const times = new Set(typed.map(e => e.time));
-        const inferred = inferTypesByAlternation(draftEvents);
-        for (const ev of inferred) {
-          if (!times.has(ev.time)) typed.push(ev);
-        }
       } else {
         // No user line for this day: infer from draft.
         typed = inferTypesByAlternation(draftEvents);

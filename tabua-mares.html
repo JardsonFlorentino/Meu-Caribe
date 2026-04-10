@@ -211,13 +211,6 @@
                         rel="noopener noreferrer">Marinha do Brasil / CHM</a></p>
             </div>
 
-            <!-- YEAR SELECTOR -->
-            <div class="ano-filter" role="group" data-i18n-aria-label="tide.year.selector_aria"
-                aria-label="Anos disponíveis">
-                <button class="ano-btn" type="button" data-ano="2026" aria-pressed="false">2026</button>
-                <button class="ano-btn" type="button" data-ano="2027" aria-pressed="false">2027</button>
-            </div>
-
             <!-- MONTH SELECTOR -->
             <div class="meses-botoes mes-filter" role="tablist" aria-label="Meses do ano">
                 <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="janeiro"><span
@@ -370,7 +363,7 @@
         // Sem imagens no site: carrega as tabelas prontas em /tabelas/<mes>.html
 
         const MESES_KEYS = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
-        const ANOS_DISPONIVEIS = [2026, 2027];
+        const ANOS_DISPONIVEIS = [2026];
         let anoAtivo = 2026;
         let mesAtivo = MESES_KEYS[new Date().getMonth()];
 
