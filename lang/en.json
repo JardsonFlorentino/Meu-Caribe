@@ -278,6 +278,8 @@
     "tide.table.h2": "Complete Tide Table",
     "tide.table.subtitle": "Choose a month to view low and high tide times",
     "tide.table.loading": "Loading data...",
+    "tide.year.selector_aria": "Available years",
+    "tide.year.loading_prefix": "Loading table for",
     "tide.table.day": "Day",
     "tide.table.low_time": "Low Tide",
     "tide.table.high_time": "High Tide",

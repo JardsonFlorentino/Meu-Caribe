@@ -73,7 +73,13 @@
 
   function getConfig() {
     var root = document.documentElement;
-    var year = Number(root.getAttribute('data-ano')) || new Date().getFullYear();
+    var rootYear = Number(root.getAttribute('data-ano'));
+    var queryYear = NaN;
+    try {
+      var p = new URLSearchParams(window.location.search || '');
+      queryYear = Number(p.get('ano'));
+    } catch (_) { }
+    var year = Number.isFinite(queryYear) && queryYear >= 2000 ? queryYear : (Number.isFinite(rootYear) ? rootYear : new Date().getFullYear());
     var monthIndex = Number(root.getAttribute('data-mes-index')) || 0;
     var monthKey = String(root.getAttribute('data-mes-key') || '').trim();
     var title = String(root.getAttribute('data-titulo') || '').trim();
@@ -194,8 +200,11 @@
     return h * 60 + min;
   }
 
-  async function loadMonthData(monthKey) {
-    var res = await fetch('../assets/data/mare-maragogi.json', { cache: 'no-store' });
+  async function loadMonthData(year, monthKey) {
+    var file = 'mare-maragogi.json';
+    if (Number(year) === 2027) file = 'mare-maragogi-2027.json';
+
+    var res = await fetch('../assets/data/' + file, { cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var json = await res.json();
 
@@ -491,7 +500,7 @@
     setStatusKey('tide.calendar.loading', 'Carregando dados…');
 
     try {
-      var monthDays = await loadMonthData(config.monthKey);
+      var monthDays = await loadMonthData(config.year, config.monthKey);
       if (!monthDays.length) {
         setStatusKey('tide.calendar.no_data', 'Dados não disponíveis para este mês.');
         return;

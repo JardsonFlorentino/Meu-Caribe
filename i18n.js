@@ -85,6 +85,12 @@
                 if (val) el.placeholder = val;
             });
 
+            // data-i18n-aria-label
+            document.querySelectorAll('[data-i18n-aria-label]').forEach(function (el) {
+                var val = self.translations[el.getAttribute('data-i18n-aria-label')];
+                if (val) el.setAttribute('aria-label', val);
+            });
+
             // Save preference
             localStorage.setItem('meucaribe_lang', this.currentLang);
 
