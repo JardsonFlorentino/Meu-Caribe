@@ -550,11 +550,6 @@ async function fetchJsonWithTimeout(url, timeoutMs) {
     }
 }
 
-function isLocalDevHost() {
-    const h = window.location.hostname;
-    return h === 'localhost' || h === '127.0.0.1' || h === '0.0.0.0';
-}
-
 function mapOpenMeteoWeatherCode(code) {
     const c = Number(code);
     if (Number.isNaN(c)) return 'cloudy';
@@ -642,51 +637,6 @@ async function fetchTideFromLocalJson(dateStr) {
     return tides.length ? tides : null;
 }
 
-async function fetchTideViaCodetabsScrape() {
-    // Legacy dev fallback (used before). May be rate-limited; keep only for localhost.
-    const PROXY = 'https://api.codetabs.com/v1/proxy?quest=';
-    const TARGET = 'https://www.tabuademares.com/br/alagoas/maragogi';
-    const html = await (await fetchJsonWithTimeout(PROXY + encodeURIComponent(TARGET), 10000).catch(async () => {
-        // fetchJsonWithTimeout expects JSON; for HTML we do a raw fetch.
-        const controller = new AbortController();
-        const t = setTimeout(() => controller.abort(), 10000);
-        try {
-            const r = await fetch(PROXY + encodeURIComponent(TARGET), { signal: controller.signal });
-            if (!r.ok) throw new Error('HTTP ' + r.status);
-            return await r.text();
-        } finally {
-            clearTimeout(t);
-        }
-    }));
-
-    const xMatches = [...String(html).matchAll(/gm\.mareas_x\[(\d+)\]=(\d+)/g)];
-    const yMatches = [...String(html).matchAll(/gm\.mareas_y\[(\d+)\]=([\d.]+)/g)];
-    if (xMatches.length < 4 || yMatches.length < 4) return null;
-
-    const mareas = [];
-    for (let i = 0; i < xMatches.length; i++) {
-        const minutes = parseInt(xMatches[i][2], 10);
-        const height = parseFloat(yMatches[i]?.[2]);
-        if (!Number.isFinite(minutes) || !Number.isFinite(height)) continue;
-        mareas.push({ minutes, height });
-    }
-
-    const today = mareas
-        .filter(m => m.minutes >= 0 && m.minutes <= 1440)
-        .sort((a, b) => a.minutes - b.minutes)
-        .slice(0, 4);
-
-    if (!today.length) return null;
-
-    return today.map(m => {
-        const hours = Math.floor(m.minutes / 60);
-        const mins = m.minutes % 60;
-        const time = `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
-        const type = m.height >= 1.0 ? 'alta' : 'baixa';
-        return { type, time, height: m.height };
-    });
-}
-
 async function fetchTideData(barraEl) {
     const tz = 'America/Maceio';
     const dateStr = formatISODateInTimeZone(new Date(), tz);
@@ -697,9 +647,6 @@ async function fetchTideData(barraEl) {
 
     try { finalWeather = await fetchWeatherDirectOpenMeteo(); } catch (_) { /* ignore */ }
     try { finalTides = await fetchTideFromLocalJson(dateStr); } catch (_) { /* ignore */ }
-    if (!finalTides) {
-        try { finalTides = await fetchTideViaCodetabsScrape(); } catch (_) { /* ignore */ }
-    }
 
     window._tideData = finalTides;
     window._weatherData = finalWeather;

@@ -202,7 +202,6 @@
 
   async function loadMonthData(year, monthKey) {
     var file = 'mare-maragogi.json';
-    if (Number(year) === 2027) file = 'mare-maragogi-2027.json';
 
     var res = await fetch('../assets/data/' + file, { cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
