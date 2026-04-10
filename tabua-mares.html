@@ -211,6 +211,13 @@
                         rel="noopener noreferrer">Marinha do Brasil / CHM</a></p>
             </div>
 
+            <!-- YEAR SELECTOR -->
+            <div class="ano-filter" role="group" data-i18n-aria-label="tide.year.selector_aria"
+                aria-label="Anos disponíveis">
+                <button class="ano-btn" type="button" data-ano="2026" aria-pressed="false">2026</button>
+                <button class="ano-btn" type="button" data-ano="2027" aria-pressed="false">2027</button>
+            </div>
+
             <!-- MONTH SELECTOR -->
             <div class="meses-botoes mes-filter" role="tablist" aria-label="Meses do ano">
                 <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="janeiro"><span
@@ -363,6 +370,48 @@
         // Sem imagens no site: carrega as tabelas prontas em /tabelas/<mes>.html
 
         const MESES_KEYS = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+        const ANOS_DISPONIVEIS = [2026, 2027];
+        let anoAtivo = 2026;
+        let mesAtivo = MESES_KEYS[new Date().getMonth()];
+
+        function setAnoAtivo(ano, focus = false) {
+            const anos = Array.from(document.querySelectorAll('.ano-btn'));
+            anos.forEach((b) => {
+                const bAno = Number(b.getAttribute('data-ano'));
+                const ativo = bAno === ano;
+                b.classList.toggle('ativo', ativo);
+                b.setAttribute('aria-pressed', String(ativo));
+                if (focus && ativo) b.focus();
+            });
+        }
+
+        function buildIframeSrc(mesKey, ano) {
+            return `tabelas/${mesKey}.html?ano=${ano}`;
+        }
+
+        function updateUrlState(mesKey, ano) {
+            try {
+                const u = new URL(window.location.href);
+                u.searchParams.set('mes', mesKey);
+                u.searchParams.set('ano', String(ano));
+                history.replaceState(null, '', `${u.pathname}${u.search}${u.hash}`);
+            } catch (_) {
+                // silencioso
+            }
+        }
+
+        function getInitialState() {
+            const p = new URLSearchParams(window.location.search);
+            const anoQ = Number(p.get('ano'));
+            const mesQ = String(p.get('mes') || '').trim();
+
+            const anoAtual = new Date().getFullYear();
+            const anoPadrao = ANOS_DISPONIVEIS.includes(anoAtual) ? anoAtual : ANOS_DISPONIVEIS[0];
+            const ano = ANOS_DISPONIVEIS.includes(anoQ) ? anoQ : anoPadrao;
+            const mes = MESES_KEYS.includes(mesQ) ? mesQ : MESES_KEYS[new Date().getMonth()];
+
+            return { ano, mes };
+        }
 
         function setMesAtivo(mesKey, focus = false) {
             const tabs = Array.from(document.querySelectorAll('.mes-btn'));
@@ -384,7 +433,7 @@
             if (container.querySelector('#tabela-iframe')) return;
 
             const links = MESES_KEYS
-                .map((k) => `<a class="tabela-link" href="tabelas/${k}.html" target="_blank" rel="noopener noreferrer">${k}</a>`)
+                .map((k) => `<a class="tabela-link" href="${buildIframeSrc(k, anoAtivo)}" target="_blank" rel="noopener noreferrer">${k} ${anoAtivo}</a>`)
                 .join(' · ');
 
             container.innerHTML = `
@@ -409,19 +458,34 @@
             el.classList.toggle('tide-status--error', Boolean(isError));
         }
 
-        function renderizarMes(mesKey, focusTab = false) {
+        function tI18n(key, fallback) {
+            try {
+                if (window.I18N && typeof window.I18N.t === 'function') {
+                    return window.I18N.t(key, fallback);
+                }
+            } catch (_) {
+                // silencioso
+            }
+            return fallback || '';
+        }
+
+        function renderizarMes(mesKey, focusTab = false, syncUrl = true) {
             const container = document.getElementById('tabelas-container');
             if (!container) return;
             if (!MESES_KEYS.includes(mesKey)) return;
 
             ensureOfflineEmbedUI(container);
             setMesAtivo(mesKey, focusTab);
+            setAnoAtivo(anoAtivo, false);
+            mesAtivo = mesKey;
 
             const iframe = container.querySelector('#tabela-iframe');
             if (!iframe) return;
 
-            setStatus(container, 'Carregando tabela…', false);
-            iframe.src = `tabelas/${mesKey}.html`;
+            const loadingPrefix = tI18n('tide.year.loading_prefix', 'Carregando tabela de');
+            setStatus(container, `${loadingPrefix} ${anoAtivo}…`, false);
+            iframe.src = buildIframeSrc(mesKey, anoAtivo);
+            if (syncUrl) updateUrlState(mesKey, anoAtivo);
         }
 
         // Ajusta a altura do iframe com base no conteúdo (postMessage vindo da tabela)
@@ -439,6 +503,18 @@
                 iframe.style.height = `${Math.max(padded, 320)}px`;
             }
             if (container) setStatus(container, '', false);
+        });
+
+        // Navegação por ano
+        const anoButtons = Array.from(document.querySelectorAll('.ano-btn'));
+        anoButtons.forEach((btn) => {
+            btn.addEventListener('click', function () {
+                const ano = Number(this.getAttribute('data-ano'));
+                if (!ANOS_DISPONIVEIS.includes(ano)) return;
+                anoAtivo = ano;
+                setAnoAtivo(anoAtivo, true);
+                renderizarMes(mesAtivo, false, true);
+            });
         });
 
         // Navegação por mês: clique + teclado (role=tablist)
@@ -547,10 +623,11 @@
         })();
 
         document.addEventListener('DOMContentLoaded', () => {
-            const mesAtual = MESES_KEYS[new Date().getMonth()];
-            renderizarMes(mesAtual);
-            // Ajusta estado ARIA inicial para o mês atual
-            setMesAtivo(mesAtual, false);
+            const initial = getInitialState();
+            anoAtivo = initial.ano;
+            mesAtivo = initial.mes;
+            setAnoAtivo(anoAtivo, false);
+            renderizarMes(mesAtivo, false, true);
         });
     </script>
 

@@ -278,6 +278,8 @@
     "tide.table.h2": "Tabla de Mareas Completa",
     "tide.table.subtitle": "Elige el mes para ver los horarios de marea baja y alta",
     "tide.table.loading": "Cargando datos...",
+    "tide.year.selector_aria": "Años disponibles",
+    "tide.year.loading_prefix": "Cargando tabla de",
     "tide.table.day": "Día",
     "tide.table.low_time": "Marea Baja",
     "tide.table.high_time": "Marea Alta",
