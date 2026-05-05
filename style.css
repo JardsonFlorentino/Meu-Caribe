@@ -955,6 +955,7 @@ header {
 
 .header-left img {
     height: clamp(42px, 5vw, 55px);
+    width: auto;
     max-height: 60px;
     transition: transform 0.3s ease, height 0.2s ease;
 }
@@ -1119,7 +1120,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url('./assets/img/lancha21.jpg') center/cover no-repeat;
+    background: url('./assets/img/lancha21.webp') center/cover no-repeat;
     color: var(--branco);
     overflow: hidden;
 }
@@ -1824,7 +1825,7 @@ header {
     content: '';
     position: absolute;
     inset: 0;
-    background: url('./assets/img/lancha21.jpg') center/cover no-repeat;
+    background: url('./assets/img/lancha21.webp') center/cover no-repeat;
     opacity: 0.15;
     z-index: 0;
 }
@@ -1916,6 +1917,7 @@ header {
 
 .footer-logo {
     height: 120px;
+    width: auto;
     margin-bottom: 0.8rem;
 }
 

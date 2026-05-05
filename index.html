@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
+    <link rel="preload" as="image" href="./assets/img/lancha21.webp" type="image/webp">
     <script src="i18n.js" defer></script>
     <script src="script.js" defer></script>
     <link rel="icon" href="favicon.png" type="image/png">
@@ -80,15 +81,15 @@
 
 <body>
     <!-- MODAL PROMOÇÃO ESPECIAL LANCHA -->
-    <div id="promo-modal" class="promo-modal" aria-modal="true" role="dialog">
+    <div id="promo-modal" class="promo-modal" aria-modal="true" role="dialog" aria-labelledby="promo-modal-title">
         <div class="promo-modal-content">
             <button class="promo-modal-close" aria-label="Fechar">&times;</button>
             <div class="promo-image-wrapper">
                 <img src="./assets/img/piscina.webp" alt="Piscinas naturais de Maragogi" class="promo-image"
-                    loading="lazy">
+                    loading="lazy" decoding="async" width="2129" height="1206">
             </div>
             <div class="promo-body">
-                <h2 class="promo-modal-title"><span class="promo-emoji">🚤</span><span
+                <h2 class="promo-modal-title" id="promo-modal-title"><span class="promo-emoji">🚤</span><span
                         class="promo-gradient-text">OFERTA
                         EXCLUSIVA</span>
                 </h2>
@@ -115,8 +116,8 @@
 
     <header>
         <div class="header-left">
-            <a href="index.html">
-                <img src="./assets/img/logo.webp" alt="Logo Meu Caribe">
+            <a href="index.html" aria-label="Voltar à página inicial" title="Meu Caribe - Página inicial">
+                <img src="./assets/img/logo.webp" alt="Logo Meu Caribe" width="475" height="246" decoding="async">
             </a>
         </div>
 
@@ -132,17 +133,17 @@
                 </ul>
             </nav>
             <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
-                rel="noopener noreferrer" class="btn-header-cta"
-                href="https://wa.me/558181211006?text=Olá! Encontrei vocês pelo site e quero saber mais sobre os passeios de lancha em Maragogi. Pode me passar detalhes e valores? Obrigado!">
+                rel="noopener noreferrer" class="btn-header-cta" aria-label="Agendar passeio pelo WhatsApp"
+                title="Agendar passeio pelo WhatsApp">
                 <i class="fab fa-whatsapp"></i> <span data-i18n="header.cta">Agende seu Passeio</span>
             </a>
             <div class="lang-selector">
-                <button class="lang-btn" data-lang="pt" title="Português"><img src="./assets/icons/flag-br.svg" alt="PT"
-                        width="22" height="22"></button>
-                <button class="lang-btn" data-lang="en" title="English"><img src="./assets/icons/flag-us.svg" alt="EN"
-                        width="22" height="22"></button>
-                <button class="lang-btn" data-lang="es" title="Español"><img src="./assets/icons/flag-es.svg" alt="ES"
-                        width="22" height="22"></button>
+                <button class="lang-btn" data-lang="pt" title="Português" aria-label="Selecionar idioma Português"><img
+                        src="./assets/icons/flag-br.svg" alt="PT" width="22" height="22"></button>
+                <button class="lang-btn" data-lang="en" title="English" aria-label="Select language English"><img
+                        src="./assets/icons/flag-us.svg" alt="EN" width="22" height="22"></button>
+                <button class="lang-btn" data-lang="es" title="Español" aria-label="Seleccionar idioma Español"><img
+                        src="./assets/icons/flag-es.svg" alt="ES" width="22" height="22"></button>
             </div>
             <button id="hamburger-btn" aria-label="Abrir menu de navegação" aria-expanded="false"
                 aria-controls="nav-wrapper">
@@ -167,7 +168,7 @@
                 <div class="banner-botoes">
                     <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
                         rel="noopener noreferrer" class="btn-primario btn-pulse"
-                        href="https://wa.me/558181211006?text=Olá! Encontrei vocês pelo site e quero saber mais sobre os passeios de lancha em Maragogi. Pode me passar detalhes e valores? Obrigado!">
+                        aria-label="Agendar passeio agora pelo WhatsApp" title="Agendar passeio agora pelo WhatsApp">
                         <i class="fab fa-whatsapp"></i> <span data-i18n="index.banner.btn_primary">Agende seu Passeio
                             Agora</span>
                     </a>
@@ -196,7 +197,8 @@
             <div class="servicos-grid">
                 <article class="card-servico">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/lancha4.webp" alt="Passeio de lancha em Maragogi" loading="lazy">
+                        <img src="./assets/img/lancha4.webp" alt="Passeio de lancha em Maragogi" loading="lazy"
+                            decoding="async" width="2250" height="4000">
                         <span class="card-badge"><i class="fas fa-ship"></i></span>
                     </div>
                     <div class="card-corpo">
@@ -211,7 +213,8 @@
 
                 <article class="card-servico">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/jet11.webp" alt="Aventura com Jet Ski" loading="lazy">
+                        <img src="./assets/img/jet11.webp" alt="Aventura com Jet Ski" loading="lazy" decoding="async"
+                            width="2250" height="4000">
                         <span class="card-badge"><i class="fas fa-water"></i></span>
                     </div>
                     <div class="card-corpo">
@@ -226,7 +229,8 @@
 
                 <article class="card-servico">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/banana-boat10.webp" alt="Diversão com Banana Boat" loading="lazy">
+                        <img src="./assets/img/banana-boat10.webp" alt="Diversão com Banana Boat" loading="lazy"
+                            decoding="async" width="922" height="1600">
                         <span class="card-badge"><i class="fas fa-users"></i></span>
                     </div>
                     <div class="card-corpo">
@@ -243,7 +247,8 @@
 
                 <article class="card-servico">
                     <div class="card-img-wrapper">
-                        <img src="./assets/img/colchão9.webp" alt="Aventura com Sofá Boat" loading="lazy">
+                        <img src="./assets/img/colchão9.webp" alt="Aventura com Sofá Boat" loading="lazy"
+                            decoding="async" width="952" height="1600">
                         <span class="card-badge"><i class="fas fa-couch"></i></span>
                     </div>
                     <div class="card-corpo">
@@ -270,22 +275,36 @@
                 <button class="galeria-seta galeria-seta-esq" aria-label="Anterior"><i
                         class="fas fa-chevron-left"></i></button>
                 <div class="galeria-scroll">
-                    <img src="./assets/img/lancha15.webp" alt="Cliente sorrindo em passeio de lancha" loading="lazy">
-                    <img src="./assets/img/imagem4.webp" alt="Piscinas naturais de Maragogi" loading="lazy">
-                    <img src="./assets/img/jet6.webp" alt="Aventura com Jet Ski" loading="lazy">
-                    <img src="./assets/img/banana-boat4.webp" alt="Grupo se divertindo no Banana Boat" loading="lazy">
-                    <img src="./assets/img/colchão6.webp" alt="Aventura com Colchão Boat" loading="lazy">
-                    <img src="./assets/img/lancha10.webp" alt="Paisagem de Maragogi com lancha" loading="lazy">
-                    <img src="./assets/img/jet5.webp" alt="Cliente pilotando Jet Ski" loading="lazy">
-                    <img src="./assets/img/lancha17.webp" alt="Cliente sorrindo em passeio de lancha" loading="lazy">
-                    <img src="./assets/img/imagem3.webp" alt="Praia de Maragogi" loading="lazy">
-                    <img src="./assets/img/colchão5.webp" alt="Aventura com Colchão Boat" loading="lazy">
-                    <img src="./assets/img/imagem10.webp" alt="Casal se divertindo nas águas de Maragogi"
-                        loading="lazy">
-                    <img src="./assets/img/lancha9.webp" alt="Passeio de lancha em Maragogi" loading="lazy">
-                    <img src="./assets/img/imagem23.webp" alt="Beleza natural de Maragogi" loading="lazy">
-                    <img src="./assets/img/imagem17.webp" alt="Paisagem paradisíaca de Maragogi" loading="lazy">
-                    <img src="./assets/img/jet10.webp" alt="Aventura de Jet Ski em Maragogi" loading="lazy">
+                    <img src="./assets/img/lancha15.webp" alt="Cliente sorrindo em passeio de lancha" loading="lazy"
+                        decoding="async" width="1920" height="4160">
+                    <img src="./assets/img/imagem4.webp" alt="Piscinas naturais de Maragogi" loading="lazy"
+                        decoding="async" width="1683" height="3648">
+                    <img src="./assets/img/jet6.webp" alt="Aventura com Jet Ski" loading="lazy" decoding="async"
+                        width="2250" height="4000">
+                    <img src="./assets/img/banana-boat4.webp" alt="Grupo se divertindo no Banana Boat" loading="lazy"
+                        decoding="async" width="2126" height="4608">
+                    <img src="./assets/img/colchão6.webp" alt="Aventura com Colchão Boat" loading="lazy"
+                        decoding="async" width="2250" height="4000">
+                    <img src="./assets/img/lancha10.webp" alt="Paisagem de Maragogi com lancha" loading="lazy"
+                        decoding="async" width="918" height="1600">
+                    <img src="./assets/img/jet5.webp" alt="Cliente pilotando Jet Ski" loading="lazy" decoding="async"
+                        width="2250" height="4000">
+                    <img src="./assets/img/lancha17.webp" alt="Cliente sorrindo em passeio de lancha" loading="lazy"
+                        decoding="async" width="1683" height="3648">
+                    <img src="./assets/img/imagem3.webp" alt="Praia de Maragogi" loading="lazy" decoding="async"
+                        width="1284" height="1293">
+                    <img src="./assets/img/colchão5.webp" alt="Aventura com Colchão Boat" loading="lazy"
+                        decoding="async" width="2304" height="4096">
+                    <img src="./assets/img/imagem10.webp" alt="Casal se divertindo nas águas de Maragogi" loading="lazy"
+                        decoding="async" width="2250" height="4000">
+                    <img src="./assets/img/lancha9.webp" alt="Passeio de lancha em Maragogi" loading="lazy"
+                        decoding="async" width="1232" height="1600">
+                    <img src="./assets/img/imagem23.webp" alt="Beleza natural de Maragogi" loading="lazy"
+                        decoding="async" width="720" height="1280">
+                    <img src="./assets/img/imagem17.webp" alt="Paisagem paradisíaca de Maragogi" loading="lazy"
+                        decoding="async" width="900" height="1600">
+                    <img src="./assets/img/jet10.webp" alt="Aventura de Jet Ski em Maragogi" loading="lazy"
+                        decoding="async" width="1799" height="3898">
                 </div>
                 <button class="galeria-seta galeria-seta-dir" aria-label="Próximo"><i
                         class="fas fa-chevron-right"></i></button>
@@ -304,51 +323,63 @@
                 <div class="depoimentos-container">
                     <figure>
                         <img src="./assets/img/depoimento1.webp"
-                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy">
+                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy"
+                            decoding="async" width="463" height="914">
                     </figure>
                     <figure>
                         <img src="./assets/img/depoimento2.webp"
-                            alt="Depoimento de cliente sobre a diversão no Banana Boat." loading="lazy">
+                            alt="Depoimento de cliente sobre a diversão no Banana Boat." loading="lazy" decoding="async"
+                            width="463" height="912">
                     </figure>
                     <figure>
                         <img src="./assets/img/depoimento3.webp"
-                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy">
+                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy"
+                            decoding="async" width="459" height="907">
                     </figure>
                     <figure>
                         <img src="./assets/img/depoimento4.webp"
-                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy">
+                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy"
+                            decoding="async" width="462" height="912">
                     </figure>
                     <figure>
                         <img src="./assets/img/depoimento5.webp"
-                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy">
+                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy"
+                            decoding="async" width="469" height="915">
                     </figure>
                     <figure>
                         <img src="./assets/img/depoimento6.webp"
-                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy">
+                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy"
+                            decoding="async" width="465" height="915">
                     </figure>
                     <figure>
                         <img src="./assets/img/depoimento7.webp"
-                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy">
+                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy"
+                            decoding="async" width="465" height="916">
                     </figure>
                     <figure>
                         <img src="./assets/img/depoimento8.webp"
-                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy">
+                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy"
+                            decoding="async" width="465" height="914">
                     </figure>
                     <figure>
                         <img src="./assets/img/depoimento9.webp"
-                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy">
+                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy"
+                            decoding="async" width="461" height="915">
                     </figure>
                     <figure>
                         <img src="./assets/img/depoimento10.webp"
-                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy">
+                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy"
+                            decoding="async" width="464" height="913">
                     </figure>
                     <figure>
                         <img src="./assets/img/depoimento11.webp"
-                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy">
+                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy"
+                            decoding="async" width="466" height="918">
                     </figure>
                     <figure>
                         <img src="./assets/img/depoimento12.webp"
-                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy">
+                            alt="Depoimento de cliente satisfeito sobre o passeio de lancha." loading="lazy"
+                            decoding="async" width="468" height="913">
                     </figure>
                 </div>
                 <button class="galeria-seta galeria-seta-dir" aria-label="Próximo"><i
@@ -364,7 +395,7 @@
                 <p data-i18n="index.cta.description">Entre em contato conosco e reserve o seu passeio inesquecível!</p>
                 <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio." target="_blank"
                     rel="noopener noreferrer" class="btn-primario btn-pulse btn-grande"
-                    href="https://wa.me/558181211006?text=Olá! Encontrei vocês pelo site e quero saber mais sobre os passeios de lancha em Maragogi. Pode me passar detalhes e valores? Obrigado!">
+                    aria-label="Agendar meu passeio pelo WhatsApp" title="Agendar meu passeio pelo WhatsApp">
                     <i class="fab fa-whatsapp"></i> <span data-i18n="index.cta.btn">Agendar meu Passeio</span>
                 </a>
             </div>
@@ -375,7 +406,8 @@
         <div class="footer-box">
             <div class="footer-col-1">
                 <a href="index.html" aria-label="Voltar à página inicial">
-                    <img src="./assets/img/logo2.webp" alt="Logo Meu Caribe" class="footer-logo">
+                    <img src="./assets/img/logo2.webp" alt="Logo Meu Caribe" class="footer-logo" width="113"
+                        height="112" decoding="async" loading="lazy">
                 </a>
                 <p class="footer-descricao" data-i18n="footer.description">Seu paraíso particular nas águas cristalinas
                     de Maragogi, Alagoas.</p>
@@ -427,7 +459,7 @@
 
     <a href="https://wa.me/558181211006?text=Olá! Gostaria de agendar um passeio em Maragogi."
         class="whatsapp-flutuante" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp"
-        href="https://wa.me/558181211006?text=Olá! Estou entrando em contato pelo site Meu Caribe. Gostaria de tirar algumas dúvidas e saber mais sobre os passeios. Obrigado!">
+        title="Fale conosco pelo WhatsApp">
         <span class="whatsapp-texto" data-i18n="whatsapp.text">Agende seu passeio!</span>
         <i class="fab fa-whatsapp whatsapp-icon"></i>
     </a>
