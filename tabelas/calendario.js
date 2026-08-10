@@ -11,65 +11,50 @@
   }
 
   var MONTH_I18N_KEYS = [
-    'months.january',
-    'months.february',
-    'months.march',
-    'months.april',
-    'months.may',
-    'months.june',
-    'months.july',
-    'months.august',
-    'months.september',
-    'months.october',
-    'months.november',
-    'months.december'
+    'months.january', 'months.february', 'months.march', 'months.april',
+    'months.may', 'months.june', 'months.july', 'months.august',
+    'months.september', 'months.october', 'months.november', 'months.december'
   ];
 
   var MONTH_FALLBACK_PT = [
-    'Janeiro',
-    'Fevereiro',
-    'Março',
-    'Abril',
-    'Maio',
-    'Junho',
-    'Julho',
-    'Agosto',
-    'Setembro',
-    'Outubro',
-    'Novembro',
-    'Dezembro'
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
 
   var WEEKDAY_I18N_KEYS = [
-    'weekdays.sunday',
-    'weekdays.monday',
-    'weekdays.tuesday',
-    'weekdays.wednesday',
-    'weekdays.thursday',
-    'weekdays.friday',
-    'weekdays.saturday'
+    'weekdays.monday', 'weekdays.tuesday', 'weekdays.wednesday',
+    'weekdays.thursday', 'weekdays.friday', 'weekdays.saturday', 'weekdays.sunday'
   ];
 
+  var WEEKDAY_FALLBACK_PT = [
+    'Segunda-feira', 'Terça-feira', 'Quarta-feira',
+    'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'
+  ];
+
+  // Cor oficial da tábua impressa -> classe visual
+  var COR_CLASSE = {
+    alta: 'vermelho',
+    baixa_ruim: 'amarelo',
+    baixa_boa: 'verde'
+  };
+
+  var COR_I18N = {
+    alta: ['tide.flag.high', 'Maré alta — sugerimos passeio de orla'],
+    baixa_ruim: ['tide.flag.low_bad', 'Maré baixa, mas o horário ou a altura não permite o passeio às piscinas naturais'],
+    baixa_boa: ['tide.flag.low_good', 'Maré baixa — é possível conhecer as piscinas naturais']
+  };
+
+  var runtimeConfig = null;
+  var runtimeDays = null;
+
   function getWeekdayName(idx) {
-    try {
-      var key = WEEKDAY_I18N_KEYS[idx] || WEEKDAY_I18N_KEYS[0];
-      var fb = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'][idx] || '';
-      return t(key, fb);
-    } catch (_) { return ''; }
+    return t(WEEKDAY_I18N_KEYS[idx], WEEKDAY_FALLBACK_PT[idx]);
   }
 
   function getWeekdayAbbrev(idx) {
-    try {
-      var full = getWeekdayName(idx) || '';
-      if (!full) return '';
-      var parts = full.split(/\s|-/);
-      return (parts[0] || full).slice(0,3);
-    } catch (_) { return ''; }
+    var full = getWeekdayName(idx);
+    return full.split('-')[0].slice(0, 3);
   }
-
-  var runtimeConfig = null;
-  var lastStatusKey = '';
-  var lastStatusFallback = '';
 
   function getConfig() {
     var root = document.documentElement;
@@ -82,18 +67,14 @@
     var year = Number.isFinite(queryYear) && queryYear >= 2000 ? queryYear : (Number.isFinite(rootYear) ? rootYear : new Date().getFullYear());
     var monthIndex = Number(root.getAttribute('data-mes-index')) || 0;
     var monthKey = String(root.getAttribute('data-mes-key') || '').trim();
-    var title = String(root.getAttribute('data-titulo') || '').trim();
     var location = String(root.getAttribute('data-local') || 'Maragogi-AL').trim();
-
-    return { year: year, monthIndex: monthIndex, monthKey: monthKey, title: title, location: location };
+    return { year: year, monthIndex: monthIndex, monthKey: monthKey, location: location };
   }
 
   function getMonthLabel(config) {
     var idx = Number(config && config.monthIndex);
     if (!Number.isInteger(idx) || idx < 0 || idx > 11) return '';
-    var key = MONTH_I18N_KEYS[idx];
-    var fb = MONTH_FALLBACK_PT[idx] || '';
-    return t(key, fb);
+    return t(MONTH_I18N_KEYS[idx], MONTH_FALLBACK_PT[idx] || '');
   }
 
   function buildPageTitle(config) {
@@ -101,426 +82,299 @@
     var month = getMonthLabel(config);
     var year = config && config.year ? String(config.year) : '';
     if (month && year) return base + ' - ' + month + ' ' + year;
-    if (month) return base + ' - ' + month;
-    if (year) return base + ' - ' + year;
     return base;
-  }
-
-  function applyI18nDynamic() {
-    if (!runtimeConfig) return;
-    var title = buildPageTitle(runtimeConfig);
-    if (title) {
-      setText('mareCalTitle', title);
-      document.title = title;
-    }
-
-    if (lastStatusKey) {
-      setStatus(t(lastStatusKey, lastStatusFallback));
-    }
   }
 
   function setText(id, text) {
     var el = document.getElementById(id);
-    if (!el) return;
-    el.textContent = text;
+    if (el) el.textContent = text;
   }
 
   function setStatus(text) {
     var el = document.getElementById('mareCalStatus');
     if (!el) return;
-
-    if (!text) {
-      el.hidden = true;
-      el.textContent = '';
-      return;
-    }
-
-    el.hidden = false;
-    el.textContent = text;
+    el.textContent = text || '';
+    el.style.display = text ? '' : 'none';
   }
 
   function setStatusKey(key, fallback) {
-    lastStatusKey = key || '';
-    lastStatusFallback = fallback || '';
-    setStatus(lastStatusKey ? t(lastStatusKey, lastStatusFallback) : '');
+    setStatus(key ? t(key, fallback) : '');
   }
 
-  function formatHora(value) {
-    var s = String(value || '').trim();
-    return s ? s : '—';
-  }
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
-  function parseAltura(value) {
-    if (value === null || value === undefined || value === '') return NaN;
-    if (typeof value === 'number') return value;
-    var s = String(value).trim().replace(',', '.');
-    var n = Number(s);
-    return Number.isFinite(n) ? n : NaN;
-  }
-
-  function formatAltura(value) {
-    var n = typeof value === 'number' ? value : parseAltura(value);
-    if (!Number.isFinite(n)) return '—';
-    return n.toFixed(2).replace('.', ',') + 'm';
-  }
-
-  function pad2(n) {
-    return String(n).padStart(2, '0');
-  }
-
-  function formatDateLabel(year, monthIndex, day) {
-    return pad2(day) + '/' + pad2(monthIndex + 1) + '/' + String(year);
-  }
-
-  function makeEvent(type, day, hora, altura) {
-    var h = formatHora(hora);
-    var a = parseAltura(altura);
-    return {
-      type: type,
-      day: day,
-      hora: h,
-      alturaNum: a,
-      alturaText: formatAltura(altura)
-    };
-  }
-
-  function isValidEvent(ev) {
-    return ev && ev.hora && ev.hora !== '—' && Number.isFinite(ev.alturaNum);
+  function formatAltura(v) {
+    if (!Number.isFinite(v)) return '';
+    return v.toFixed(2).replace('.', ',') + 'm';
   }
 
   function timeToMinutes(hhmm) {
-    var s = String(hhmm || '').trim();
-    var m = /^([0-9]{1,2}):([0-9]{2})$/.exec(s);
+    var m = /^(\d{1,2}):(\d{2})$/.exec(String(hhmm || '').trim());
     if (!m) return NaN;
-    var h = Number(m[1]);
-    var min = Number(m[2]);
-    if (!Number.isInteger(h) || !Number.isInteger(min)) return NaN;
-    if (h < 0 || h > 23) return NaN;
-    if (min < 0 || min > 59) return NaN;
-    return h * 60 + min;
+    var h = Number(m[1]), mi = Number(m[2]);
+    if (h > 23 || mi > 59) return NaN;
+    return h * 60 + mi;
   }
 
-  async function loadMonthData(year, monthKey) {
-    var file = 'mare-maragogi.json';
-
-    var res = await fetch('../assets/data/' + file, { cache: 'no-store' });
+  async function loadMonthData(year, monthIndex) {
+    var file = year + '-' + pad2(monthIndex + 1) + '.json';
+    var res = await fetch('../assets/data/mares/' + file);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var json = await res.json();
-
-    var month = json && json.dadosBase && json.dadosBase[monthKey];
-    return Array.isArray(month) ? month : [];
+    return (json && json.dias) ? json.dias : null;
   }
 
-  function buildStats(monthDays) {
-    var highs = [];
-    var lows = [];
+  function eventosDoDia(dias, dia) {
+    var arr = dias ? dias[String(dia)] : null;
+    if (!Array.isArray(arr)) return [];
+    return arr.filter(function (e) {
+      return e && Number.isFinite(Number(e.a)) && Number.isFinite(timeToMinutes(e.h));
+    }).map(function (e) {
+      return {
+        hora: e.h,
+        altura: Number(e.a),
+        tipo: e.t,
+        cor: e.c,
+        classe: COR_CLASSE[e.c] || 'amarelo',
+        min: timeToMinutes(e.h)
+      };
+    }).sort(function (a, b) { return a.min - b.min; });
+  }
 
-    monthDays.forEach(function (d) {
-      if (!d || typeof d.dia !== 'number') return;
-      var day = d.dia;
-
-      var e1 = makeEvent('baixa', day, d.mareBaixa1, d.altura1);
-      var e2 = makeEvent('alta', day, d.mareAlta1, d.altura_alta1);
-      var e3 = makeEvent('baixa', day, d.mareBaixa2, d.altura2);
-      var e4 = makeEvent('alta', day, d.mareAlta2, d.altura_alta2);
-
-      [e1, e2, e3, e4].forEach(function (ev) {
-        if (!isValidEvent(ev)) return;
-        if (ev.type === 'alta') highs.push(ev);
-        if (ev.type === 'baixa') lows.push(ev);
+  function dominioMes(dias) {
+    var lo = Infinity, hi = -Infinity;
+    Object.keys(dias || {}).forEach(function (k) {
+      (dias[k] || []).forEach(function (e) {
+        var v = Number(e.a);
+        if (Number.isFinite(v)) { if (v < lo) lo = v; if (v > hi) hi = v; }
       });
     });
-
-    var peak = highs.reduce(function (best, ev) {
-      if (!best) return ev;
-      return ev.alturaNum > best.alturaNum ? ev : best;
-    }, null);
-
-    var minLow = lows.reduce(function (best, ev) {
-      if (!best) return ev;
-      return ev.alturaNum < best.alturaNum ? ev : best;
-    }, null);
-
-    var avgLow = null;
-    if (lows.length) {
-      var sum = lows.reduce(function (acc, ev) { return acc + ev.alturaNum; }, 0);
-      var avg = sum / lows.length;
-
-      var closest = lows.reduce(function (best, ev) {
-        if (!best) return ev;
-        return Math.abs(ev.alturaNum - avg) < Math.abs(best.alturaNum - avg) ? ev : best;
-      }, null);
-
-      avgLow = {
-        avg: avg,
-        closest: closest
-      };
-    }
-
-    return { peak: peak, minLow: minLow, avgLow: avgLow };
+    if (!Number.isFinite(lo)) { lo = 0; hi = 2.5; }
+    var pad = Math.max(0.12, (hi - lo) * 0.12);
+    return { lo: lo - pad, hi: hi + pad };
   }
 
-  function getLegendLevel(alturaNum) {
-    if (!Number.isFinite(alturaNum)) return null;
+  // margem interna para a curva nunca encostar na borda do quadro
+  var PAD_TOPO = 5;
+  var PAD_BASE = 3;
 
-    // Faixas iguais ao "Como Entender":
-    // Verde: 0.00–0.35 | Amarelo: 0.35–0.60 | Vermelho: 0.60+
-    if (alturaNum <= 0.35) return { key: 'verde', arrow: '↓' };
-    if (alturaNum <= 0.60) return { key: 'amarelo', arrow: '→' };
-    return { key: 'vermelho', arrow: '↑' };
+  function construirCurva(eventos, dom, W, H) {
+    if (eventos.length < 2) return null;
+    var yMin = PAD_TOPO, yMax = H - PAD_BASE;
+    var faixa = yMax - yMin;
+    var prender = function (y) { return Math.max(yMin, Math.min(yMax, y)); };
+    var esc = function (ev) {
+      var x = (ev.min / 1440) * W;
+      var y = yMax - ((ev.altura - dom.lo) / (dom.hi - dom.lo)) * faixa;
+      return [x, prender(y)];
+    };
+    var pts = eventos.map(esc);
+    // prolonga as bordas mantendo a tendencia, para a curva encostar em 0h e 24h
+    var first = pts[0], second = pts[1];
+    var last = pts[pts.length - 1], prev = pts[pts.length - 2];
+    var y0 = first[1] + (first[1] - second[1]) * (first[0] / Math.max(1, second[0] - first[0]));
+    var yF = last[1] + (last[1] - prev[1]) * ((W - last[0]) / Math.max(1, last[0] - prev[0]));
+    var all = [[0, prender(y0)]].concat(pts, [[W, prender(yF)]]);
+    var d = 'M ' + all[0][0].toFixed(1) + ' ' + all[0][1].toFixed(1);
+    for (var i = 1; i < all.length; i++) {
+      var p = all[i], q = all[i - 1];
+      var cx = (q[0] + p[0]) / 2;
+      d += ' C ' + cx.toFixed(1) + ' ' + q[1].toFixed(1) + ', ' + cx.toFixed(1) + ' ' + p[1].toFixed(1) + ', ' + p[0].toFixed(1) + ' ' + p[1].toFixed(1);
+    }
+    return { d: d, pts: pts };
   }
 
-  function renderLegends(stats) {
-    var pico = document.getElementById('legendPico');
-    var preame = document.getElementById('legendPreame');
-    var media = document.getElementById('legendMedia');
-
-    if (pico && stats.peak) {
-      pico.innerHTML = '<strong>' + t('tide.legend.high', 'Pico:') + '</strong> ' + stats.peak.hora + ' (' + stats.peak.alturaText + ')';
-    }
-
-    if (preame && stats.minLow) {
-      preame.innerHTML = '<strong>' + t('tide.legend.low', 'Preame:') + '</strong> ' + stats.minLow.hora + ' (' + stats.minLow.alturaText + ')';
-    }
-
-    if (media) {
-      if (stats.avgLow && stats.avgLow.closest) {
-        var avg = stats.avgLow.avg;
-        var closest = stats.avgLow.closest;
-        media.innerHTML = '<strong>' + t('tide.calendar.height', 'Média baixa:') + '</strong> ~ ' + avg.toFixed(2).replace('.', ',') + 'm (ex.: ' + closest.hora + ' — ' + closest.alturaText + ')';
-      } else {
-        media.textContent = t('tide.calendar.height', 'Média baixa:') + ' —';
-      }
-    }
-  }
-
-  function createEventNode(hora, alturaText, alturaNum) {
-    var row = document.createElement('div');
-    row.className = 'mare-cal-eventRow';
-
-    var hourCell = document.createElement('div');
-    hourCell.className = 'mare-cal-hourCell';
-
-    var hourText = document.createElement('span');
-    hourText.className = 'mare-cal-hourText';
-    hourText.textContent = hora;
-    // aria: marca a hora com label traduzido
-    try { hourText.setAttribute('aria-label', t('tide.calendar.hour', 'Hora') + ': ' + (hora || '—')); } catch (_) {}
-
-    hourCell.appendChild(hourText);
-
-    var heightCell = document.createElement('div');
-    heightCell.className = 'mare-cal-heightCell';
-
-    var level = getLegendLevel(alturaNum);
-    var heightText = document.createElement('span');
-    heightText.className = 'mare-cal-heightText';
-    heightText.textContent = alturaText;
-    try { heightText.setAttribute('aria-label', t('tide.calendar.height', 'Altura') + ': ' + (alturaText || '—')); } catch (_) {}
-    heightCell.appendChild(heightText);
-
-    if (level) {
-      var arrow = document.createElement('span');
-      arrow.className = 'mare-cal-arrow mare-cal-arrow--' + level.key;
-      arrow.setAttribute('aria-hidden', 'true');
-      arrow.textContent = level.arrow;
-      heightCell.appendChild(arrow);
-    }
-
-    row.appendChild(hourCell);
-    row.appendChild(heightCell);
-    return row;
-  }
-
-  function buildCalendar(config, monthDays) {
-    var map = Object.create(null);
-    monthDays.forEach(function (d) {
-      if (d && typeof d.dia === 'number') map[d.dia] = d;
+  function svgDoDia(eventos, dom) {
+    var W = 100, H = 40;
+    var curva = construirCurva(eventos, dom, W, H);
+    if (!curva) return '';
+    var partes = [];
+    // faixa da janela boa (maré baixa visitavel)
+    eventos.forEach(function (ev, i) {
+      if (ev.cor !== 'baixa_boa') return;
+      var x = (ev.min / 1440) * W;
+      partes.push('<rect class="mare-dia__janela" x="' + Math.max(0, x - 8).toFixed(1) + '" y="0" width="16" height="' + H + '" />');
     });
+    partes.push('<path class="mare-dia__area" d="' + curva.d + ' L ' + W + ' ' + H + ' L 0 ' + H + ' Z" />');
+    partes.push('<path class="mare-dia__linha" d="' + curva.d + '" />');
+    curva.pts.forEach(function (p, i) {
+      partes.push('<circle class="mare-dia__ponto mare-dia__ponto--' + eventos[i].classe + '" cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="2.2" />');
+    });
+    return '<svg class="mare-dia__curva" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true" focusable="false">' + partes.join('') + '</svg>';
+  }
 
-    var year = config.year;
-    var monthIndex = config.monthIndex;
+  function listaDoDia(eventos) {
+    var itens = eventos.map(function (ev) {
+      var titulo = t(COR_I18N[ev.cor][0], COR_I18N[ev.cor][1]);
+      var d = ev.tipo === 'alta'
+        ? 'M6 10.5 V2.6 M2.6 6 L6 2.2 L9.4 6'
+        : 'M6 1.5 V9.4 M2.6 6 L6 9.8 L9.4 6';
+      var seta = '<svg class="mare-ev__seta" viewBox="0 0 12 12" aria-hidden="true" focusable="false">' +
+        '<path d="' + d + '" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      return '<li class="mare-ev mare-ev--' + ev.classe + '" title="' + titulo.replace(/"/g, '&quot;') + '">' +
+        seta +
+        '<span class="mare-ev__hora">' + ev.hora + '</span>' +
+        '<span class="mare-ev__alt">' + formatAltura(ev.altura) + '</span>' +
+        '<span class="sr-only">' + titulo + '</span>' +
+        '</li>';
+    });
+    return '<ul class="mare-dia__lista">' + itens.join('') + '</ul>';
+  }
 
-    var first = new Date(year, monthIndex, 1);
-    var daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+  function ehHoje(year, monthIndex, dia) {
+    var h = new Date();
+    return h.getFullYear() === year && h.getMonth() === monthIndex && h.getDate() === dia;
+  }
 
-    // JS: 0=Dom..6=Sáb | Queremos 0=Seg..6=Dom
-    var offset = (first.getDay() + 6) % 7;
+  function celulaDia(dia, eventos, dom, dataLabel, hoje) {
+    if (!eventos.length) {
+      return '<div class="mare-dia mare-dia--vazio"><span class="mare-dia__num">' + pad2(dia) + '</span></div>';
+    }
+    var melhor = eventos.filter(function (e) { return e.cor === 'baixa_boa'; })[0];
+    var cls = 'mare-dia' + (melhor ? ' mare-dia--tem-janela' : '') + (hoje ? ' mare-dia--hoje' : '');
+    return '<div class="' + cls + '"' + (hoje ? ' aria-current="date"' : '') + '>' +
+      '<div class="mare-dia__topo">' +
+        '<span class="mare-dia__num">' + pad2(dia) + '</span>' +
+        (hoje ? '<span class="mare-dia__hojeTag">' + t('tide.calendar.today', 'hoje') + '</span>' : '') +
+        (melhor ? '<span class="mare-dia__badge">' + melhor.hora + '</span>' : '') +
+      '</div>' +
+      '<div class="mare-dia__grafico">' + svgDoDia(eventos, dom) +
+        '<div class="mare-dia__eixo" aria-hidden="true"><span>0h</span><span>12h</span><span>24h</span></div>' +
+      '</div>' +
+      listaDoDia(eventos) +
+      '<span class="sr-only">' + dataLabel + '</span>' +
+      '</div>';
+  }
 
-    var totalCells = offset + daysInMonth;
-    var rows = Math.ceil(totalCells / 7);
-
+  function buildCalendar(config, dias) {
     var tbody = document.getElementById('mareCalBody');
     if (!tbody) return;
-    tbody.innerHTML = '';
+    var dom = dominioMes(dias);
+    var year = config.year, monthIndex = config.monthIndex;
+    var first = new Date(year, monthIndex, 1);
+    var daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+    var offset = (first.getDay() + 6) % 7; // 0 = Segunda
+    var totalCells = offset + daysInMonth;
+    var rows = Math.ceil(totalCells / 7);
+    var mesLabel = getMonthLabel(config);
 
-    // Mobile cards container (cria/zera)
-    var cardsWrap = document.querySelector('.mare-cal-cards');
-    if (!cardsWrap) {
-      cardsWrap = document.createElement('div');
-      cardsWrap.className = 'mare-cal-cards';
-      var tableWrap = document.querySelector('.mare-cal-tableWrap');
-      if (tableWrap && tableWrap.parentNode) tableWrap.parentNode.insertBefore(cardsWrap, tableWrap.nextSibling);
-    }
-    cardsWrap.innerHTML = '';
-
-    var day = 1;
+    var html = '';
+    var cell = 0;
     for (var r = 0; r < rows; r++) {
-      var tr = document.createElement('tr');
-
+      html += '<tr>';
       for (var c = 0; c < 7; c++) {
-        var td = document.createElement('td');
-        var cellIndex = r * 7 + c;
-
-        if (cellIndex < offset || day > daysInMonth) {
-          td.className = 'mare-cal-empty';
-          tr.appendChild(td);
+        var dia = cell - offset + 1;
+        cell++;
+        if (dia < 1 || dia > daysInMonth) {
+          html += '<td class="mare-cal-empty"></td>';
           continue;
         }
-
-        var dn = document.createElement('div');
-        dn.className = 'mare-cal-date';
-        dn.textContent = formatDateLabel(year, monthIndex, day);
-        td.appendChild(dn);
-
-        var d = map[day] || {};
-
-        var events = [
-          makeEvent('baixa', day, d.mareBaixa1, d.altura1),
-          makeEvent('alta', day, d.mareAlta1, d.altura_alta1),
-          makeEvent('baixa', day, d.mareBaixa2, d.altura2),
-          makeEvent('alta', day, d.mareAlta2, d.altura_alta2)
-        ].filter(isValidEvent);
-
-        events.sort(function (a, b) {
-          var am = timeToMinutes(a.hora);
-          var bm = timeToMinutes(b.hora);
-          if (!Number.isFinite(am) && !Number.isFinite(bm)) return 0;
-          if (!Number.isFinite(am)) return 1;
-          if (!Number.isFinite(bm)) return -1;
-          return am - bm;
-        });
-
-        events.forEach(function (ev) {
-          td.appendChild(createEventNode(ev.hora, ev.alturaText, ev.alturaNum));
-        });
-
-        // Acessibilidade: adiciona role/aria-label com resumo do dia (útil em layout empilhado)
-        try {
-          var dt = new Date(year, monthIndex, day);
-          var wk = getWeekdayName(dt.getDay()) || '';
-          var eventsSummary = events.map(function(ev){ return ev.hora + ' — ' + ev.alturaText; }).join('; ');
-          var aria = wk + ' ' + formatDateLabel(year, monthIndex, day) + (eventsSummary ? ': ' + eventsSummary : '');
-          td.setAttribute('role', 'group');
-          td.setAttribute('aria-label', aria);
-        } catch (_) {
-          // silencioso
-        }
-
-        tr.appendChild(td);
-        day++;
+        var evs = eventosDoDia(dias, dia);
+        var label = pad2(dia) + ' ' + mesLabel + ' ' + year;
+        var hoje = ehHoje(year, monthIndex, dia);
+        html += '<td class="mare-cal-cell' + (hoje ? ' mare-cal-cell--hoje' : '') + '">' + celulaDia(dia, evs, dom, label, hoje) + '</td>';
       }
-
-      tbody.appendChild(tr);
+      html += '</tr>';
     }
+    tbody.innerHTML = html;
+    buildCards(config, dias, dom);
+  }
 
-    // Também gera versão em cartões (um cartão por dia) para layout móvel
-    try {
-      for (var d = 1; d <= daysInMonth; d++) {
-        var cellData = map[d] || {};
-        var dayEvents = [
-          makeEvent('baixa', d, cellData.mareBaixa1, cellData.altura1),
-          makeEvent('alta', d, cellData.mareAlta1, cellData.altura_alta1),
-          makeEvent('baixa', d, cellData.mareBaixa2, cellData.altura2),
-          makeEvent('alta', d, cellData.mareAlta2, cellData.altura_alta2)
-        ].filter(isValidEvent);
+  function buildCards(config, dias, dom) {
+    var wrap = document.querySelector('.mare-cal-cards');
+    if (!wrap) {
+      var tableWrap = document.querySelector('.mare-cal-tableWrap');
+      if (!tableWrap || !tableWrap.parentNode) return;
+      wrap = document.createElement('div');
+      wrap.className = 'mare-cal-cards';
+      tableWrap.parentNode.insertBefore(wrap, tableWrap.nextSibling);
+    }
+    var year = config.year, monthIndex = config.monthIndex;
+    var daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+    var mesLabel = getMonthLabel(config);
+    var out = '';
+    for (var d = 1; d <= daysInMonth; d++) {
+      var evs = eventosDoDia(dias, d);
+      if (!evs.length) continue;
+      var wd = new Date(year, monthIndex, d).getDay();
+      var wdIdx = (wd + 6) % 7;
+      var hoje = ehHoje(year, monthIndex, d);
+      out += '<article class="mare-card' + (hoje ? ' mare-card--hoje' : '') + '"' + (hoje ? ' aria-current="date"' : '') + '>' +
+        '<header class="mare-card__cab">' +
+          '<span class="mare-card__dia">' + pad2(d) + '</span>' +
+          '<span class="mare-card__sem">' + getWeekdayAbbrev(wdIdx) + '</span>' +
+          (hoje ? '<span class="mare-dia__hojeTag">' + t('tide.calendar.today', 'hoje') + '</span>' : '') +
+          '<span class="mare-card__mes">' + mesLabel + '</span>' +
+        '</header>' +
+        '<div class="mare-dia__grafico">' + svgDoDia(evs, dom) + '</div>' +
+        listaDoDia(evs) +
+        '</article>';
+    }
+    wrap.innerHTML = out;
+  }
 
-        var card = document.createElement('article');
-        card.className = 'mare-day-card';
+  function renderResumo(dias) {
+    var todos = [];
+    Object.keys(dias || {}).forEach(function (k) {
+      eventosDoDia(dias, k).forEach(function (e) { todos.push(e); });
+    });
+    if (!todos.length) return;
+    var altas = todos.filter(function (e) { return e.tipo === 'alta'; });
+    var baixas = todos.filter(function (e) { return e.tipo === 'baixa'; });
+    var pico = altas.reduce(function (a, b) { return (!a || b.altura > a.altura) ? b : a; }, null);
+    var preame = baixas.reduce(function (a, b) { return (!a || b.altura < a.altura) ? b : a; }, null);
+    var boas = todos.filter(function (e) { return e.cor === 'baixa_boa'; }).length;
 
-        var hd = document.createElement('div');
-        hd.className = 'mare-day-card__head';
-        var dtLabel = document.createElement('div');
-        dtLabel.className = 'mare-day-card__date';
-        var dt = new Date(year, monthIndex, d);
-        dtLabel.textContent = (getWeekdayAbbrev(dt.getDay()) || '') + ' ' + formatDateLabel(year, monthIndex, d);
-        hd.appendChild(dtLabel);
-        card.appendChild(hd);
+    var elPico = document.getElementById('legendPico');
+    var elPre = document.getElementById('legendPreame');
+    var elMed = document.getElementById('legendMedia');
+    if (elPico && pico) {
+      elPico.innerHTML = '<strong>' + t('tide.legend.high', 'Pico:') + '</strong> ' + pico.hora + ' (' + formatAltura(pico.altura) + ')';
+    }
+    if (elPre && preame) {
+      elPre.innerHTML = '<strong>' + t('tide.legend.low', 'Preamar:') + '</strong> ' + preame.hora + ' (' + formatAltura(preame.altura) + ')';
+    }
+    if (elMed) {
+      elMed.innerHTML = '<strong>' + t('tide.legend.windows', 'Janelas para as piscinas:') + '</strong> ' + boas;
+    }
+  }
 
-        var bd = document.createElement('div');
-        bd.className = 'mare-day-card__body';
-
-        if (dayEvents.length) {
-          dayEvents.forEach(function (ev) {
-            bd.appendChild(createEventNode(ev.hora, ev.alturaText, ev.alturaNum));
-          });
-        } else {
-          var empty = document.createElement('div');
-          empty.className = 'mare-cal-empty-day';
-          empty.textContent = '—';
-          bd.appendChild(empty);
-        }
-
-        card.appendChild(bd);
-
-        // aria: resumo do dia
-        try {
-          var eventsSummary = dayEvents.map(function(ev){ return ev.hora + ' — ' + ev.alturaText; }).join('; ');
-          card.setAttribute('aria-label', dtLabel.textContent + (eventsSummary ? ': ' + eventsSummary : ''));
-        } catch (_) {}
-
-        // Classe de destaque por nível (usa a menor altura do dia para representar "baixa")
-        try {
-          var minAlt = null;
-          dayEvents.forEach(function(ev){ if (Number.isFinite(ev.alturaNum)) { minAlt = minAlt === null ? ev.alturaNum : Math.min(minAlt, ev.alturaNum); } });
-          var lvl = getLegendLevel(minAlt);
-          if (lvl && lvl.key) card.classList.add('mare-day-card--' + lvl.key);
-        } catch (_) {}
-
-        cardsWrap.appendChild(card);
-      }
-    } catch (_) {
-      // silencioso
+  function applyI18nDynamic() {
+    if (!runtimeConfig) return;
+    document.title = buildPageTitle(runtimeConfig);
+    setText('mareCalTitle', buildPageTitle(runtimeConfig));
+    setText('mareCalSubtitle', runtimeConfig.location);
+    if (runtimeDays) {
+      buildCalendar(runtimeConfig, runtimeDays);
+      renderResumo(runtimeDays);
     }
   }
 
   async function init() {
     var config = getConfig();
     runtimeConfig = config;
-    applyI18nDynamic();
 
+    document.title = buildPageTitle(config);
+    setText('mareCalTitle', buildPageTitle(config));
     setText('mareCalSubtitle', config.location);
-
-    if (!config.monthKey) {
-      setStatusKey('tide.calendar.month_missing', 'Mês não informado.');
-      return;
-    }
-
     setStatusKey('tide.calendar.loading', 'Carregando dados…');
 
     try {
-      var monthDays = await loadMonthData(config.year, config.monthKey);
-      if (!monthDays.length) {
+      var dias = await loadMonthData(config.year, config.monthIndex);
+      if (!dias || !Object.keys(dias).length) {
         setStatusKey('tide.calendar.no_data', 'Dados não disponíveis para este mês.');
         return;
       }
-
-      buildCalendar(config, monthDays);
-      var stats = buildStats(monthDays);
-      renderLegends(stats);
-
-      setStatusKey('', '');
-
-      // ajuda o iframe a recalcular altura
+      runtimeDays = dias;
+      buildCalendar(config, dias);
+      renderResumo(dias);
+      setStatus('');
       try { window.dispatchEvent(new Event('resize')); } catch (_) { }
     } catch (e) {
-      setStatusKey('tide.calendar.offline_error', 'Falha ao carregar dados offline.');
+      setStatusKey('tide.calendar.offline_error', 'Falha ao carregar os dados da tábua.');
     }
   }
 
   document.addEventListener('DOMContentLoaded', init);
-
-  document.addEventListener('langchange', function () {
-    applyI18nDynamic();
-  });
+  document.addEventListener('langchange', applyI18nDynamic);
 })();

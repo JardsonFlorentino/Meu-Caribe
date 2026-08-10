@@ -1081,11 +1081,12 @@ header {
 }
 
 .lang-btn {
-    background: none;
-    border: 2px solid transparent;
+    background: var(--branco);
+    border: 1.5px solid rgba(148, 163, 184, 0.5);
     border-radius: 50%;
     width: 32px;
     height: 32px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1104,8 +1105,25 @@ header {
 }
 
 .lang-btn:hover {
-    transform: scale(1.15);
+    transform: scale(1.12);
     border-color: var(--turquesa);
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+}
+
+/* idioma em uso: anel turquesa e leve destaque */
+.lang-btn.active,
+.lang-btn--atual {
+    border-color: var(--turquesa);
+    border-width: 2px;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
+}
+
+.lang-btn:not(.active):not(.lang-btn--atual) img {
+    filter: saturate(0.85);
+}
+
+.lang-btn:hover img {
+    filter: none;
 }
 
 .lang-btn.active {
@@ -2486,11 +2504,11 @@ header {
     background-attachment: fixed;
 }
 
-#banner-lancha { background-image: url('./assets/img/lancha37.jpg'); }
-#banner-aventura { background-image: url('./assets/img/jet8.jpg'); }
-#banner-sobre { background-image: url('./assets/img/lancha2.jpeg'); }
-#banner-contato { background-image: url('./assets/img/sobre.jpg'); }
-#banner-mareas { background-image: url('./assets/img/imagem19.jpg'); }
+#banner-lancha { background-image: url('./assets/img/lancha37.webp'); }
+#banner-aventura { background-image: url('./assets/img/jet8.webp'); }
+#banner-sobre { background-image: url('./assets/img/lancha2-banner.webp'); }
+#banner-contato { background-image: url('./assets/img/sobre.webp'); }
+#banner-mareas { background-image: url('./assets/img/imagem19.webp'); }
 
 /* Internal banner content animations */
 #banner-lancha .banner-conteudo,
@@ -3289,7 +3307,7 @@ a.preco-valor {
     background: var(--branco);
     box-shadow: var(--sombra-card);
     border: 2px solid rgba(14, 165, 233, 0.35);
-}}
+}
 
 .contato-info-item:hover {
     background: linear-gradient(135deg, #F0F9FF, #E0F2FE);
@@ -3543,7 +3561,7 @@ a.preco-valor {
     content: '';
     position: absolute;
     inset: 0;
-    background: url('./assets/img/lancha37.jpg') center/cover no-repeat;
+    background: url('./assets/img/lancha37.webp') center/cover no-repeat;
     opacity: 0.15;
     z-index: 0;
     pointer-events: none;
@@ -3552,7 +3570,7 @@ a.preco-valor {
     content: '';
     position: absolute;
     inset: 0;
-    background: url('./assets/img/jet8.jpg') center/cover no-repeat;
+    background: url('./assets/img/jet8.webp') center/cover no-repeat;
     opacity: 0.15;
     z-index: 0;
     pointer-events: none;
@@ -3561,7 +3579,7 @@ a.preco-valor {
     content: '';
     position: absolute;
     inset: 0;
-    background: url('./assets/img/lancha2.jpeg') center/cover no-repeat;
+    background: url('./assets/img/lancha2-banner.webp') center/cover no-repeat;
     opacity: 0.15;
     z-index: 0;
     pointer-events: none;
@@ -3571,7 +3589,7 @@ a.preco-valor {
     content: '';
     position: absolute;
     inset: 0;
-    background: url('./assets/img/imagem19.jpg') center/cover no-repeat;
+    background: url('./assets/img/imagem19.webp') center/cover no-repeat;
     opacity: 0.15;
     z-index: 0;
     pointer-events: none;
@@ -4130,9 +4148,6 @@ textarea:focus-visible {
 #hamburger-btn:focus-visible {
     box-shadow: 0 0 0 4px rgba(14,165,233,0.12);
     border-radius: 8px;
-}
-    line-height: 1.7;
-    font-size: 0.95rem;
 }
 
 /* === LEGENDA COM CORES === */
@@ -4884,4 +4899,316 @@ body.pagina-mareas .tide-copyright {
     body.pagina-mareas .legenda-card {
         padding: 1.4rem;
     }
+}
+
+
+
+/* ============================================================
+   INP NO MOBILE
+   No celular, animações infinitas de box-shadow e background-position
+   repintam a thread principal 60x por segundo, para sempre. Quando o
+   visitante toca em algo, o toque entra na fila atrás desse repaint —
+   é a causa do INP de 202 ms medido em campo.
+   Aqui elas param SÓ no mobile. O desktop continua exatamente igual.
+   O gradiente e o brilho permanecem visíveis; o que para é o movimento.
+   ============================================================ */
+@media (max-width: 900px) {
+
+    /* gradiente de texto/fundo: mantém a aparência, congela o movimento */
+    .texto-destaque,
+    .barra-topo,
+    #contato,
+    #contato-final,
+    .secao-titulo span,
+    [class*="gradient"] {
+        animation-name: none;
+        background-position: 0% 50%;
+    }
+
+    /* pulsos de sombra: substituídos por um anel em pseudo-elemento,
+       animado com transform e opacity (composto pela GPU) */
+    .btn-pulse,
+    .btn-header-cta {
+        animation: none;
+        position: relative;
+    }
+
+    /* o flutuante ja e position:fixed — nao pode virar relative */
+    .whatsapp-flutuante {
+        animation: none;
+    }
+
+    .btn-pulse::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        box-shadow: 0 0 0 8px rgba(14, 165, 233, 0.35);
+        opacity: 0;
+        pointer-events: none;
+        animation: anelSuave 2.6s ease-out infinite;
+        will-change: transform, opacity;
+    }
+
+    /* o anel do WhatsApp ja existe e ja e redondo (.whatsapp-icon::after).
+       So trocamos a animacao de box-shadow por transform/opacity, que a GPU compoe. */
+    .whatsapp-icon::after {
+        animation: anelSuave 2.6s ease-out infinite;
+        will-change: transform, opacity;
+    }
+
+    @keyframes anelSuave {
+        0%   { transform: scale(0.92); opacity: 0.55; }
+        70%  { transform: scale(1.18); opacity: 0; }
+        100% { transform: scale(1.18); opacity: 0; }
+    }
+
+    /* fundo fixo força repintar o herói inteiro a cada scroll */
+    #banner,
+    #banner-lancha,
+    #banner-aventura,
+    #banner-sobre,
+    #banner-contato,
+    #banner-mareas {
+        background-attachment: scroll;
+    }
+}
+
+/* Respeita quem pediu menos movimento no sistema */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* --- SELETOR DE IDIOMA COMPACTO (MOBILE) ---
+   Só a bandeira do idioma em uso aparece, à esquerda do hambúrguer.
+   Tocar nela abre as outras logo abaixo. Desktop segue com as três.
+   O círculo é de 28px para acompanhar o ícone do hambúrguer (24px),
+   mas a área de toque é ampliada para 44px por um pseudo-elemento. */
+@media (max-width: 900px) {
+    .header-right .lang-selector,
+    .lang-selector {
+        display: flex !important;
+        position: relative;
+        order: 8;
+        gap: 0;
+        width: 28px;
+        height: 28px;
+        margin: 0 0.35rem 0 0;
+    }
+
+    #hamburger-btn {
+        order: 9;
+    }
+
+    .lang-selector .lang-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 28px;
+        height: 28px;
+        opacity: 0;
+        transform: scale(0.8);
+        pointer-events: none;
+        transition: transform 0.18s ease, opacity 0.18s ease, top 0.18s ease;
+        background: var(--branco);
+        border: 1.5px solid rgba(148, 163, 184, 0.5);
+        box-shadow: 0 3px 10px rgba(15, 23, 42, 0.16);
+        overflow: visible;
+        z-index: 60;
+    }
+
+    /* alvo de toque de 44px, invisível, sem alterar o desenho */
+    .lang-selector .lang-btn::before {
+        content: '';
+        position: absolute;
+        inset: -8px;
+        border-radius: 50%;
+    }
+
+    .lang-selector .lang-btn img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+    .lang-selector .lang-btn--atual {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+        border-color: var(--turquesa);
+        border-width: 2px;
+        box-shadow: 0 2px 7px rgba(14, 165, 233, 0.32);
+    }
+
+    .lang-selector--aberto .lang-btn {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+        top: calc(38px * var(--ordem, 0));
+    }
+
+    .lang-selector--aberto .lang-btn--atual {
+        box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+    }
+}
+
+/* ============================================================
+   FLUTUANTES NO MOBILE
+   WhatsApp à esquerda, voltar-ao-topo à direita — deixam de
+   disputar o mesmo canto e liberam o polegar direito.
+   O WhatsApp some enquanto o herói está na tela: ali o próprio
+   banner já tem o botão de agendar, e o flutuante só atrapalha.
+   ============================================================ */
+@media (max-width: 900px) {
+    .whatsapp-flutuante {
+        right: 16px;
+        left: auto;
+        bottom: 16px;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .whatsapp-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+        box-shadow: 0 4px 16px rgba(37, 211, 102, 0.38);
+    }
+
+    /* escondido sobre o herói */
+    .whatsapp-flutuante.no-heroi {
+        opacity: 0;
+        transform: translateY(14px) scale(0.9);
+        pointer-events: none;
+    }
+
+    .back-to-top {
+        bottom: 16px;
+        right: 16px;
+    }
+}
+
+/* --- VOLTAR AO TOPO: anel de progresso de leitura --- */
+.back-to-top {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-to-top .btt-anel {
+    position: absolute;
+    inset: 0;
+    width: 48px;
+    height: 48px;
+    transform: rotate(-90deg);
+    pointer-events: none;
+}
+
+.back-to-top .btt-trilho {
+    fill: none;
+    stroke: rgba(30, 58, 138, 0.14);
+    stroke-width: 2.5;
+}
+
+.back-to-top .btt-progresso {
+    fill: none;
+    stroke: var(--turquesa);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    /* 2 * pi * 21 = 131.95 */
+    stroke-dasharray: 131.95;
+    stroke-dashoffset: calc(131.95 * (1 - var(--progresso, 0)));
+    transition: stroke-dashoffset 0.12s linear;
+}
+
+.back-to-top .btt-nucleo {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--branco);
+    color: var(--azul-profundo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.13);
+    transition: background 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+    transform: translateY(-4px);
+    background: transparent;
+    box-shadow: none;
+    outline: none;
+}
+
+.back-to-top:hover .btt-nucleo,
+.back-to-top:focus-visible .btt-nucleo {
+    background: var(--grad-cta);
+    color: var(--branco);
+    box-shadow: 0 10px 24px rgba(14, 165, 233, 0.42);
+}
+
+.back-to-top:hover .btt-progresso,
+.back-to-top:focus-visible .btt-progresso {
+    stroke: #fff;
+}
+
+.back-to-top:hover .btt-trilho {
+    stroke: rgba(255, 255, 255, 0.4);
+}
+
+.back-to-top:active {
+    transform: translateY(-1px) scale(0.96);
+}
+
+.back-to-top i {
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.back-to-top:hover i {
+    transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+    .whatsapp-flutuante { right: 16px; left: auto; bottom: 16px; }
+    /* o botao de topo sobe para nao colidir com o WhatsApp, que voltou a direita */
+    .back-to-top { bottom: 78px; right: 20px; }
+}
+
+/* ============================================================
+   HERÓIS: versão leve no celular
+   background-image não aceita srcset, então trocamos o arquivo
+   por media query. Mesma foto, 900px de largura — cobre telas
+   de até 300px em 3x. Economiza ~4 MB no celular.
+   ============================================================ */
+@media (max-width: 900px) {
+    #banner { background-image: url('./assets/img/r/lancha21-900.webp'); }
+    #banner-lancha { background-image: url('./assets/img/r/lancha37-900.webp'); }
+    #banner-aventura { background-image: url('./assets/img/r/jet8-900.webp'); }
+    #banner-sobre { background-image: url('./assets/img/r/lancha2-banner-900.webp'); }
+    #banner-contato { background-image: url('./assets/img/r/sobre-900.webp'); }
+    #banner-mareas { background-image: url('./assets/img/r/imagem19-900.webp'); }
+
+    #contato-final.lancha::before { background-image: url('./assets/img/r/lancha37-900.webp'); }
+    #contato-final.aventura::before { background-image: url('./assets/img/r/jet8-900.webp'); }
+    #contato-final.sobre::before { background-image: url('./assets/img/r/lancha2-banner-900.webp'); }
+    #contato-final.mares::before { background-image: url('./assets/img/r/imagem19-900.webp'); }
 }

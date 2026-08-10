@@ -385,3 +385,270 @@ body {
 @media (min-width: 921px) {
   .mare-cal-cards { display: none !important; }
 }
+
+/* ============================================================
+   TÁBUA — desenho "faixa do dia" (curva de 24h por dia)
+   Cores oficiais da tábua impressa:
+   vermelho = maré alta (passeio de orla)
+   amarelo  = maré baixa, mas horário/altura não permite piscina
+   verde    = maré baixa visitável (piscinas naturais)
+   ============================================================ */
+
+.mare-cal-table td.mare-cal-cell {
+  padding: 0;
+}
+
+.mare-dia {
+  display: flex;
+  flex-direction: column;
+  padding: 7px 8px 8px;
+  min-height: 118px;
+}
+
+.mare-dia--vazio {
+  opacity: 0.45;
+}
+
+.mare-dia--tem-janela {
+  background: linear-gradient(180deg, color-mix(in srgb, #059669 6%, transparent) 0%, transparent 55%);
+}
+
+.mare-dia__topo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+.mare-dia__num {
+  font-family: var(--font-subtitulo);
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--azul-profundo);
+  font-variant-numeric: tabular-nums;
+}
+
+.mare-dia__badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #065f46;
+  background: #d1fae5;
+  border: 1px solid #a7f3d0;
+  border-radius: 999px;
+  padding: 1px 7px;
+  white-space: nowrap;
+}
+
+.mare-dia__grafico {
+  margin: 5px 0 5px;
+}
+
+.mare-dia__curva {
+  display: block;
+  width: 100%;
+  height: 34px;
+  overflow: hidden;
+}
+
+.mare-dia__area {
+  fill: var(--turquesa);
+  opacity: 0.10;
+}
+
+.mare-dia__linha {
+  fill: none;
+  stroke: var(--turquesa);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.mare-dia__janela {
+  fill: #059669;
+  opacity: 0.14;
+}
+
+.mare-dia__ponto {
+  vector-effect: non-scaling-stroke;
+}
+
+.mare-dia__ponto--vermelho { fill: #DC2626; }
+.mare-dia__ponto--amarelo  { fill: #D97706; }
+.mare-dia__ponto--verde    { fill: #059669; }
+
+.mare-dia__eixo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8.5px;
+  color: color-mix(in srgb, var(--cinza-medio) 75%, transparent);
+  letter-spacing: 0.02em;
+  margin-top: 1px;
+}
+
+.mare-dia__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+}
+
+.mare-ev {
+  display: grid;
+  grid-template-columns: 11px 1fr auto;
+  align-items: center;
+  gap: 6px;
+  padding: 1px 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.mare-ev__seta {
+  width: 11px;
+  height: 11px;
+  display: block;
+  overflow: visible;
+}
+
+.mare-ev--vermelho .mare-ev__seta { color: #DC2626; }
+.mare-ev--amarelo  .mare-ev__seta { color: #D97706; }
+.mare-ev--verde    .mare-ev__seta { color: #059669; }
+
+.mare-ev__hora {
+  font-size: 11.5px;
+  color: var(--texto-escuro);
+  font-weight: 600;
+}
+
+.mare-ev__alt {
+  font-size: 11px;
+  color: var(--cinza-medio);
+}
+
+.mare-ev--verde .mare-ev__hora { color: #065f46; }
+.mare-ev--verde .mare-ev__alt  { color: #059669; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- cartões (celular) ---- */
+.mare-cal-cards {
+  display: none;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.mare-card {
+  border: 1px solid color-mix(in srgb, var(--cinza-medio) 32%, transparent);
+  border-radius: 12px;
+  padding: 9px 11px 10px;
+  background: var(--branco);
+}
+
+.mare-card__cab {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-bottom: 3px;
+}
+
+.mare-card__dia {
+  font-family: var(--font-subtitulo);
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--azul-profundo);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.mare-card__sem {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cinza-medio);
+}
+
+.mare-card__mes {
+  margin-left: auto;
+  font-size: 10.5px;
+  color: var(--cinza-medio);
+}
+
+@media (max-width: 720px) {
+  .mare-cal-tableWrap { display: none; }
+  .mare-cal-cards { display: grid; }
+}
+
+@media (min-width: 721px) and (max-width: 980px) {
+  .mare-dia { min-height: 104px; padding: 6px; }
+  .mare-dia__curva { height: 28px; }
+  .mare-ev__hora { font-size: 11px; }
+  .mare-ev__alt { font-size: 10.5px; }
+}
+
+@media (min-width: 560px) and (max-width: 720px) {
+  .mare-cal-cards { grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mare-dia, .mare-card { transition: none; }
+}
+
+
+/* ---- dia de hoje em destaque ---- */
+.mare-cal-table td.mare-cal-cell--hoje {
+  padding: 0;
+  box-shadow: inset 0 0 0 2px var(--turquesa);
+}
+
+.mare-dia--hoje {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--turquesa) 13%, transparent) 0%, color-mix(in srgb, var(--turquesa) 4%, transparent) 100%);
+}
+
+.mare-dia--hoje.mare-dia--tem-janela {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--turquesa) 14%, transparent) 0%, color-mix(in srgb, #059669 7%, transparent) 100%);
+}
+
+.mare-dia--hoje .mare-dia__num {
+  color: #ffffff;
+  background: var(--grad-cta);
+  border-radius: 999px;
+  padding: 3px 9px;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.32);
+}
+
+.mare-dia__hojeTag {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #0369a1;
+  background: rgba(14, 165, 233, 0.16);
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+
+.mare-card--hoje {
+  border-color: var(--turquesa);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--turquesa) 35%, transparent), 0 8px 20px rgba(14, 165, 233, 0.16);
+}
+
+.mare-card--hoje .mare-card__dia {
+  color: #ffffff;
+  background: var(--grad-cta);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
