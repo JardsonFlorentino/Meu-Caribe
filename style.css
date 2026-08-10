@@ -2506,7 +2506,7 @@ header {
 
 #banner-lancha { background-image: url('./assets/img/lancha37.webp'); }
 #banner-aventura { background-image: url('./assets/img/jet8.webp'); }
-#banner-sobre { background-image: url('./assets/img/lancha2-banner.webp'); }
+#banner-sobre { background-image: url('./assets/img/lancha2.webp'); }
 #banner-contato { background-image: url('./assets/img/sobre.webp'); }
 #banner-mareas { background-image: url('./assets/img/imagem19.webp'); }
 
@@ -3579,7 +3579,7 @@ a.preco-valor {
     content: '';
     position: absolute;
     inset: 0;
-    background: url('./assets/img/lancha2-banner.webp') center/cover no-repeat;
+    background: url('./assets/img/lancha2.webp') center/cover no-repeat;
     opacity: 0.15;
     z-index: 0;
     pointer-events: none;
@@ -5203,12 +5203,112 @@ body.pagina-mareas .tide-copyright {
     #banner { background-image: url('./assets/img/r/lancha21-900.webp'); }
     #banner-lancha { background-image: url('./assets/img/r/lancha37-900.webp'); }
     #banner-aventura { background-image: url('./assets/img/r/jet8-900.webp'); }
-    #banner-sobre { background-image: url('./assets/img/r/lancha2-banner-900.webp'); }
+    #banner-sobre { background-image: url('./assets/img/r/lancha2-900.webp'); }
     #banner-contato { background-image: url('./assets/img/r/sobre-900.webp'); }
     #banner-mareas { background-image: url('./assets/img/r/imagem19-900.webp'); }
 
     #contato-final.lancha::before { background-image: url('./assets/img/r/lancha37-900.webp'); }
     #contato-final.aventura::before { background-image: url('./assets/img/r/jet8-900.webp'); }
-    #contato-final.sobre::before { background-image: url('./assets/img/r/lancha2-banner-900.webp'); }
+    #contato-final.sobre::before { background-image: url('./assets/img/r/lancha2-900.webp'); }
     #contato-final.mares::before { background-image: url('./assets/img/r/imagem19-900.webp'); }
+}
+
+/* ============================================================
+   SELO DE AVALIACAO DO GOOGLE
+   Reforco discreto logo apos o botao de reserva. Sem moldura:
+   e uma linha de apoio, nao um segundo botao competindo com o CTA.
+   ============================================================ */
+.selo-google {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 1.35rem;
+    padding: 4px 2px;
+    text-decoration: none;
+    font-family: var(--font-subtitulo);
+    line-height: 1;
+    white-space: nowrap;
+    opacity: 0.92;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.selo-google:hover,
+.selo-google:focus-visible {
+    opacity: 1;
+    transform: translateY(-1px);
+    outline: none;
+}
+
+.selo-google__logo {
+    width: 17px;
+    height: 17px;
+    flex: none;
+    display: block;
+    background: #fff;
+    border-radius: 50%;
+    padding: 1.5px;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.18);
+}
+
+.selo-google__estrelas {
+    color: #FBBC04;
+    font-size: 12.5px;
+    letter-spacing: 1.5px;
+    text-shadow: 0 1px 3px rgba(15, 23, 42, 0.25);
+}
+
+.selo-google__nota {
+    font-weight: 800;
+    font-size: 13.5px;
+    color: var(--texto-escuro);
+    font-variant-numeric: tabular-nums;
+}
+
+.selo-google__texto {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--texto-corpo);
+    letter-spacing: 0.01em;
+}
+
+.selo-google__texto b {
+    font-weight: 700;
+}
+
+/* separador entre a nota e a contagem */
+.selo-google__texto::before {
+    content: '·';
+    margin-right: 6px;
+    opacity: 0.55;
+}
+
+/* sublinhado sutil so no hover, indicando que leva para fora */
+.selo-google__texto span {
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+    transition: border-color 0.25s ease;
+}
+
+.selo-google:hover .selo-google__texto span {
+    border-bottom-color: currentColor;
+}
+
+/* sobre a foto do heroi: texto claro */
+.banner-conteudo .selo-google__nota {
+    color: #ffffff;
+    text-shadow: 0 1px 6px rgba(15, 23, 42, 0.4);
+}
+
+.banner-conteudo .selo-google__texto {
+    color: rgba(255, 255, 255, 0.88);
+    text-shadow: 0 1px 6px rgba(15, 23, 42, 0.4);
+}
+
+@media (max-width: 640px) {
+    .selo-google {
+        margin-top: 1.1rem;
+        gap: 6px;
+    }
+    .selo-google__texto { font-size: 11px; }
+    .selo-google__estrelas { font-size: 11.5px; letter-spacing: 1px; }
 }
