@@ -120,6 +120,71 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
+    // --- SELETOR DE IDIOMA COMPACTO NO MOBILE ---
+    // No celular o cabeçalho não cabe três bandeiras, e o CSS as escondia sem
+    // repor em lugar nenhum — o site ficava sem troca de idioma no mobile.
+    // Agora mostramos só a bandeira do idioma ativo, ao lado do hambúrguer;
+    // tocar nela revela as outras. No desktop nada muda.
+    (function () {
+        const seletor = document.querySelector('.lang-selector');
+        if (!seletor) return;
+
+        const mq = window.matchMedia('(max-width: 900px)');
+
+        function idiomaAtivo() {
+            try {
+                if (window.I18N && window.I18N.currentLang) return window.I18N.currentLang;
+                return localStorage.getItem('meucaribe_lang') || 'pt';
+            } catch (_) { return 'pt'; }
+        }
+
+        function marcarAtivo() {
+            const lang = idiomaAtivo();
+            let ordem = 1;
+            seletor.querySelectorAll('.lang-btn').forEach(b => {
+                const atual = b.getAttribute('data-lang') === lang;
+                b.classList.toggle('lang-btn--atual', atual);
+                // a ativa fica no topo (0); as demais empilham abaixo
+                b.style.setProperty('--ordem', atual ? '0' : String(ordem++));
+            });
+        }
+
+        function fechar() {
+            seletor.classList.remove('lang-selector--aberto');
+            seletor.setAttribute('aria-expanded', 'false');
+        }
+
+        function aoClicar(e) {
+            if (!mq.matches) return;
+            const btn = e.target.closest('.lang-btn');
+            if (!btn) return;
+            // fechado: o primeiro toque só abre a lista
+            if (!seletor.classList.contains('lang-selector--aberto')) {
+                e.preventDefault();
+                e.stopPropagation();
+                seletor.classList.add('lang-selector--aberto');
+                seletor.setAttribute('aria-expanded', 'true');
+                return;
+            }
+            setTimeout(fechar, 60);
+        }
+
+        seletor.setAttribute('aria-label', 'Selecionar idioma');
+        seletor.setAttribute('aria-expanded', 'false');
+        seletor.addEventListener('click', aoClicar, true);
+
+        document.addEventListener('click', function (e) {
+            if (!seletor.contains(e.target)) fechar();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') fechar();
+        });
+
+        marcarAtivo();
+        document.addEventListener('langchange', function () { marcarAtivo(); fechar(); });
+        if (typeof mq.addEventListener === 'function') mq.addEventListener('change', fechar);
+    })();
+
     // --- FORMULÁRIO PARA WHATSAPP ---
     const formWhats = document.getElementById('form-whatsapp');
     if (formWhats) {
@@ -150,12 +215,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToTop = document.createElement('button');
     backToTop.className = 'back-to-top';
     backToTop.setAttribute('aria-label', 'Voltar ao topo');
-    backToTop.innerHTML = '<i class="fas fa-chevron-up"></i>';
+    // anel externo mostra o quanto da pagina ja foi percorrido
+    backToTop.innerHTML =
+        '<svg class="btt-anel" viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
+        '<circle class="btt-trilho" cx="24" cy="24" r="21"></circle>' +
+        '<circle class="btt-progresso" cx="24" cy="24" r="21"></circle>' +
+        '</svg>' +
+        '<span class="btt-nucleo"><i class="fas fa-arrow-up"></i></span>';
     document.body.appendChild(backToTop);
 
     backToTop.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    // --- WHATSAPP FLUTUANTE: some sobre o herói ---
+    // Usa IntersectionObserver em vez de checar no scroll: o navegador avisa
+    // só quando o herói entra ou sai da tela, sem trabalho a cada rolagem.
+    (function () {
+        const zap = document.querySelector('.whatsapp-flutuante');
+        const heroi = document.querySelector('#banner, #banner-lancha, #banner-aventura, #banner-sobre, #banner-contato, #banner-mareas');
+        if (!zap || !heroi || !('IntersectionObserver' in window)) return;
+
+        const obs = new IntersectionObserver(function (entradas) {
+            entradas.forEach(function (e) {
+                // visível em mais de 35% da altura do herói = ainda no topo da página
+                zap.classList.toggle('no-heroi', e.intersectionRatio > 0.35);
+            });
+        }, { threshold: [0, 0.35, 0.6, 1] });
+
+        obs.observe(heroi);
+    })();
 
     // --- HERO BUBBLES ---
     document.querySelectorAll('#banner, #banner-lancha, #banner-aventura, #banner-sobre, #banner-contato').forEach(hero => {
@@ -286,6 +375,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Progress bar
         const progress = docHeight > 0 ? (currentScroll / docHeight) * 100 : 0;
         scrollProgress.style.width = progress + '%';
+        // alimenta o anel do botao de voltar ao topo (0 a 1)
+        backToTop.style.setProperty('--progresso', (progress / 100).toFixed(3));
 
         // Back to top
         if (currentScroll > 400) {
@@ -593,20 +684,19 @@ function monthKeyPt(monthNumber) {
 }
 
 async function fetchTideFromLocalJson(dateStr) {
-    // Uses assets/data/mare-maragogi.json so it works on static dev servers.
+    // Le apenas o arquivo do mes corrente (~5 KB) em vez do ano inteiro (~97 KB).
+    // Fonte: tabua oficial fornecida pelo cliente (PDFs 2026 e 2027).
     const parsed = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/.exec(dateStr);
     if (!parsed) return null;
+    const year = Number(parsed[1]);
     const month = Number(parsed[2]);
     const day = Number(parsed[3]);
-    const key = monthKeyPt(month);
-    if (!key) return null;
+    if (!Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day)) return null;
 
-    const data = await fetchJsonWithTimeout('/assets/data/mare-maragogi.json', 6500);
-    const monthData = data?.dadosBase?.[key];
-    if (!Array.isArray(monthData)) return null;
-
-    const rec = monthData.find(d => Number(d?.dia) === day);
-    if (!rec) return null;
+    const file = `/assets/data/mares/${year}-${String(month).padStart(2, '0')}.json`;
+    const data = await fetchJsonWithTimeout(file, 6500);
+    const eventos = data?.dias?.[String(day)];
+    if (!Array.isArray(eventos) || !eventos.length) return null;
 
     const timeToMinutes = (hhmm) => {
         const m = /^([0-9]{1,2}):([0-9]{2})$/.exec(String(hhmm || '').trim());
@@ -619,20 +709,17 @@ async function fetchTideFromLocalJson(dateStr) {
         return h * 60 + min;
     };
 
-    const tides = [];
-    if (rec.mareBaixa1) tides.push({ type: 'baixa', time: rec.mareBaixa1, height: rec.altura1 });
-    if (rec.mareAlta1) tides.push({ type: 'alta', time: rec.mareAlta1, height: rec.altura_alta1 });
-    if (rec.mareBaixa2) tides.push({ type: 'baixa', time: rec.mareBaixa2, height: rec.altura2 });
-    if (rec.mareAlta2) tides.push({ type: 'alta', time: rec.mareAlta2, height: rec.altura_alta2 });
-
-    tides.sort((a, b) => {
-        const am = timeToMinutes(a.time);
-        const bm = timeToMinutes(b.time);
-        if (!Number.isFinite(am) && !Number.isFinite(bm)) return 0;
-        if (!Number.isFinite(am)) return 1;
-        if (!Number.isFinite(bm)) return -1;
-        return am - bm;
-    });
+    const tides = eventos
+        .filter(e => e && e.h && Number.isFinite(Number(e.a)))
+        .map(e => ({ type: e.t === 'alta' ? 'alta' : 'baixa', time: e.h, height: Number(e.a), flag: e.c }))
+        .sort((a, b) => {
+            const am = timeToMinutes(a.time);
+            const bm = timeToMinutes(b.time);
+            if (!Number.isFinite(am) && !Number.isFinite(bm)) return 0;
+            if (!Number.isFinite(am)) return 1;
+            if (!Number.isFinite(bm)) return -1;
+            return am - bm;
+        });
 
     return tides.length ? tides : null;
 }

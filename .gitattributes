@@ -1,0 +1,14 @@
+# Normaliza quebras de linha no repositorio (LF), preservando o padrao do SO no disco.
+# Sem isso, editar no Windows gera diffs falsos de milhares de linhas.
+* text=auto eol=lf
+
+# Binarios: nunca normalizar
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
+*.xlsx binary

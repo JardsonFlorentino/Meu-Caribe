@@ -1,0 +1,28 @@
+# Arquivos que ficam no repositorio mas NAO precisam ir para producao.
+# Reduz o tamanho do deploy sem perder nada do historico.
+
+# Ferramentas de build (rodam na maquina, nunca no navegador)
+tools/
+
+# Documentacao interna
+PLANEJAMENTO-OTIMIZACAO.md
+
+# Arquivo mestre da tabua: fonte de onde os 24 mensais sao gerados.
+# O site le apenas assets/data/mares/AAAA-MM.json
+assets/data/mares-2026-2027.json
+
+# SVGs originais das bandeiras: sao a fonte dos .webp servidos.
+# Ficam guardados caso seja preciso regerar em outro tamanho.
+assets/icons/flag-br.svg
+assets/icons/flag-es.svg
+
+# Masters de imagem em alta resolucao.
+# O site serve apenas assets/img/r/*.webp (variantes) e os herois de fundo.
+# Estes ficam como fonte para regerar variantes no futuro.
+assets/img-archive/
+assets/img-optimized/
+
+# Sobras de ambiente
+.vscode/
+node_modules/
+*.tmp

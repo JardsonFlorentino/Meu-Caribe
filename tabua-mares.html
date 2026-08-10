@@ -53,12 +53,18 @@
         }
         </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://api.open-meteo.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;700&family=Poppins:wght@400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        crossorigin="anonymous" />
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'" crossorigin="anonymous">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"></noscript>
+    <style>/* reserva o espaco dos icones antes do Font Awesome chegar, evitando salto de layout */
+    .fas,.fab,.far{display:inline-block;width:1.25em;text-align:center;font-style:normal}</style>
+    <link rel="preload" as="image" href="./assets/img/r/imagem19-900.webp" type="image/webp" fetchpriority="high" media="(max-width: 900px)">
+    <link rel="preload" as="image" href="./assets/img/imagem19.webp" type="image/webp" fetchpriority="high" media="(min-width: 901px)">
     <link rel="stylesheet" href="style.css">
     <script src="i18n.js" defer></script>
     <script src="script.js" defer></script>
@@ -110,11 +116,11 @@
                 <i class="fab fa-whatsapp"></i> <span data-i18n="header.cta">Agende seu Passeio</span>
             </a>
             <div class="lang-selector">
-                <button class="lang-btn" data-lang="pt" title="Português"><img src="./assets/icons/flag-br.svg" alt="PT"
+                <button class="lang-btn" data-lang="pt" title="Português"><img src="./assets/icons/flag-br.webp" alt="PT"
                         width="22" height="22"></button>
                 <button class="lang-btn" data-lang="en" title="English"><img src="./assets/icons/flag-us.svg" alt="EN"
                         width="22" height="22"></button>
-                <button class="lang-btn" data-lang="es" title="Español"><img src="./assets/icons/flag-es.svg" alt="ES"
+                <button class="lang-btn" data-lang="es" title="Español"><img src="./assets/icons/flag-es.webp" alt="ES"
                         width="22" height="22"></button>
             </div>
             <button id="hamburger-btn" aria-label="Abrir menu de navegação" aria-expanded="false"
@@ -211,6 +217,12 @@
                         rel="noopener noreferrer">Marinha do Brasil / CHM</a></p>
             </div>
 
+            <!-- YEAR SELECTOR -->
+            <div class="ano-filter" role="group" aria-label="Ano da tábua">
+                <button class="ano-btn" type="button" data-ano="2026" aria-pressed="true">2026</button>
+                <button class="ano-btn" type="button" data-ano="2027" aria-pressed="false">2027</button>
+            </div>
+
             <!-- MONTH SELECTOR -->
             <div class="meses-botoes mes-filter" role="tablist" aria-label="Meses do ano">
                 <button class="mes-btn" role="tab" aria-selected="false" tabindex="-1" data-mes="janeiro"><span
@@ -253,22 +265,22 @@
             </div>
 
             <div class="legenda-grid">
-                <div class="legenda-card" role="group" aria-label="Maré muito baixa: 0.00 a 0.35 metros">
+                <div class="legenda-card" role="group" aria-label="Verde: maré baixa em horário de sol, piscinas naturais acessíveis">
                     <div class="legenda-indicador verde" aria-hidden="true"><i class="fas fa-arrow-down"></i></div>
-                    <h3 data-i18n="tide.legend.green">Verde (0.00-0.35m)</h3>
-                    <p data-i18n="tide.legend.green_meaning">Maré MUITO baixa. Piscinas super expostas!</p>
+                    <h3 data-i18n="tide.legend.green">Verde — piscinas naturais</h3>
+                    <p data-i18n="tide.legend.green_meaning">Maré baixa em horário de sol. É o momento de conhecer as piscinas naturais.</p>
                 </div>
 
-                <div class="legenda-card" role="group" aria-label="Maré média: 0.35 a 0.60 metros">
-                    <div class="legenda-indicador amarelo" aria-hidden="true"><i class="fas fa-arrow-right"></i></div>
-                    <h3 data-i18n="tide.legend.yellow">Amarelo (0.35-0.60m)</h3>
-                    <p data-i18n="tide.legend.yellow_meaning">Maré média. Perfeita para passeios em geral!</p>
+                <div class="legenda-card" role="group" aria-label="Amarelo: maré baixa, mas fora do horário ou altura para as piscinas">
+                    <div class="legenda-indicador amarelo" aria-hidden="true"><i class="fas fa-arrow-down"></i></div>
+                    <h3 data-i18n="tide.legend.yellow">Amarelo — maré baixa, sem piscina</h3>
+                    <p data-i18n="tide.legend.yellow_meaning">A maré baixa, mas o horário ou a altura não permite o passeio às piscinas. Sugerimos passeio de orla.</p>
                 </div>
 
-                <div class="legenda-card" role="group" aria-label="Maré alta: acima de 0.60 metros">
+                <div class="legenda-card" role="group" aria-label="Vermelho: maré alta, sugerimos passeio de orla">
                     <div class="legenda-indicador vermelho" aria-hidden="true"><i class="fas fa-arrow-up"></i></div>
-                    <h3 data-i18n="tide.legend.red">Vermelho (0.60m+)</h3>
-                    <p data-i18n="tide.legend.red_meaning">Maré alta. Sugerimos passeio de Orla.</p>
+                    <h3 data-i18n="tide.legend.red">Vermelho — maré alta</h3>
+                    <p data-i18n="tide.legend.red_meaning">Maré alta. Sugerimos passeio de orla.</p>
                 </div>
             </div>
 
@@ -363,7 +375,7 @@
         // Sem imagens no site: carrega as tabelas prontas em /tabelas/<mes>.html
 
         const MESES_KEYS = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
-        const ANOS_DISPONIVEIS = [2026];
+        const ANOS_DISPONIVEIS = [2026, 2027];
         let anoAtivo = 2026;
         let mesAtivo = MESES_KEYS[new Date().getMonth()];
 
@@ -545,75 +557,10 @@
             });
         }
 
-        // Hamburger: acessibilidade e toggle
-        const hb = document.getElementById('hamburger-btn');
-        const navWrapper = document.getElementById('nav-wrapper');
-        if (hb && navWrapper) {
-            hb.addEventListener('click', () => {
-                const expanded = hb.getAttribute('aria-expanded') === 'true';
-                hb.setAttribute('aria-expanded', String(!expanded));
-                navWrapper.classList.toggle('ativo');
-                if (!expanded) {
-                    // abriu
-                    const firstLink = navWrapper.querySelector('a');
-                    if (firstLink) firstLink.focus();
-                } else {
-                    hb.focus();
-                }
-            });
-        }
-
-        // Move header controls (lang selector + CTA) into nav on small screens (<=900px)
-        (function () {
-            const LANG = document.querySelector('.lang-selector');
-            const CTA = document.querySelector('.btn-header-cta');
-            const headerRight = document.querySelector('.header-right');
-
-            function toNav(el) {
-                if (!el || !navWrapper) return;
-                // wrap element in li for the nav list
-                if (el.__moved) return; // already moved
-                const li = document.createElement('li');
-                li.className = 'nav-extra-item';
-                li.setAttribute('data-moved-from', 'header-right');
-                li.appendChild(el);
-                const ul = navWrapper.querySelector('ul');
-                if (ul) ul.appendChild(li);
-                el.__moved = li;
-            }
-
-            function fromNav(el) {
-                if (!el) return;
-                const marker = el.__moved;
-                if (!marker) return;
-                // restore to headerRight
-                if (headerRight) headerRight.appendChild(el);
-                marker.remove();
-                delete el.__moved;
-            }
-
-            function sync() {
-                try {
-                    const narrow = window.innerWidth <= 900;
-                    if (narrow) {
-                        toNav(LANG);
-                        toNav(CTA);
-                    } else {
-                        fromNav(LANG);
-                        fromNav(CTA);
-                    }
-                } catch (_) { }
-            }
-
-            window.addEventListener('resize', function () {
-                sync();
-            });
-
-            document.addEventListener('DOMContentLoaded', function () {
-                // run after initial render
-                sync();
-            });
-        })();
+        // O hamburguer e o seletor de idioma sao tratados uma unica vez no
+        // script.js. Havia aqui um segundo handler que alternava a mesma classe
+        // no mesmo clique, cancelando o primeiro — por isso o menu nao abria
+        // nesta pagina.
 
         document.addEventListener('DOMContentLoaded', () => {
             const initial = getInitialState();
