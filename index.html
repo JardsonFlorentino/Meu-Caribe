@@ -37,55 +37,195 @@
 <!-- SEO LocalBusiness JSON-LD -->
 <script type="application/ld+json">
 {
-        "@context": "https://schema.org",
-        "@type": "TouristInformationCenter",
-        "additionalType": "https://schema.org/TravelAgency",
-        "name": "Meu Caribe",
-        "alternateName": "Meu Caribe Maragogi | Piscinas Naturais",
-        "image": "https://www.meucaribemaragogi.com.br/assets/img/logo.webp",
-        "logo": "https://www.meucaribemaragogi.com.br/assets/img/logo.webp",
-        "url": "https://www.meucaribemaragogi.com.br/",
-        "telephone": "+5581981211006",
-        "email": "meucaribebrasileiro@gmail.com",
-        "taxID": "51.740.318/0001-40",
-        "vatID": "51.740.318/0001-40",
-        "priceRange": "R$$",
-        "currenciesAccepted": "BRL",
-        "description": "Operador de turismo em Maragogi-AL. Passeios de lancha as piscinas naturais das Gales, jet ski, banana boat e sofa boat.",
-        "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Praia de Peroba",
-                "addressLocality": "Maragogi",
-                "addressRegion": "AL",
-                "postalCode": "57955-000",
-                "addressCountry": "BR"
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["TouristInformationCenter", "TravelAgency"],
+      "@id": "https://www.meucaribemaragogi.com.br/#organization",
+      "name": "Meu Caribe Maragogi",
+      "alternateName": "Meu Caribe - Passeios de Lancha e Atividades Aquáticas",
+      "legalName": "Meu Caribe",
+      "url": "https://www.meucaribemaragogi.com.br/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.meucaribemaragogi.com.br/assets/img/logo.webp",
+        "caption": "Logotipo Oficial Meu Caribe Maragogi"
+      },
+      "image": "https://www.meucaribemaragogi.com.br/assets/img/logo.webp",
+      "telephone": "+55 81 98121-1006",
+      "email": "meucaribebrasileiro@gmail.com",
+      "taxID": "51.740.318/0001-40",
+      "priceRange": "R$$",
+      "currenciesAccepted": "BRL",
+      "paymentAccepted": "PIX, Cartão de Crédito, Dinheiro",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Praia de Peroba",
+        "addressLocality": "Maragogi",
+        "addressRegion": "AL",
+        "postalCode": "57955-000",
+        "addressCountry": "BR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -9.012222,
+        "longitude": -35.222778
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Maragogi"
         },
-        "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": -9.012222,
-                "longitude": -35.222778
+        {
+          "@type": "Place",
+          "name": "Barra Grande"
         },
-        "areaServed": [
-                {
-                        "@type": "City",
-                        "name": "Maragogi"
-                },
-                {
-                        "@type": "City",
-                        "name": "Japaratinga"
-                },
-                {
-                        "@type": "State",
-                        "name": "Alagoas"
-                }
-        ],
-        "sameAs": [
-                "https://share.google/y602me0XKEuSOjUKK",
-                "https://www.instagram.com/meucaribemaragogi",
-                "https://wa.me/558181211006"
+        {
+          "@type": "Place",
+          "name": "Praia de Antunes"
+        },
+        {
+          "@type": "Place",
+          "name": "Praia de Peroba"
+        },
+        {
+          "@type": "State",
+          "name": "Alagoas"
+        }
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "07:00",
+          "closes": "18:00"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "24",
+        "reviewCount": "24"
+      },
+      "sameAs": [
+        "https://share.google/y602me0XKEuSOjUKK",
+        "https://www.instagram.com/meucaribemaragogi",
+        "https://wa.me/558181211006"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Passeios e Atividades Náuticas em Maragogi",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@id": "https://www.meucaribemaragogi.com.br/#passeio-lancha-privativa"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@id": "https://www.meucaribemaragogi.com.br/#passeio-jet-ski"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@id": "https://www.meucaribemaragogi.com.br/#passeio-banana-boat"
+            }
+          }
         ]
+      }
+    },
+    {
+      "@type": "TouristTrip",
+      "@id": "https://www.meucaribemaragogi.com.br/#passeio-lancha-privativa",
+      "name": "Passeio de Lancha Privativa em Maragogi",
+      "description": "Aluguel de lancha privativa para as Piscinas Naturais das Galés, Ponta de Mangue, Caminho de Moisés e Praia de Antunes com conforto e segurança.",
+      "provider": {
+        "@id": "https://www.meucaribemaragogi.com.br/#organization"
+      },
+      "touristType": [
+        "Famílias",
+        "Casais",
+        "Grupos de Amigos"
+      ],
+      "itinerary": {
+        "@type": "ItemList",
+        "numberOfItems": 4,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Embarque na Praia de Peroba"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Piscinas Naturais das Galés e Ponta de Mangue (Mergulho e Snorkel)"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Caminho de Moisés em Barra Grande na Maré Baixa"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Praia de Antunes e Banco de Areia da Bruna"
+          }
+        ]
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "BRL",
+        "availability": "https://schema.org/InStock",
+        "url": "https://www.meucaribemaragogi.com.br/passeio-de-lancha-maragogi"
+      }
+    },
+    {
+      "@type": "TouristTrip",
+      "@id": "https://www.meucaribemaragogi.com.br/#passeio-jet-ski",
+      "name": "Aluguel e Passeio de Jet Ski em Maragogi",
+      "description": "Experiência de pilotagem e aventura náutica com instrutor em jet ski moderno nas águas cristalinas de Maragogi.",
+      "provider": {
+        "@id": "https://www.meucaribemaragogi.com.br/#organization"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "BRL",
+        "availability": "https://schema.org/InStock",
+        "url": "https://www.meucaribemaragogi.com.br/aventura-aquatica"
+      }
+    },
+    {
+      "@type": "TouristTrip",
+      "@id": "https://www.meucaribemaragogi.com.br/#passeio-banana-boat",
+      "name": "Passeio de Banana Boat em Maragogi",
+      "description": "Atividade aquática divertida e segura para toda a família e grupos de amigos nas praias de Maragogi.",
+      "provider": {
+        "@id": "https://www.meucaribemaragogi.com.br/#organization"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "BRL",
+        "availability": "https://schema.org/InStock",
+        "url": "https://www.meucaribemaragogi.com.br/aventura-aquatica"
+      }
+    }
+  ]
 }
-    </script>
+</script>
 <!-- Google tag (gtag.js) -->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=AW-18054628931"></script>
 <script>
@@ -114,7 +254,7 @@
 <li><span class="star">⭐</span> Guia local especializado</li>
 <li><span class="star">⭐</span> Cenários de tirar o fôlego</li>
 </ul>
-<a class="btn-primario promo-modal-cta" href="/passeios-lancha.html">Ver Ofertas Exclusivas</a>
+<a class="btn-primario promo-modal-cta" href="/passeio-de-lancha-maragogi">Ver Ofertas Exclusivas</a>
 <div class="promo-modal-adventures">
 <span>Explore também:</span>
 <a class="promo-modal-link" href="/aventura-aquatica.html">Jet ski • Banana boat • Sofá boat</a>
@@ -137,9 +277,9 @@
 <nav id="nav-wrapper">
 <ul>
 <li><a class="nav-ativo" data-i18n="nav.home" href="/">Página Inicial</a></li>
-<li><a data-i18n="nav.boat_tours" href="/passeios-lancha">Passeios de Lancha</a></li>
+<li><a data-i18n="nav.boat_tours" href="/passeio-de-lancha-maragogi">Passeios de Lancha</a></li>
 <li><a data-i18n="nav.water_adventure" href="/aventura-aquatica">Aventura Aquática</a></li>
-<li><a data-i18n="nav.tide_table" href="/tabua-mares">Tábua de Marés</a></li>
+<li><a data-i18n="nav.tide_table" href="/tabua-mares-maragogi">Tábua de Marés</a></li>
 <li><a data-i18n="nav.about" href="/sobre">Sobre Nós</a></li>
 <li><a data-i18n="nav.contact" href="/contato">Contato</a></li>
 </ul>
@@ -197,7 +337,7 @@
 <div class="servicos-grid">
 <article class="card-servico">
 <div class="card-img-wrapper">
-<img alt="Passeio de lancha em Maragogi" decoding="async" height="4000" loading="lazy" sizes="(max-width: 900px) 88vw, 260px" src="./assets/img/r/lancha4-800.webp" srcset="./assets/img/r/lancha4-400.webp 400w, ./assets/img/r/lancha4-800.webp 800w, ./assets/img/r/lancha4-1200.webp 1200w" width="2250"/>
+<img alt="Passeio de lancha privativo nas piscinas naturais de Maragogi" decoding="async" height="4000" loading="lazy" sizes="(max-width: 900px) 88vw, 260px" src="./assets/img/r/lancha4-800.webp" srcset="./assets/img/r/lancha4-400.webp 400w, ./assets/img/r/lancha4-800.webp 800w, ./assets/img/r/lancha4-1200.webp 1200w" width="2250"/>
 <span class="card-badge"><i class="fas fa-ship"></i></span>
 </div>
 <div class="card-corpo">
@@ -205,7 +345,7 @@
 <p data-i18n="index.card_lancha.description">Navegue pelas águas cristalinas até as famosas
                             piscinas naturais. Perfeito para relaxar e
                             mergulhar em um aquário natural.</p>
-<a class="card-link" href="passeios-lancha.html"><span data-i18n="index.card_lancha.link">Saiba
+<a class="card-link" href="/passeio-de-lancha-maragogi" title="Passeio de Lancha em Maragogi Privativo"><span data-i18n="index.card_lancha.link">Saiba
                                 mais</span> <i class="fas fa-arrow-right"></i></a>
 </div>
 </article>
@@ -377,9 +517,9 @@
 <nav aria-label="Links do rodapé" class="footer-links" role="navigation">
 <ul>
 <li><a data-i18n="nav.home" href="/">Página Inicial</a></li>
-<li><a data-i18n="nav.boat_tours" href="/passeios-lancha">Passeios de Lancha</a></li>
+<li><a data-i18n="nav.boat_tours" href="/passeio-de-lancha-maragogi">Passeios de Lancha</a></li>
 <li><a data-i18n="nav.water_adventure" href="/aventura-aquatica">Aventura Aquática</a></li>
-<li><a data-i18n="nav.tide_table" href="/tabua-mares">Tábua de Marés</a></li>
+<li><a data-i18n="nav.tide_table" href="/tabua-mares-maragogi">Tábua de Marés</a></li>
 <li><a data-i18n="nav.about" href="/sobre">Sobre Nós</a></li>
 <li><a data-i18n="nav.contact" href="/contato">Contato</a></li>
 </ul>

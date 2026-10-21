@@ -8,9 +8,13 @@
     var PAGE_TITLE_MAP = {
         'index': 'index.title',
         'passeios-lancha': 'lancha.title',
+        'passeio-de-lancha': 'lancha.title',
+        'passeio-de-lancha-maragogi': 'lancha.title',
         'aventura-aquatica': 'aventura.title',
         'sobre': 'sobre.title',
-        'contato': 'contato.title'
+        'contato': 'contato.title',
+        'tabua-mares': 'tide.title',
+        'tabua-mares-maragogi': 'tide.title'
     };
 
     var LANG_HTML = { pt: 'pt-br', en: 'en', es: 'es' };
