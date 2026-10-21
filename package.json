@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "start": "node dev-server.js",
+    "dev": "node dev-server.js"
+  },
   "dependencies": {
     "exceljs": "^4.3.0",
     "sharp": "^0.34.5",

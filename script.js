@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     // Detecta se está em uma das páginas de vídeo
     const isAventura = window.location.pathname.includes('aventura-aquatica');
-    const isLancha = window.location.pathname.includes('passeios-lancha');
+    const isLancha = window.location.pathname.includes('passeios-lancha') || window.location.pathname.includes('passeio-de-lancha');
     if (!isAventura && !isLancha) return;
 
     // IDs dos iframes em ordem
@@ -845,3 +845,53 @@ function initConsoleEasterEgg() {
   console.log('%c🌐 https://www.jardsonflorentino.com.br/', styles2);
   console.log('%c\n🚀 Site construído com HTML, CSS e JavaScript', 'color: #9ca3af; font-size: 12px');
 }
+
+/* ----------------------------------------------------------------------------
+ * Google Ads - Conversão "WhatsApp - Reserva"
+ * Dispara quando o visitante abre uma conversa no WhatsApp (qualquer botão do site).
+ * Valor: R$150 para intenção de reserva ("Reservar"/"Agendar"), R$60 para consulta.
+ * ------------------------------------------------------------------------- */
+(function () {
+  'use strict';
+
+  var SEND_TO = 'AW-18054628931/FipMCIe-uN8cEMOMj6FD';
+
+  function enviarConversao(origem, alta) {
+    if (typeof window.gtag !== 'function') return;
+    window.gtag('event', 'conversion', {
+      send_to: SEND_TO,
+      value: alta ? 150.0 : 60.0,
+      currency: 'BRL',
+      transaction_id: 'wa-' + Date.now()
+    });
+    if (window.console && console.debug) {
+      console.debug('[Ads] conversão WhatsApp enviada:', origem, alta ? 'R$150' : 'R$60');
+    }
+  }
+
+  // 1) Qualquer link de WhatsApp do site
+  document.addEventListener('click', function (e) {
+    var alvo = e.target;
+    if (!alvo || typeof alvo.closest !== 'function') return;
+
+    var link = alvo.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"], a[href*="web.whatsapp.com"]');
+    if (!link) return;
+
+    var rotulo = (link.innerText || link.getAttribute('aria-label') || link.title || '').toLowerCase();
+    var href = (link.getAttribute('href') || '').toLowerCase();
+    var textoTotal = rotulo + ' ' + decodeURIComponent(href);
+
+    // "Reservar", "Reserve", "Agendar", "Agende", "Quero reservar" => intenção alta
+    var alta = /reserv|agend/.test(textoTotal);
+
+    enviarConversao(rotulo || 'botao-whatsapp', alta);
+  }, true);
+
+  // 2) Formulário de contato que abre o WhatsApp via window.open
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (form && form.id === 'form-whatsapp') {
+      enviarConversao('formulario-contato', true);
+    }
+  }, true);
+})();

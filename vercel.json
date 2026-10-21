@@ -7,7 +7,7 @@
             "destination": "/index.html"
         },
         {
-            "source": "/passeios-lancha",
+            "source": "/passeio-de-lancha-maragogi",
             "destination": "/passeios-lancha.html"
         },
         {
@@ -23,7 +23,7 @@
             "destination": "/contato.html"
         },
         {
-            "source": "/tabua-mares",
+            "source": "/tabua-mares-maragogi",
             "destination": "/tabua-mares.html"
         }
     ],
@@ -34,8 +34,33 @@
             "permanent": true
         },
         {
+            "source": "/passeios-lancha",
+            "destination": "/passeio-de-lancha-maragogi",
+            "permanent": true
+        },
+        {
+            "source": "/passeio-de-lancha",
+            "destination": "/passeio-de-lancha-maragogi",
+            "permanent": true
+        },
+        {
             "source": "/passeios-lancha.html",
-            "destination": "/passeios-lancha",
+            "destination": "/passeio-de-lancha-maragogi",
+            "permanent": true
+        },
+        {
+            "source": "/passeio-de-lancha.html",
+            "destination": "/passeio-de-lancha-maragogi",
+            "permanent": true
+        },
+        {
+            "source": "/tabua-mares",
+            "destination": "/tabua-mares-maragogi",
+            "permanent": true
+        },
+        {
+            "source": "/tabua-mares.html",
+            "destination": "/tabua-mares-maragogi",
             "permanent": true
         },
         {
@@ -51,11 +76,6 @@
         {
             "source": "/contato.html",
             "destination": "/contato",
-            "permanent": true
-        },
-        {
-            "source": "/tabua-mares.html",
-            "destination": "/tabua-mares",
             "permanent": true
         }
     ],

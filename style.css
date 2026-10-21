@@ -2943,8 +2943,24 @@ a.preco-valor {
 }
 
 .faq-item.ativo .faq-resposta {
-    max-height: 300px;
+    max-height: 500px;
     margin-top: 0.8rem;
+}
+
+.faq-zap-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+    color: #059669;
+    font-weight: 700;
+    text-decoration: underline;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.faq-zap-link:hover {
+    color: #047857;
+    transform: translateX(3px);
 }
 
 /* --- SOBRE — HISTÓRIA --- */
