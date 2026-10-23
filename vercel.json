@@ -25,6 +25,10 @@
         {
             "source": "/tabua-mares-maragogi",
             "destination": "/tabua-mares-maragogi.html"
+        },
+        {
+            "source": "/politica-de-privacidade",
+            "destination": "/politica-de-privacidade.html"
         }
     ],
     "redirects": [
@@ -86,6 +90,11 @@
         {
             "source": "/contato.html",
             "destination": "/contato",
+            "permanent": true
+        },
+        {
+            "source": "/politica-de-privacidade.html",
+            "destination": "/politica-de-privacidade",
             "permanent": true
         }
     ],
