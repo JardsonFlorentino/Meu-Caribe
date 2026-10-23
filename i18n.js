@@ -14,7 +14,8 @@
         'sobre': 'sobre.title',
         'contato': 'contato.title',
         'tabua-mares': 'tide.title',
-        'tabua-mares-maragogi': 'tide.title'
+        'tabua-mares-maragogi': 'tide.title',
+        'politica-de-privacidade': 'privacy.title'
     };
 
     var LANG_HTML = { pt: 'pt-br', en: 'en', es: 'es' };
@@ -101,6 +102,10 @@
             // Update selector buttons
             document.querySelectorAll('.lang-btn').forEach(function (btn) {
                 btn.classList.toggle('active', btn.getAttribute('data-lang') === self.currentLang);
+            });
+
+            document.querySelectorAll('.lang-active-code').forEach(function (codeEl) {
+                codeEl.textContent = self.currentLang.toUpperCase();
             });
 
             // Notify other scripts (e.g. tide bar)

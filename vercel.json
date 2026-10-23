@@ -8,7 +8,7 @@
         },
         {
             "source": "/passeio-de-lancha-maragogi",
-            "destination": "/passeios-lancha.html"
+            "destination": "/passeio-de-lancha-maragogi.html"
         },
         {
             "source": "/aventura-aquatica",
@@ -24,7 +24,11 @@
         },
         {
             "source": "/tabua-mares-maragogi",
-            "destination": "/tabua-mares.html"
+            "destination": "/tabua-mares-maragogi.html"
+        },
+        {
+            "source": "/politica-de-privacidade",
+            "destination": "/politica-de-privacidade.html"
         }
     ],
     "redirects": [
@@ -54,12 +58,22 @@
             "permanent": true
         },
         {
+            "source": "/passeio-de-lancha-maragogi.html",
+            "destination": "/passeio-de-lancha-maragogi",
+            "permanent": true
+        },
+        {
             "source": "/tabua-mares",
             "destination": "/tabua-mares-maragogi",
             "permanent": true
         },
         {
             "source": "/tabua-mares.html",
+            "destination": "/tabua-mares-maragogi",
+            "permanent": true
+        },
+        {
+            "source": "/tabua-mares-maragogi.html",
             "destination": "/tabua-mares-maragogi",
             "permanent": true
         },
@@ -76,6 +90,11 @@
         {
             "source": "/contato.html",
             "destination": "/contato",
+            "permanent": true
+        },
+        {
+            "source": "/politica-de-privacidade.html",
+            "destination": "/politica-de-privacidade",
             "permanent": true
         }
     ],

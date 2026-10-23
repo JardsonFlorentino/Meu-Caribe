@@ -1,50 +1,3 @@
-// === MODAL PROMOÇÃO ESPECIAL (NOVO) ===
-document.addEventListener('DOMContentLoaded', function () {
-    var modal = document.getElementById('promo-modal');
-    if (!modal) return;
-    var closeBtn = modal.querySelector('.promo-modal-close');
-    var ctaBtn = modal.querySelector('.promo-modal-cta');
-    var adventuresLink = modal.querySelector('.promo-modal-link');
-
-    function showModal() {
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function hideModal() {
-        modal.classList.remove('show');
-        document.body.style.overflow = '';
-        sessionStorage.setItem('promoModalClosed', '1');
-    }
-
-    // Só mostra se não fechou nesta sessão
-    if (!sessionStorage.getItem('promoModalClosed')) {
-        setTimeout(showModal, 5000);
-    }
-
-    closeBtn.addEventListener('click', hideModal);
-    modal.addEventListener('click', function (e) {
-        if (e.target === modal) hideModal();
-    });
-    // Acessibilidade: ESC fecha
-    document.addEventListener('keydown', function (e) {
-        if (modal.classList.contains('show') && (e.key === 'Escape' || e.key === 'Esc')) hideModal();
-    });
-    // Botão principal (opcional, já é <a>)
-    if (ctaBtn) {
-        ctaBtn.addEventListener('click', function() {
-            hideModal();
-        });
-    }
-    // Link de aventuras
-    if (adventuresLink) {
-        adventuresLink.addEventListener('click', function() {
-            hideModal();
-        });
-    }
-});
-// ===================================================
-
 // --- YOUTUBE SEQUENCIAL (vídeos das páginas de passeios e aventura) ---
 document.addEventListener('DOMContentLoaded', function () {
     // Detecta se está em uma das páginas de vídeo
@@ -124,11 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // No celular o cabeçalho não cabe três bandeiras, e o CSS as escondia sem
     // repor em lugar nenhum — o site ficava sem troca de idioma no mobile.
     // Agora mostramos só a bandeira do idioma ativo, ao lado do hambúrguer;
-    // tocar nela revela as outras. No desktop nada muda.
+    // --- SELETOR DE IDIOMA (DROPDOWN ELEGANTE & COMPATÍVEL) ---
     (function () {
         const seletor = document.querySelector('.lang-selector');
         if (!seletor) return;
 
+        const toggleBtn = seletor.querySelector('.lang-toggle-btn');
+        const codeLabel = seletor.querySelector('.lang-active-code');
         const mq = window.matchMedia('(max-width: 900px)');
 
         function idiomaAtivo() {
@@ -139,39 +94,68 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function marcarAtivo() {
-            const lang = idiomaAtivo();
+            const lang = idiomaAtivo().toLowerCase();
+            if (codeLabel) {
+                codeLabel.textContent = lang.toUpperCase();
+            }
             let ordem = 1;
             seletor.querySelectorAll('.lang-btn').forEach(b => {
                 const atual = b.getAttribute('data-lang') === lang;
+                b.classList.toggle('active', atual);
                 b.classList.toggle('lang-btn--atual', atual);
-                // a ativa fica no topo (0); as demais empilham abaixo
                 b.style.setProperty('--ordem', atual ? '0' : String(ordem++));
             });
         }
 
         function fechar() {
+            seletor.classList.remove('lang-open');
             seletor.classList.remove('lang-selector--aberto');
+            if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
             seletor.setAttribute('aria-expanded', 'false');
         }
 
-        function aoClicar(e) {
-            if (!mq.matches) return;
-            const btn = e.target.closest('.lang-btn');
-            if (!btn) return;
-            // fechado: o primeiro toque só abre a lista
-            if (!seletor.classList.contains('lang-selector--aberto')) {
-                e.preventDefault();
-                e.stopPropagation();
-                seletor.classList.add('lang-selector--aberto');
-                seletor.setAttribute('aria-expanded', 'true');
-                return;
-            }
-            setTimeout(fechar, 60);
+        function abrir() {
+            seletor.classList.add('lang-open');
+            seletor.classList.add('lang-selector--aberto');
+            if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
+            seletor.setAttribute('aria-expanded', 'true');
         }
 
-        seletor.setAttribute('aria-label', 'Selecionar idioma');
-        seletor.setAttribute('aria-expanded', 'false');
-        seletor.addEventListener('click', aoClicar, true);
+        if (toggleBtn) {
+            // Novo comportamento: dropdown elegante em desktop e mobile
+            toggleBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (seletor.classList.contains('lang-open')) {
+                    fechar();
+                } else {
+                    abrir();
+                }
+            });
+
+            seletor.querySelectorAll('.lang-btn').forEach(b => {
+                b.addEventListener('click', function () {
+                    setTimeout(fechar, 80);
+                });
+            });
+        } else {
+            // Fallback para páginas com estrutura antiga de botões soltos
+            function aoClicarLegado(e) {
+                if (!mq.matches) return;
+                const btn = e.target.closest('.lang-btn');
+                if (!btn) return;
+                if (!seletor.classList.contains('lang-selector--aberto')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    abrir();
+                    return;
+                }
+                setTimeout(fechar, 60);
+            }
+            seletor.setAttribute('aria-label', 'Selecionar idioma');
+            seletor.setAttribute('aria-expanded', 'false');
+            seletor.addEventListener('click', aoClicarLegado, true);
+        }
 
         document.addEventListener('click', function (e) {
             if (!seletor.contains(e.target)) fechar();
@@ -363,6 +347,69 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // --- AUTOPLAY AUTOMÁTICO DEPOIMENTOS ---
+    const depoimentosWrapper = document.querySelector('.depoimentos-wrapper');
+    if (depoimentosWrapper) {
+        const depContainer = depoimentosWrapper.querySelector('.depoimentos-container');
+        if (depContainer) {
+            let depInterval = null;
+            let isPaused = false;
+            let resumeTimeout = null;
+            const scrollStep = 300;
+            const intervalTime = 3000;
+
+            function autoScrollNext() {
+                if (isPaused) return;
+                const maxScrollLeft = depContainer.scrollWidth - depContainer.clientWidth - 15;
+                if (depContainer.scrollLeft >= maxScrollLeft) {
+                    depContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    depContainer.scrollBy({ left: scrollStep, behavior: 'smooth' });
+                }
+            }
+
+            function startTimer() {
+                if (depInterval) clearInterval(depInterval);
+                depInterval = setInterval(autoScrollNext, intervalTime);
+            }
+
+            function pauseTimerTemporarily() {
+                isPaused = true;
+                if (resumeTimeout) clearTimeout(resumeTimeout);
+                resumeTimeout = setTimeout(() => {
+                    isPaused = false;
+                }, 4000);
+            }
+
+            depoimentosWrapper.addEventListener('mouseenter', () => { isPaused = true; });
+            depoimentosWrapper.addEventListener('mouseleave', () => { isPaused = false; });
+            depContainer.addEventListener('touchstart', pauseTimerTemporarily, { passive: true });
+
+            const arrowBtns = depoimentosWrapper.querySelectorAll('.galeria-seta');
+            arrowBtns.forEach(btn => {
+                btn.addEventListener('click', pauseTimerTemporarily);
+            });
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            startTimer();
+                        } else {
+                            if (depInterval) {
+                                clearInterval(depInterval);
+                                depInterval = null;
+                            }
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(depoimentosWrapper);
+            } else {
+                startTimer();
+            }
+        }
+    }
 
     // --- HEADER SCROLL EFFECT ---
     const header = document.querySelector('header');
@@ -895,3 +942,104 @@ function initConsoleEasterEgg() {
     }
   }, true);
 })();
+
+// ===================================================
+// BANNER DE CONSENTIMENTO DE COOKIES (LGPD & Google Ads)
+// ===================================================
+(function () {
+  'use strict';
+  var STORAGE_KEY = 'meucaribe_cookie_consent';
+
+  function initCookieBanner() {
+    if (localStorage.getItem(STORAGE_KEY) === 'granted') {
+      return;
+    }
+
+    var TEXTS = {
+      pt: {
+        title: 'Privacidade & Cookies',
+        text: 'Utilizamos cookies para aprimorar sua experiência e analisar o tráfego em conformidade com a LGPD. Saiba mais em nossa',
+        link: 'Política de Privacidade',
+        btn: 'Aceitar e Fechar'
+      },
+      en: {
+        title: 'Privacy & Cookies',
+        text: 'We use cookies to improve your experience and analyze site traffic in compliance with the LGPD. Learn more in our',
+        link: 'Privacy Policy',
+        btn: 'Accept and Close'
+      },
+      es: {
+        title: 'Privacidad y Cookies',
+        text: 'Utilizamos cookies para mejorar su experiencia y analizar el tráfico en cumplimiento con la LGPD. Más información en nuestra',
+        link: 'Política de Privacidad',
+        btn: 'Aceptar y Cerrar'
+      }
+    };
+
+    var lang = localStorage.getItem('meucaribe_lang') || 'pt';
+    var t = TEXTS[lang] || TEXTS.pt;
+
+    var banner = document.createElement('aside');
+    banner.className = 'cookie-banner';
+    banner.id = 'cookie-consent-banner';
+    banner.setAttribute('role', 'region');
+    banner.setAttribute('aria-label', 'Aviso de privacidade e cookies');
+    banner.innerHTML = [
+      '<div class="cookie-conteudo">',
+      '  <div class="cookie-cabecalho">',
+      '    <i class="fas fa-cookie-bite"></i>',
+      '    <span data-i18n="cookie.title">' + t.title + '</span>',
+      '  </div>',
+      '  <p class="cookie-texto">',
+      '    <span data-i18n="cookie.text">' + t.text + '</span> ',
+      '    <a href="/politica-de-privacidade" data-i18n="cookie.link">' + t.link + '</a>.',
+      '  </p>',
+      '  <div class="cookie-botoes">',
+      '    <button type="button" class="btn-cookie-aceitar" id="btn-cookie-accept" aria-label="Aceitar cookies e fechar aviso">',
+      '      <i class="fas fa-check"></i> <span data-i18n="cookie.accept">' + t.btn + '</span>',
+      '    </button>',
+      '  </div>',
+      '</div>'
+    ].join('');
+
+    document.body.appendChild(banner);
+
+    // Entrada suave após 700ms
+    setTimeout(function () {
+      banner.classList.add('visivel');
+    }, 700);
+
+    // Clique no botão Aceitar
+    var btn = banner.querySelector('#btn-cookie-accept');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        localStorage.setItem(STORAGE_KEY, 'granted');
+
+        // Dispara Google Consent Mode v2 caso gtag esteja ativo
+        if (typeof window.gtag === 'function') {
+          window.gtag('consent', 'update', {
+            'ad_storage': 'granted',
+            'analytics_storage': 'granted',
+            'ad_user_data': 'granted',
+            'ad_personalization': 'granted'
+          });
+        }
+
+        // Saída suave
+        banner.classList.remove('visivel');
+        setTimeout(function () {
+          if (banner.parentNode) {
+            banner.parentNode.removeChild(banner);
+          }
+        }, 400);
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCookieBanner);
+  } else {
+    initCookieBanner();
+  }
+})();
+

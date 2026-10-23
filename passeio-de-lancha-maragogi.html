@@ -317,9 +317,31 @@
 <i class="fab fa-whatsapp"></i> <span data-i18n="header.cta">Agende seu Passeio</span>
 </a>
 <div class="lang-selector">
-<button class="lang-btn" data-lang="pt" title="Português"><img alt="PT" height="22" src="./assets/icons/flag-br.webp" width="22"/></button>
-<button class="lang-btn" data-lang="en" title="English"><img alt="EN" height="22" src="./assets/icons/flag-us.svg" width="22"/></button>
-<button class="lang-btn" data-lang="es" title="Español"><img alt="ES" height="22" src="./assets/icons/flag-es.webp" width="22"/></button>
+<button aria-expanded="false" aria-haspopup="true" aria-label="Alterar idioma" class="lang-toggle-btn" id="lang-toggle-btn" type="button">
+<i class="fas fa-globe lang-globe-icon"></i>
+<span class="lang-active-code">PT</span>
+<i class="fas fa-chevron-down lang-chevron"></i>
+</button>
+<div class="lang-dropdown" id="lang-dropdown" role="menu">
+<button class="lang-btn" data-lang="pt" role="menuitem" title="Português" type="button">
+<img alt="PT" height="20" src="./assets/icons/flag-br.webp" width="20"/>
+<span class="lang-name">Português</span>
+<span class="lang-code-tag">PT</span>
+<i class="fas fa-check lang-check"></i>
+</button>
+<button class="lang-btn" data-lang="en" role="menuitem" title="English" type="button">
+<img alt="EN" height="20" src="./assets/icons/flag-us.svg" width="20"/>
+<span class="lang-name">English</span>
+<span class="lang-code-tag">EN</span>
+<i class="fas fa-check lang-check"></i>
+</button>
+<button class="lang-btn" data-lang="es" role="menuitem" title="Español" type="button">
+<img alt="ES" height="20" src="./assets/icons/flag-es.webp" width="20"/>
+<span class="lang-name">Español</span>
+<span class="lang-code-tag">ES</span>
+<i class="fas fa-check lang-check"></i>
+</button>
+</div>
 </div>
 <button aria-controls="nav-wrapper" aria-expanded="false" aria-label="Abrir menu de navegação" id="hamburger-btn">
 <i aria-hidden="true" class="fas fa-bars"></i>
@@ -346,7 +368,7 @@
 <a class="btn-secundario" href="#opcoes-de-passeio">
 <i class="fas fa-anchor"></i> <span data-i18n="lancha.banner.btn_secondary">Ver Roteiros</span>
 </a>
-</div><a aria-label="5,0 estrelas com 24 avaliacoes no Google. Abrir o perfil da empresa" class="selo-google" href="https://share.google/y602me0XKEuSOjUKK" rel="noopener noreferrer" target="_blank"><svg aria-hidden="true" class="selo-google__logo" focusable="false" viewbox="0 0 48 48"><path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"></path><path d="m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"></path><path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"></path><path d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"></path></svg><span class="selo-google__nota" data-selo-nota="">5,0</span><span aria-hidden="true" class="selo-google__estrelas">★★★★★</span><span class="selo-google__texto"><b data-selo-total="">24</b> <span data-i18n="selo.avaliacoes">avaliações no Google</span></span></a>
+</div><a aria-label="5,0 estrelas no Google. Abrir o perfil da empresa" class="selo-google" href="https://share.google/y602me0XKEuSOjUKK" rel="noopener noreferrer" target="_blank"><svg aria-hidden="true" class="selo-google__logo" focusable="false" viewbox="0 0 48 48"><path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"></path><path d="m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"></path><path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"></path><path d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"></path></svg><span class="selo-google__nota" data-selo-nota="">5,0</span><span aria-hidden="true" class="selo-google__estrelas">★★★★★</span><span class="selo-google__texto"><span data-i18n="selo.avaliacoes">no Google</span></span></a>
 </div>
 <div class="onda-hero">
 <svg preserveaspectratio="none" viewbox="0 0 1440 120">
@@ -359,214 +381,320 @@
 <div class="secao-cabecalho">
 <span class="secao-tag" data-i18n="lancha.options.tag">Escolha seu roteiro</span>
 <h2 data-i18n="lancha.options.h2">Roteiros Exclusivos de Lancha em Maragogi</h2>
-<p class="secao-subtitulo" data-i18n="lancha.options.subtitle">Roteiros exclusivos com saídas da Praia
-                    de Peroba</p>
+<p class="secao-subtitulo" data-i18n="lancha.options.subtitle">Roteiros exclusivos com saídas da Praia de Peroba</p>
 </div>
 <div class="passeio-grid">
-<article class="card-passeio">
-<div class="card-img-wrapper">
-<img alt="Passeio de lancha em Maragogi" loading="lazy" sizes="(max-width: 900px) 88vw, 260px" src="./assets/img/r/lancha4-800.webp" srcset="./assets/img/r/lancha4-400.webp 400w, ./assets/img/r/lancha4-800.webp 800w, ./assets/img/r/lancha4-1200.webp 1200w"/>
-<span class="card-badge"><i class="fas fa-star"></i></span>
-</div>
-<div class="card-corpo">
-<div class="card-title">
-<h3 data-i18n="lancha.piscina.title">PISCINA EXPERIENCE: Piscinas Naturais e Bancos de Areia</h3>
-</div>
-<div class="passeio-info">
-<span class="passeio-detalhe"><i class="fas fa-clock"></i> <span data-i18n="lancha.piscina.duration">3:00h</span></span>
-<span class="passeio-detalhe"><i class="fas fa-users"></i> <span data-i18n="lancha.piscina.capacity">De 2 até 6 pessoas</span></span>
-</div>
-<div class="passeio-roteiro">
-<p class="roteiro-titulo"><i class="fas fa-route"></i> <span data-i18n="lancha.piscina.roteiro_label">ROTEIRO:</span></p>
-<ul>
-<li data-i18n="lancha.piscina.stop_1">Saída da Praia de Peroba</li>
-<li data-i18n="lancha.piscina.stop_2">Caminho da Beleza</li>
-<li data-i18n="lancha.piscina.stop_3">Ponta de Mangue</li>
-<li data-i18n="lancha.piscina.stop_4">Piscinas Naturais de Ponta de Mangue</li>
-<li data-i18n="lancha.piscina.stop_5">Banco de Areia da Praia da Bruna</li>
-<li data-i18n="lancha.piscina.stop_6">Retorno ao ponto de embarque</li>
-</ul>
-</div>
-<div class="passeio-precos">
-<div class="preco-item">
-<span class="preco-label" data-i18n="lancha.piscina.price_private_label">Privativo de 2
-                                    até 6 pessoas</span>
-<div class="price-box" data-i18n-html="lancha.piscina.price_private_value"></div>
-</div>
-<div class="preco-item">
-<span class="preco-label" data-i18n="lancha.piscina.price_shared_label">Compartilhado
-                                    até 6 pessoas</span>
-<div class="price-box" data-i18n-html="lancha.piscina.price_shared_value"></div>
-<span class="preco-unit preco-unit-inline" data-i18n="lancha.piscina.price_shared_unit">por pessoa</span>
-</div>
-</div>
-<p class="passeio-obs"><i class="fas fa-info-circle"></i> <span data-i18n="lancha.piscina.obs">Para passeios compartilhados não
-                                paramos no CAMINHO DA BELEZA, assim como não será permitido Cooler e JBL.</span></p>
-<a class="btn-primario btn-card" href="https://wa.me/558181211006?text=Olá! Quero reservar o Piscina Experience." rel="noopener noreferrer" target="_blank">
-<i class="fab fa-whatsapp"></i> <span data-i18n="lancha.piscina.btn">Reservar</span>
-</a>
-</div>
-</article>
-<article class="card-passeio">
-<div class="card-img-wrapper">
-<img alt="Orla Experience em Maragogi" loading="lazy" sizes="(max-width: 900px) 88vw, 260px" src="./assets/img/r/lancha33-800.webp" srcset="./assets/img/r/lancha33-400.webp 400w, ./assets/img/r/lancha33-800.webp 800w, ./assets/img/r/lancha33-1200.webp 1200w"/>
-<span class="card-badge"><i class="fas fa-compass"></i></span>
-</div>
-<div class="card-corpo">
-<div class="card-title">
-<h3 data-i18n="lancha.orla.title">ORLA EXPERIENCE: Tour de Lancha pelas Praias</h3>
-</div>
-<div class="passeio-info">
-<span class="passeio-detalhe"><i class="fas fa-clock"></i> <span data-i18n="lancha.orla.duration">3:00h</span></span>
-<span class="passeio-detalhe"><i class="fas fa-lock"></i> <span data-i18n="lancha.orla.type">Privativo</span></span>
-</div>
-<div class="passeio-roteiro">
-<p class="roteiro-titulo"><i class="fas fa-route"></i> <span data-i18n="lancha.orla.roteiro_label">ROTEIRO:</span></p>
-<ul>
-<li data-i18n="lancha.orla.roteiro_header">Peroba, Dourado, Xaréu, Antunes, Ponta de
-                                    Mangue</li>
-<li data-i18n="lancha.orla.stop_1">Saída da Praia de Peroba</li>
-<li data-i18n="lancha.orla.stop_2">Ponta de Mangue</li>
-<li data-i18n="lancha.orla.stop_3">Praia do Dourado</li>
-<li data-i18n="lancha.orla.stop_4">Praia do Xaréu</li>
-<li data-i18n="lancha.orla.stop_5">Praia de Antunes (parada para fotos)</li>
-<li data-i18n="lancha.orla.stop_6">Banco de Areia da Bruna</li>
-<li data-i18n="lancha.orla.stop_7">Retorno à Praia de Peroba</li>
-</ul>
-</div>
-<div class="passeio-precos">
-<div class="preco-item">
-<span class="preco-label" data-i18n="lancha.orla.price_8_label">De 2 até 6
-                                    pessoas</span>
-<div class="price-box" data-i18n-html="lancha.orla.price_8_value"></div>
-</div>
-<div class="preco-item">
-<span class="preco-label" data-i18n="lancha.orla.price_13_label">De 9 até 13
-                                    pessoas</span>
-<span class="preco-valor" data-i18n-html="lancha.orla.price_13_value">Consulte</span>
-</div>
-</div>
-<a class="btn-primario btn-card" href="https://wa.me/558181211006?text=Olá! Quero reservar o Orla Experience." rel="noopener noreferrer" target="_blank">
-<i class="fab fa-whatsapp"></i> <span data-i18n="lancha.orla.btn">Reservar</span>
-</a>
-</div>
-</article>
-<article class="card-passeio destaque">
-<div class="card-img-wrapper">
-<img alt="Meu Caribe Deluxe em Maragogi" loading="lazy" sizes="(max-width: 900px) 88vw, 260px" src="./assets/img/r/lancha5-800.webp" srcset="./assets/img/r/lancha5-400.webp 400w, ./assets/img/r/lancha5-800.webp 800w, ./assets/img/r/lancha5-1200.webp 1200w"/>
-<span class="card-badge badge-destaque"><i class="fas fa-crown"></i></span>
-<span class="card-tag-destaque" data-i18n="lancha.deluxe.badge">Mais Vendido</span>
-</div>
-<div class="card-corpo">
-<div class="card-title">
-<h3 data-i18n="lancha.deluxe.title">MEU CARIBE DELUXE: Galés, Caminho de Moisés e Churrasco</h3>
-</div>
-<div class="passeio-info">
-<span class="passeio-detalhe"><i class="fas fa-clock"></i> <span data-i18n="lancha.deluxe.duration">4:30h</span></span>
-<span class="passeio-detalhe"><i class="fas fa-lock"></i> <span data-i18n="lancha.deluxe.type">Privativo</span></span>
-</div>
-<div class="passeio-roteiro">
-<p class="roteiro-titulo"><i class="fas fa-route"></i> <span data-i18n="lancha.deluxe.roteiro_label">ROTEIRO:</span></p>
-<ul>
-<li data-i18n="lancha.deluxe.stop_1">Peroba</li>
-<li data-i18n="lancha.deluxe.stop_2">Caminho da Beleza</li>
-<li data-i18n="lancha.deluxe.stop_3">Ponta de Mangue</li>
-<li data-i18n="lancha.deluxe.stop_4">Piscinas Naturais de Ponta de Mangue</li>
-<li data-i18n="lancha.deluxe.stop_5">Praia do Dourado</li>
-<li data-i18n="lancha.deluxe.stop_6">Praia do Xaréu</li>
-<li data-i18n="lancha.deluxe.stop_7">Praia de Antunes (Coqueirinhos)</li>
-<li data-i18n="lancha.deluxe.stop_8">Barra Grande</li>
-<li data-i18n="lancha.deluxe.stop_9">Caminho de Moisés</li>
-<li data-i18n="lancha.deluxe.stop_11">Banco de Areia da Bruna</li>
-</ul>
-</div>
-<div class="passeio-precos">
-<div class="preco-item">
-<span class="preco-label" data-i18n="lancha.deluxe.price_private_label">Deluxe Privativo
-                                    até 6 pessoas</span>
-<div class="price-box" data-i18n-html="lancha.deluxe.price_private_value"></div>
-</div>
-<div class="preco-item">
-<span class="preco-label" data-i18n="lancha.deluxe.price_bbq_label">Deluxe + Churrasco
-                                    até 6 pessoas</span>
-<div class="price-box" data-i18n-html="lancha.deluxe.price_bbq_value"></div>
-</div>
-</div>
-<div class="churrasco-incluso">
-<p class="churrasco-titulo"><i class="fas fa-fire"></i> <span data-i18n="lancha.deluxe.bbq_title">Churrasco inclui:</span></p>
-<p data-i18n="lancha.deluxe.bbq_description">Duração 1:30h no Banco de Areia da Bruna com
-                                JBL Boombox. Para 2 a 6 pessoas.</p>
-<div class="churrasco-itens">
-<span data-i18n="lancha.deluxe.bbq_item_1">Chandon ou 12 Coronas</span>
-<span data-i18n="lancha.deluxe.bbq_item_2">2L Refrigerante ou Suco</span>
-<span data-i18n="lancha.deluxe.bbq_item_3">6 Águas 500ml</span>
-<span data-i18n="lancha.deluxe.bbq_item_4">1kg Picanha</span>
-<span data-i18n="lancha.deluxe.bbq_item_5">1kg Maminha</span>
-<span data-i18n="lancha.deluxe.bbq_item_6">1kg Toscana</span>
-<span data-i18n="lancha.deluxe.bbq_item_7">Pão de Alho</span>
-<span data-i18n="lancha.deluxe.bbq_item_8">500g Amendoim</span>
-<span data-i18n="lancha.deluxe.bbq_item_9">Carvão + Cooler + 2kg Gelo</span>
-</div>
-</div>
-<a class="btn-primario btn-card" href="https://wa.me/558181211006?text=Olá! Quero reservar o Meu Caribe Deluxe." rel="noopener noreferrer" target="_blank">
-<i class="fab fa-whatsapp"></i> <span data-i18n="lancha.deluxe.btn">Reservar</span>
-</a>
-</div>
-</article>
-</div>
-</section>
+            <!-- 1. PISCINA EXPERIENCE -->
+            <article class="card-passeio">
+                <div class="card-img-wrapper">
+                    <img alt="Passeio de lancha Piscina Experience em Maragogi" loading="lazy" sizes="(max-width: 900px) 88vw, 260px" src="./assets/img/r/lancha4-800.webp" srcset="./assets/img/r/lancha4-400.webp 400w, ./assets/img/r/lancha4-800.webp 800w, ./assets/img/r/lancha4-1200.webp 1200w"/>
+                    <span class="card-badge"><i class="fas fa-star"></i></span>
+                    <span class="card-tag-destaque" data-i18n="lancha.piscina.badge" style="background: linear-gradient(135deg, var(--turquesa), var(--azul-profundo));">Mais Procurado</span>
+                </div>
+                <div class="card-corpo">
+                    <div class="card-title">
+                        <h3 data-i18n="lancha.piscina.title">PISCINA EXPERIENCE: Piscinas Naturais e Bancos de Areia</h3>
+                    </div>
+                    <div class="passeio-info">
+                        <span class="passeio-detalhe"><i class="fas fa-clock"></i> <span data-i18n="lancha.piscina.duration">2h30 (Privativo) | 2h00 (Compart.)</span></span>
+                        <span class="passeio-detalhe"><i class="fas fa-users"></i> <span data-i18n="lancha.piscina.capacity">Privativo (2 a 7) | Compart. (até 10)</span></span>
+                    </div>
+                    <div class="passeio-roteiro">
+                        <p class="roteiro-titulo"><i class="fas fa-route"></i> <span data-i18n="lancha.piscina.roteiro_label">ROTEIRO:</span></p>
+                        <ul>
+                            <li data-i18n="lancha.piscina.stop_1">Saída da Praia de Peroba</li>
+                            <li data-i18n="lancha.piscina.stop_2">Caminho da Beleza (Exclusivo no Privativo)</li>
+                            <li data-i18n="lancha.piscina.stop_3">Piscinas Naturais de Ponta de Mangue</li>
+                            <li data-i18n="lancha.piscina.stop_4">Banco de Areia da Praia da Bruna</li>
+                            <li data-i18n="lancha.piscina.stop_5">Retorno ao ponto de embarque</li>
+                        </ul>
+                    </div>
+                    <div class="passeio-precos">
+                        <div class="preco-item">
+                            <span class="preco-label" data-i18n="lancha.piscina.price_private_label">Privativo de 2 até 7 pessoas</span>
+                        </div>
+                        <div class="preco-item">
+                            <span class="preco-label" data-i18n="lancha.piscina.price_shared_label">Compartilhado (até 10 pessoas)</span>
+                        </div>
+                    </div>
+                    <p class="passeio-obs"><i class="fas fa-info-circle"></i> <span data-i18n="lancha.piscina.obs">No passeio compartilhado não paramos no Caminho da Beleza, nem é permitido Cooler ou JBL.</span></p>
+                    <a class="btn-primario btn-card" href="https://wa.me/558181211006?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20valores%20e%20disponibilidade%20para%20o%20passeio%20Piscina%20Experience." rel="noopener noreferrer" target="_blank">
+                        <i class="fab fa-whatsapp"></i> <span data-i18n="lancha.piscina.btn">Consultar e Reservar</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- 2. BARRA GRANDE BEACH -->
+            <article class="card-passeio">
+                <div class="card-img-wrapper">
+                    <img alt="Passeio de lancha Barra Grande Beach no Caminho de Moisés e Piscinas Naturais" loading="lazy" sizes="(max-width: 900px) 88vw, 260px" src="./assets/img/r/lancha-barra-grande-800.webp" srcset="./assets/img/r/lancha-barra-grande-400.webp 400w, ./assets/img/r/lancha-barra-grande-800.webp 800w, ./assets/img/r/lancha-barra-grande-1200.webp 1200w"/>
+                    <span class="card-badge"><i class="fas fa-water"></i></span>
+                    <span class="card-tag-destaque" data-i18n="lancha.barra.badge" style="background: linear-gradient(135deg, #0ea5e9, #0284c7);">Caminho de Moisés &amp; Piscinas</span>
+                </div>
+                <div class="card-corpo">
+                    <div class="card-title">
+                        <h3 data-i18n="lancha.barra.title">BARRA GRANDE BEACH: Caminho de Moisés, Piscinas e Antunes</h3>
+                    </div>
+                    <div class="passeio-info">
+                        <span class="passeio-detalhe"><i class="fas fa-clock"></i> <span data-i18n="lancha.barra.duration">2h30 (Privativo) | 2h00 (Compart.)</span></span>
+                        <span class="passeio-detalhe"><i class="fas fa-users"></i> <span data-i18n="lancha.barra.capacity">Privativo (2 a 7) | Compart. (até 10)</span></span>
+                    </div>
+                    <div class="passeio-roteiro">
+                        <p class="roteiro-titulo"><i class="fas fa-route"></i> <span data-i18n="lancha.barra.roteiro_label">ROTEIRO:</span></p>
+                        <ul>
+                            <li data-i18n="lancha.barra.stop_1">Caminho de Moisés (Barra Grande)</li>
+                            <li data-i18n="lancha.barra.stop_2">Piscinas Naturais de Maragogi (Mergulho com Peixinhos)</li>
+                            <li data-i18n="lancha.barra.stop_3">Praia de Antunes (Famosos Coqueirinhos)</li>
+                            <li data-i18n="lancha.barra.stop_4">Navegação por águas mornas e cristalinas</li>
+                            <li data-i18n="lancha.barra.stop_5">Retorno ao ponto de apoio náutico</li>
+                        </ul>
+                    </div>
+                    <div class="passeio-precos">
+                        <div class="preco-item">
+                            <span class="preco-label" data-i18n="lancha.barra.price_private_label">Privativo de 2 até 7 pessoas</span>
+                        </div>
+                        <div class="preco-item">
+                            <span class="preco-label" data-i18n="lancha.barra.price_shared_label">Compartilhado (até 10 pessoas)</span>
+                        </div>
+                    </div>
+                    <p class="passeio-obs"><i class="fas fa-info-circle"></i> <span data-i18n="lancha.barra.obs">Roteiro imperdível para caminhar no meio do mar no Caminho de Moisés e mergulhar nas piscinas naturais.</span></p>
+                    <a class="btn-primario btn-card" href="https://wa.me/558181211006?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20valores%20e%20disponibilidade%20para%20o%20passeio%20Barra%20Grande%20Beach." rel="noopener noreferrer" target="_blank">
+                        <i class="fab fa-whatsapp"></i> <span data-i18n="lancha.barra.btn">Consultar e Reservar</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- 3. ORLA EXPERIENCE -->
+            <article class="card-passeio">
+                <div class="card-img-wrapper">
+                    <img alt="Tour de lancha Orla Experience pelas praias de Maragogi" loading="lazy" sizes="(max-width: 900px) 88vw, 260px" src="./assets/img/r/lancha33-800.webp" srcset="./assets/img/r/lancha33-400.webp 400w, ./assets/img/r/lancha33-800.webp 800w, ./assets/img/r/lancha33-1200.webp 1200w"/>
+                    <span class="card-badge"><i class="fas fa-compass"></i></span>
+                    <span class="card-tag-destaque" data-i18n="lancha.orla.badge" style="background: linear-gradient(135deg, #0284c7, #0369a1);">Rota Panorâmica</span>
+                </div>
+                <div class="card-corpo">
+                    <div class="card-title">
+                        <h3 data-i18n="lancha.orla.title">ORLA EXPERIENCE: Tour Panorâmico pelas Melhores Praias</h3>
+                    </div>
+                    <div class="passeio-info">
+                        <span class="passeio-detalhe"><i class="fas fa-clock"></i> <span data-i18n="lancha.orla.duration">2h30 de passeio</span></span>
+                        <span class="passeio-detalhe"><i class="fas fa-lock"></i> <span data-i18n="lancha.orla.capacity">Privativo de 2 até 10 pessoas</span></span>
+                    </div>
+                    <div class="passeio-roteiro">
+                        <p class="roteiro-titulo"><i class="fas fa-route"></i> <span data-i18n="lancha.orla.roteiro_label">ROTEIRO (6 PARADAS):</span></p>
+                        <ul>
+                            <li data-i18n="lancha.orla.stop_1">Saída da Praia de Peroba</li>
+                            <li data-i18n="lancha.orla.stop_2">Ponta de Mangue</li>
+                            <li data-i18n="lancha.orla.stop_3">Praia do Dourado</li>
+                            <li data-i18n="lancha.orla.stop_4">Praia do Xaréu</li>
+                            <li data-i18n="lancha.orla.stop_5">Praia de Antunes (Parada para fotos nos coqueirinhos)</li>
+                            <li data-i18n="lancha.orla.stop_6">Banco de Areia da Bruna</li>
+                            <li data-i18n="lancha.orla.stop_7">Retorno à Praia de Peroba</li>
+                        </ul>
+                    </div>
+                    <div class="passeio-precos">
+                        <div class="preco-item">
+                            <span class="preco-label" data-i18n="lancha.orla.price_label">Privativo de 2 até 10 pessoas</span>
+                        </div>
+                    </div>
+                    <p class="passeio-obs"><i class="fas fa-info-circle"></i> <span data-i18n="lancha.orla.obs">Passeio 100% privativo com som bluetooth liberado e cooler com gelo para suas bebidas.</span></p>
+                    <a class="btn-primario btn-card" href="https://wa.me/558181211006?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20valores%20e%20disponibilidade%20para%20o%20passeio%20Orla%20Experience." rel="noopener noreferrer" target="_blank">
+                        <i class="fab fa-whatsapp"></i> <span data-i18n="lancha.orla.btn">Consultar e Reservar</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- 4. MEU CARIBE DELUXE -->
+            <article class="card-passeio destaque">
+                <div class="card-img-wrapper">
+                    <img alt="Passeio Meu Caribe Deluxe com Churrasco Gourmet em Maragogi" loading="lazy" sizes="(max-width: 900px) 88vw, 260px" src="./assets/img/r/DELUXE-800.webp" srcset="./assets/img/r/DELUXE-400.webp 400w, ./assets/img/r/DELUXE-800.webp 800w, ./assets/img/r/DELUXE-1200.webp 1200w"/>
+                    <span class="card-badge badge-destaque"><i class="fas fa-crown"></i></span>
+                    <span class="card-tag-destaque" data-i18n="lancha.deluxe.badge">Mais Vendido | 9 Paradas</span>
+                </div>
+                <div class="card-corpo">
+                    <div class="card-title">
+                        <h3 data-i18n="lancha.deluxe.title">MEU CARIBE DELUXE: Galés, Caminho de Moisés e Churrasco</h3>
+                    </div>
+                    <div class="passeio-info">
+                        <span class="passeio-detalhe"><i class="fas fa-clock"></i> <span data-i18n="lancha.deluxe.duration">4h30 de passeio</span></span>
+                        <span class="passeio-detalhe"><i class="fas fa-lock"></i> <span data-i18n="lancha.deluxe.capacity">Privativo de 2 a 7 pessoas</span></span>
+                    </div>
+                    <div class="passeio-roteiro">
+                        <p class="roteiro-titulo"><i class="fas fa-route"></i> <span data-i18n="lancha.deluxe.roteiro_label">ROTEIRO COMPOSTO POR 9 PARADAS:</span></p>
+                        <ul>
+                            <li data-i18n="lancha.deluxe.stop_1">Peroba e Caminho da Beleza</li>
+                            <li data-i18n="lancha.deluxe.stop_2">Piscinas Naturais de Ponta de Mangue</li>
+                            <li data-i18n="lancha.deluxe.stop_3">Praia do Dourado e Praia do Xaréu</li>
+                            <li data-i18n="lancha.deluxe.stop_4">Praia de Antunes (Parada nos Coqueirinhos)</li>
+                            <li data-i18n="lancha.deluxe.stop_5">Barra Grande e Caminho de Moisés</li>
+                            <li data-i18n="lancha.deluxe.stop_6">Banco de Areia da Praia da Bruna</li>
+                        </ul>
+                    </div>
+                    <div class="passeio-precos">
+                        <div class="preco-item">
+                            <span class="preco-label" data-i18n="lancha.deluxe.price_private_label">Deluxe Privativo (Sem Churrasco)</span>
+                        </div>
+                        <div class="preco-item">
+                            <span class="preco-label" data-i18n="lancha.deluxe.price_bbq_label">Deluxe + Churrasco Gourmet no Mar</span>
+                        </div>
+                    </div>
+                    <div class="churrasco-incluso">
+                        <p class="churrasco-titulo"><i class="fas fa-fire"></i> <span data-i18n="lancha.deluxe.bbq_title">Churrasco Gourmet no Banco de Areia da Bruna (1:30h):</span></p>
+                        <p data-i18n="lancha.deluxe.bbq_sub">Preparado pelo marinheiro na hora com churrasqueira náutica:</p>
+                        <div class="churrasco-itens">
+                            <span><i class="fas fa-drumstick-bite"></i> <span data-i18n="lancha.deluxe.bbq_item_1">Picanha, Fraldinha & Chorizo</span></span>
+                            <span><i class="fas fa-bread-slice"></i> <span data-i18n="lancha.deluxe.bbq_item_2">Linguiça Toscana & Pão de Alho</span></span>
+                            <span><i class="fas fa-wine-bottle"></i> <span data-i18n="lancha.deluxe.bbq_item_3">1 Chandon ou 12 Coronas</span></span>
+                            <span><i class="fas fa-snowflake"></i> <span data-i18n="lancha.deluxe.bbq_item_4">Refri, Sucos, Águas & Gelo</span></span>
+                        </div>
+                    </div>
+                    <a class="btn-primario btn-card" href="https://wa.me/558181211006?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20valores%20para%20o%20roteiro%20Meu%20Caribe%20Deluxe%20(com%20ou%20sem%20churrasco)." rel="noopener noreferrer" target="_blank">
+                        <i class="fab fa-whatsapp"></i> <span data-i18n="lancha.deluxe.btn">Consultar e Reservar</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- 5. EXCLUSIVE PREMIUM (LANCHA 30 PÉS) -->
+            <article class="card-passeio destaque" style="border-color: #8b5cf6;">
+                <div class="card-img-wrapper">
+                    <img alt="Lancha 30 Pés Exclusive Premium em Maragogi" loading="lazy" sizes="(max-width: 900px) 88vw, 260px" src="./assets/img/r/lancha-30pes-mar-800.webp" srcset="./assets/img/r/lancha-30pes-mar-400.webp 400w, ./assets/img/r/lancha-30pes-mar-800.webp 800w, ./assets/img/r/lancha-30pes-mar-1200.webp 1200w"/>
+                    <span class="card-badge" style="background: #8b5cf6;"><i class="fas fa-gem"></i></span>
+                    <span class="card-tag-destaque" data-i18n="lancha.exclusive.badge" style="background: linear-gradient(135deg, #8b5cf6, #6366f1); box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);">Máximo Conforto VIP | Lancha 30 Pés</span>
+                </div>
+                <div class="card-corpo">
+                    <div class="card-title">
+                        <h3 data-i18n="lancha.exclusive.title">EXCLUSIVE PREMIUM: Lancha 30 Pés (5 Horas de Passeio)</h3>
+                    </div>
+                    <div class="passeio-info">
+                        <span class="passeio-detalhe"><i class="fas fa-clock"></i> <span data-i18n="lancha.exclusive.duration">5:00h de passeio</span></span>
+                        <span class="passeio-detalhe"><i class="fas fa-ship"></i> <span data-i18n="lancha.exclusive.capacity">Lancha 30 Pés Privativa</span></span>
+                    </div>
+                    <div class="passeio-roteiro">
+                        <p class="roteiro-titulo"><i class="fas fa-route"></i> <span data-i18n="lancha.exclusive.roteiro_label">ROTEIRO COMPLETO (9 PARADAS EXCLUSIVAS):</span></p>
+                        <ul>
+                            <li data-i18n="lancha.exclusive.stop_1">Peroba, Caminho da Beleza e Ponta de Mangue</li>
+                            <li data-i18n="lancha.exclusive.stop_2">Piscinas Naturais de Ponta de Mangue</li>
+                            <li data-i18n="lancha.exclusive.stop_3">Praia do Dourado, Praia do Xaréu e Antunes</li>
+                            <li data-i18n="lancha.exclusive.stop_4">Barra Grande e Caminho de Moisés</li>
+                            <li data-i18n="lancha.exclusive.stop_5">Banco de Areia da Bruna (Parada estendida)</li>
+                            <li data-i18n="lancha.exclusive.stop_6">Lancha de 30 Pés com amplo espaço, solário e potência superior</li>
+                        </ul>
+                    </div>
+                    <div class="passeio-precos">
+                        <div class="preco-item">
+                            <span class="preco-label" data-i18n="lancha.exclusive.price_private_label">Lancha 30 Pés Privativa (Sem Churrasco)</span>
+                        </div>
+                        <div class="preco-item">
+                            <span class="preco-label" data-i18n="lancha.exclusive.price_bbq_label">Lancha 30 Pés + Churrasco Gourmet Completo</span>
+                        </div>
+                    </div>
+                    <div class="churrasco-incluso churrasco-exclusive">
+                        <p class="churrasco-titulo" style="color: #7c3aed;"><i class="fas fa-fire"></i> <span data-i18n="lancha.exclusive.bbq_title">Churrasco Gourmet Premium Incluso (Opção 2):</span></p>
+                        <p data-i18n="lancha.exclusive.bbq_sub">Parada no Banco da Bruna com serviço náutico e marinheiro dedicado:</p>
+                        <div class="churrasco-itens">
+                            <span><i class="fas fa-crown"></i> <span data-i18n="lancha.exclusive.bbq_item_1">Picanha, Fraldinha & Chorizo Especial</span></span>
+                            <span><i class="fas fa-bread-slice"></i> <span data-i18n="lancha.exclusive.bbq_item_2">Linguiça Toscana & Pão de Alho</span></span>
+                            <span><i class="fas fa-glass-cheers"></i> <span data-i18n="lancha.exclusive.bbq_item_3">1 Chandon Brut ou 12 Coronas</span></span>
+                            <span><i class="fas fa-snowflake"></i> <span data-i18n="lancha.exclusive.bbq_item_4">Bebidas Geladas, Cooler & Gelo</span></span>
+                        </div>
+                    </div>
+                    <a class="btn-primario btn-card" href="https://wa.me/558181211006?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20valores%20para%20o%20Exclusive%20Premium%20(Lancha%2030%20P%C3%A9s)." rel="noopener noreferrer" target="_blank" style="background: linear-gradient(135deg, #7c3aed, #4f46e5);">
+                        <i class="fab fa-whatsapp"></i> <span data-i18n="lancha.exclusive.btn">Consultar e Reservar</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- 6. CARNEIROS BEACH (LANCHA 30 PÉS) -->
+            <article class="card-passeio destaque" style="border-color: #059669;">
+                <div class="card-img-wrapper">
+                    <img alt="Expedição de Lancha 30 Pés para Praia dos Carneiros" loading="lazy" sizes="(max-width: 900px) 88vw, 260px" src="./assets/img/r/lancha-carneiros-30pes-800.webp" srcset="./assets/img/r/lancha-carneiros-30pes-400.webp 400w, ./assets/img/r/lancha-carneiros-30pes-800.webp 800w, ./assets/img/r/lancha-carneiros-30pes-1200.webp 1200w"/>
+                    <span class="card-badge" style="background: #059669;"><i class="fas fa-map-marked-alt"></i></span>
+                    <span class="card-tag-destaque" data-i18n="lancha.carneiros.badge" style="background: linear-gradient(135deg, #059669, #0d9488); box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);">Expedição Interestadual | Dia Todo</span>
+                </div>
+                <div class="card-corpo">
+                    <div class="card-title">
+                        <h3 data-i18n="lancha.carneiros.title">CARNEIROS BEACH: Expedição de Lancha 30 Pés (Alagoas a Pernambuco)</h3>
+                    </div>
+                    <div class="passeio-info">
+                        <span class="passeio-detalhe"><i class="fas fa-sun"></i> <span data-i18n="lancha.carneiros.duration">Dia Todo (Full Day)</span></span>
+                        <span class="passeio-detalhe"><i class="fas fa-ship"></i> <span data-i18n="lancha.carneiros.capacity">Lancha de 30 Pés Exclusiva</span></span>
+                    </div>
+                    <div class="passeio-roteiro">
+                        <p class="roteiro-titulo"><i class="fas fa-route"></i> <span data-i18n="lancha.carneiros.roteiro_label">ROTEIRO DA EXPEDIÇÃO (AL ➔ PE):</span></p>
+                        <ul>
+                            <li data-i18n="lancha.carneiros.stop_1">Saída da Praia de Peroba (Maragogi - AL)</li>
+                            <li data-i18n="lancha.carneiros.stop_2">Travessia da Divisa dos Estados AL / PE</li>
+                            <li data-i18n="lancha.carneiros.stop_3">São José da Coroa Grande</li>
+                            <li data-i18n="lancha.carneiros.stop_4">Praia de Gravatá e Praia de Porto</li>
+                            <li data-i18n="lancha.carneiros.stop_5">Praia dos Carneiros e Banco de Areia em Carneiros</li>
+                            <li data-i18n="lancha.carneiros.stop_6">Famoso Banho de Argila natural e revitalizante</li>
+                            <li data-i18n="lancha.carneiros.stop_7">Parada clássica na histórica Igrejinha de Carneiros</li>
+                        </ul>
+                    </div>
+                    <div class="passeio-precos">
+                        <div class="preco-item">
+                            <span class="preco-label" data-i18n="lancha.carneiros.price_label">Expedição Privativa em Lancha de 30 Pés</span>
+                        </div>
+                    </div>
+                    <p class="passeio-obs" style="background: #ecfdf5; border-color: #059669; color: #065f46;"><i class="fas fa-info-circle" style="color: #059669;"></i> <span data-i18n="lancha.carneiros.obs">A experiência náutica mais espetacular da região. Navegação exclusiva de 30 pés unindo os destinos mais paradisíacos de Alagoas e Pernambuco.</span></p>
+                    <a class="btn-primario btn-card" href="https://wa.me/558181211006?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20valores%20e%20disponibilidade%20para%20a%20Expedi%C3%A7%C3%A3o%20Carneiros%20Beach%20(Lancha%2030%20P%C3%A9s)." rel="noopener noreferrer" target="_blank" style="background: linear-gradient(135deg, #059669, #047857);">
+                        <i class="fab fa-whatsapp"></i> <span data-i18n="lancha.carneiros.btn">Consultar e Reservar</span>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </section>
 <!-- PARADAS FAMOSAS (SEO SEMÂNTICO & ENTIDADES LOCAIS) -->
 <section class="fade-in" id="paradas-famosas" style="padding: var(--secao-padding); max-width: var(--container-max); margin: 0 auto;">
 <div class="secao-cabecalho">
-<span class="secao-tag">Destinos Imperdíveis</span>
-<h2>As Melhores Paradas do Litoral de Maragogi</h2>
-<p class="secao-subtitulo">Conheça as piscinas naturais e praias mais famosas navegando de lancha privativa</p>
+<span class="secao-tag" data-i18n="lancha.paradas.tag">Destinos Imperdíveis</span>
+<h2 data-i18n="lancha.paradas.h2">As Melhores Paradas do Litoral de Maragogi</h2>
+<p class="secao-subtitulo" data-i18n="lancha.paradas.subtitle">Conheça as piscinas naturais e praias mais famosas navegando de lancha privativa</p>
 </div>
 <div class="valores-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
 <article class="valor-card">
 <div class="valor-icone"><i class="fas fa-water"></i></div>
-<h3>Piscinas Naturais das Galés e Ponta de Mangue</h3>
-<p>Verdadeiros aquários naturais de águas mornas e cristalinas, perfeitos para mergulho livre e snorkel com peixes coloridos entre os corais da Costa dos Corais.</p>
+<h3 data-i18n="lancha.paradas.item1_title">Piscinas Naturais das Galés e Ponta de Mangue</h3>
+<p data-i18n="lancha.paradas.item1_desc">Verdadeiros aquários naturais de águas mornas e cristalinas, perfeitos para mergulho livre e snorkel com peixes coloridos entre os corais da Costa dos Corais.</p>
 </article>
 <article class="valor-card">
 <div class="valor-icone"><i class="fas fa-route"></i></div>
-<h3>Caminho de Moisés na Praia de Barra Grande</h3>
-<p>O famoso banco de areia que se abre no meio do oceano durante a maré baixa, permitindo caminhar mar adentro cercado por tons incomparáveis de azul e verde.</p>
+<h3 data-i18n="lancha.paradas.item2_title">Caminho de Moisés na Praia de Barra Grande</h3>
+<p data-i18n="lancha.paradas.item2_desc">O famoso banco de areia que se abre no meio do oceano durante a maré baixa, permitindo caminhar mar adentro cercado por tons incomparáveis de azul e verde.</p>
 </article>
 <article class="valor-card">
 <div class="valor-icone"><i class="fas fa-umbrella-beach"></i></div>
-<h3>Praia de Antunes e Banco de Areia da Bruna</h3>
-<p>Cenários cinematográficos com coqueirais inclinados, mar calmo de piscina e parada especial no banco de areia para relaxar, tirar fotos incríveis e curtir o dia.</p>
+<h3 data-i18n="lancha.paradas.item3_title">Praia de Antunes e Banco de Areia da Bruna</h3>
+<p data-i18n="lancha.paradas.item3_desc">Cenários cinematográficos com coqueirais inclinados, mar calmo de piscina e parada especial no banco de areia para relaxar, tirar fotos incríveis e curtir o dia.</p>
 </article>
 </div>
 </section>
 <!-- CONFORTO E SEGURANÇA NÁUTICA -->
 <section class="fade-in" id="conforto-seguranca" style="padding: 4rem 2rem 5rem; background: radial-gradient(circle at top right, rgba(14, 165, 233, 0.08), transparent 30%), linear-gradient(180deg, rgba(241, 245, 249, 0.6), rgba(255, 255, 255, 0.95));">
 <div class="secao-cabecalho" style="max-width: 760px; margin: 0 auto 2.5rem;">
-<span class="secao-tag">Diferenciais e Confiabilidade</span>
-<h2>Conforto e Segurança nas Embarcações</h2>
-<p class="secao-subtitulo">Estrutura de alto padrão e equipe experiente para garantir passeios inesquecíveis para toda a família</p>
+<span class="secao-tag" data-i18n="lancha.conforto.tag">Diferenciais e Confiabilidade</span>
+<h2 data-i18n="lancha.conforto.h2">Conforto e Segurança nas Embarcações</h2>
+<p class="secao-subtitulo" data-i18n="lancha.conforto.subtitle">Estrutura de alto padrão e equipe experiente para garantir passeios inesquecíveis para toda a família</p>
 </div>
 <div class="valores-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
 <article class="valor-card">
 <div class="valor-icone"><i class="fas fa-music"></i></div>
-<h3>Lanchas Modernas com Som Bluetooth JBL e Estofados Náuticos</h3>
-<p>Navegue com máximo conforto em estofados anatômicos e conecte sua playlist favorita no sistema de som de alta definição para animar o seu passeio.</p>
+<h3 data-i18n="lancha.conforto.item1_title">Lanchas Modernas com Som Bluetooth JBL e Estofados Náuticos</h3>
+<p data-i18n="lancha.conforto.item1_desc">Navegue com máximo conforto em estofados anatômicos e conecte sua playlist favorita no sistema de som de alta definição para animar o seu passeio.</p>
 </article>
 <article class="valor-card">
 <div class="valor-icone"><i class="fas fa-fire-burner"></i></div>
-<h3>Cooler com Gelo e Opção de Churrasco Gourmet no Mar</h3>
-<p>Bebidas sempre geladas no cooler a bordo e a opção exclusiva do roteiro Meu Caribe Deluxe com churrasco de carnes nobres servido no banco de areia.</p>
+<h3 data-i18n="lancha.conforto.item2_title">Cooler com Gelo e Opção de Churrasco Gourmet no Mar</h3>
+<p data-i18n="lancha.conforto.item2_desc">Bebidas sempre geladas no cooler a bordo e a opção exclusiva do roteiro Meu Caribe Deluxe com churrasco de carnes nobres servido no banco de areia.</p>
 </article>
 <article class="valor-card">
 <div class="valor-icone"><i class="fas fa-anchor"></i></div>
-<h3>Marinheiros Credenciados pela Marinha do Brasil</h3>
-<p>Comandantes certificados pela Capitania dos Portos com anos de vivência em Maragogi, navegando rigorosamente de acordo com a tábua de marés.</p>
+<h3 data-i18n="lancha.conforto.item3_title">Marinheiros Credenciados pela Marinha do Brasil</h3>
+<p data-i18n="lancha.conforto.item3_desc">Comandantes certificados pela Capitania dos Portos com anos de vivência em Maragogi, navegando rigorosamente de acordo com a tábua de marés.</p>
 </article>
 <article class="valor-card">
 <div class="valor-icone"><i class="fas fa-shield-heart"></i></div>
-<h3>Equipamentos de Salvatagem e Coletes Homologados</h3>
-<p>Coletes salva-vidas disponíveis para adultos e crianças em todos os tamanhos, com manutenção preventiva rigorosa em toda a frota de embarcações.</p>
+<h3 data-i18n="lancha.conforto.item4_title">Equipamentos de Salvatagem e Coletes Homologados</h3>
+<p data-i18n="lancha.conforto.item4_desc">Coletes salva-vidas disponíveis para adultos e crianças em todos os tamanhos, com manutenção preventiva rigorosa em toda a frota de embarcações.</p>
 </article>
 </div>
 </section>
@@ -581,6 +709,8 @@
 <div class="galeria-wrapper">
 <button aria-label="Anterior" class="galeria-seta galeria-seta-esq"><i class="fas fa-chevron-left"></i></button>
 <div class="galeria-scroll">
+<img alt="Lancha de 30 pés vista aérea em águas cristalinas de Maragogi" loading="lazy" sizes="(max-width: 900px) 62vw, 350px" src="./assets/img/r/lancha-30pes-aerea-800.webp" srcset="./assets/img/r/lancha-30pes-aerea-400.webp 400w, ./assets/img/r/lancha-30pes-aerea-800.webp 800w, ./assets/img/r/lancha-30pes-aerea-1200.webp 1200w"/>
+<img alt="Lancha esportiva de 30 pés navegando no mar de Maragogi e Carneiros" loading="lazy" sizes="(max-width: 900px) 62vw, 350px" src="./assets/img/r/lancha-30pes-mar-800.webp" srcset="./assets/img/r/lancha-30pes-mar-400.webp 400w, ./assets/img/r/lancha-30pes-mar-800.webp 800w, ./assets/img/r/lancha-30pes-mar-1200.webp 1200w"/>
 <img alt="Turistas fazendo mergulho com snorkel entre corais e peixes sargentinhos nas Galés de Maragogi" loading="lazy" sizes="(max-width: 900px) 62vw, 350px" src="./assets/img/r/piscina-800.webp" srcset="./assets/img/r/piscina-400.webp 400w, ./assets/img/r/piscina-800.webp 800w, ./assets/img/r/piscina-1200.webp 1200w"/>
 <img alt="Lancha privativa atracada nas águas cristalinas das Piscinas Naturais de Maragogi com turistas mergulhando" loading="lazy" sizes="(max-width: 900px) 62vw, 350px" src="./assets/img/r/lancha40-400.webp" srcset="./assets/img/r/lancha40-400.webp 400w"/>
 <img alt="Família com coletes salva-vidas aproveitando passeio de lancha privativa com saída da Praia de Peroba" loading="lazy" sizes="(max-width: 900px) 62vw, 350px" src="./assets/img/r/lancha4-800.webp" srcset="./assets/img/r/lancha4-400.webp 400w, ./assets/img/r/lancha4-800.webp 800w, ./assets/img/r/lancha4-1200.webp 1200w"/>
@@ -759,6 +889,7 @@
 <li><a data-i18n="nav.tide_table" href="/tabua-mares-maragogi">Tábua de Marés</a></li>
 <li><a data-i18n="nav.about" href="/sobre">Sobre Nós</a></li>
 <li><a data-i18n="nav.contact" href="/contato">Contato</a></li>
+<li><a data-i18n="footer.privacy" href="/politica-de-privacidade">Política de Privacidade</a></li>
 </ul>
 </nav>
 </div>
