@@ -15,6 +15,10 @@
             "destination": "/aventura-aquatica.html"
         },
         {
+            "source": "/passeio-de-buggy-maragogi",
+            "destination": "/passeio-de-buggy-maragogi.html"
+        },
+        {
             "source": "/sobre",
             "destination": "/sobre.html"
         },
@@ -80,6 +84,11 @@
         {
             "source": "/aventura-aquatica.html",
             "destination": "/aventura-aquatica",
+            "permanent": true
+        },
+        {
+            "source": "/passeio-de-buggy-maragogi.html",
+            "destination": "/passeio-de-buggy-maragogi",
             "permanent": true
         },
         {
