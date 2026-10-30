@@ -568,6 +568,8 @@ img {
 #banner-lancha.fade-in.visivel,
 #banner-aventura.fade-in,
 #banner-aventura.fade-in.visivel,
+#banner-buggy.fade-in,
+#banner-buggy.fade-in.visivel,
 #banner-sobre.fade-in,
 #banner-sobre.fade-in.visivel,
 #banner-contato.fade-in,
@@ -585,6 +587,8 @@ img {
 #banner-lancha.fade-in.visivel,
 #banner-aventura.fade-in,
 #banner-aventura.fade-in.visivel,
+#banner-buggy.fade-in,
+#banner-buggy.fade-in.visivel,
 #banner-sobre.fade-in,
 #banner-sobre.fade-in.visivel,
 #banner-contato.fade-in,
@@ -730,60 +734,89 @@ img {
 
 /* --- HEADER --- */
 header {
-    background-color: var(--branco);
-    padding: 0.6rem 2rem;
+    background-color: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 0.45rem 2rem;
+    height: 64px;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(30, 58, 138, 0.08);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.07);
     position: sticky;
     top: 0;
     z-index: 1000;
     width: 100%;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    background-color: rgba(255, 255, 255, 0.92);
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+}
+
+header.scrolled {
+    height: 58px;
+    background-color: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    border-bottom-color: transparent;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.header-left a {
+    display: flex;
+    align-items: center;
 }
 
 .header-left img {
-    height: clamp(42px, 5vw, 55px);
+    height: 38px;
     width: auto;
-    max-height: 60px;
-    transition: transform 0.3s ease, height 0.2s ease;
+    max-height: 42px;
+    transition: transform 0.25s ease, height 0.25s ease;
 }
 
 .header-left img:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 .header-right {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
-    flex: 1 1 auto;
+    gap: 0.75rem;
     justify-content: flex-end;
-    min-width: 0;
+    flex-shrink: 0;
+}
+
+#nav-wrapper {
+    display: flex;
+    align-items: center;
 }
 
 #nav-wrapper ul {
     list-style: none;
     display: flex;
-    gap: 0.3rem;
-    flex-wrap: wrap;
+    gap: 0.2rem;
+    flex-wrap: nowrap;
     align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 #nav-wrapper a {
     color: var(--texto-escuro);
     font-family: var(--font-subtitulo);
     font-weight: 600;
-    font-size: 0.9rem;
-    padding: 0.5rem 0.9rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.15px;
+    padding: 0.35rem 0.65rem;
     border-radius: 8px;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     position: relative;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
 }
 
 #nav-wrapper a::after {
@@ -795,7 +828,7 @@ header {
     height: 2px;
     background: var(--grad-primario);
     border-radius: 2px;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     transform: translateX(-50%);
 }
 
@@ -807,64 +840,54 @@ header {
 #nav-wrapper a:hover,
 #nav-wrapper a.nav-ativo {
     color: var(--turquesa);
-    background-color: rgba(14, 165, 233, 0.06);
+    background-color: rgba(14, 165, 233, 0.08);
 }
 
 .btn-header-cta {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, #25d366, #128C7E);
-    background-size: 200% 100%;
+    gap: 0.45rem;
+    background: linear-gradient(135deg, #10b981, #059669);
     color: var(--branco) !important;
-    padding: 0.6rem 1.3rem;
-    border-radius: 50px;
+    padding: 0.42rem 1rem;
+    border-radius: 999px;
     font-family: var(--font-subtitulo);
     font-weight: 700;
-    font-size: 0.85rem;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    font-size: 0.8rem;
+    letter-spacing: 0.2px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     white-space: nowrap;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+    flex-shrink: 0;
+    box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);
     position: relative;
     overflow: hidden;
-    animation: headerCtaPulse 3s ease-in-out infinite;
 }
 
-@keyframes headerCtaPulse {
-    0%, 100% { box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35); }
-    50% { box-shadow: 0 4px 25px rgba(37, 211, 102, 0.55), 0 0 15px rgba(37, 211, 102, 0.2); }
-}
-
-.btn-header-cta::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-    transition: left 0.5s ease;
-}
-
-.btn-header-cta:hover::before {
-    left: 100%;
+.btn-header-cta i {
+    font-size: 0.92rem;
 }
 
 .btn-header-cta:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
-    background-position: 100% 0;
-    animation: none;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+    filter: brightness(1.05);
 }
 
 #hamburger-btn {
     display: none;
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: var(--azul-profundo);
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.4rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+#hamburger-btn:hover {
+    color: var(--turquesa);
+    background-color: rgba(14, 165, 233, 0.06);
 }
 
 /* ============================================================
@@ -881,22 +904,23 @@ header {
 .lang-toggle-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.38rem 0.85rem;
+    gap: 0.38rem;
+    padding: 0.32rem 0.72rem;
     background: rgba(255, 255, 255, 0.95);
-    border: 1.5px solid rgba(148, 163, 184, 0.35);
+    border: 1.5px solid rgba(148, 163, 184, 0.3);
     border-radius: 999px;
     color: var(--azul-profundo, #0f172a);
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
     transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     outline: none;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    flex-shrink: 0;
 }
 
 .lang-toggle-btn:hover {
@@ -1122,6 +1146,7 @@ header {
 /* Internal banners: stronger overlay for readability */
 #banner-lancha .banner-overlay,
 #banner-aventura .banner-overlay,
+#banner-buggy .banner-overlay,
 #banner-sobre .banner-overlay,
 #banner-contato .banner-overlay,
 #banner-mareas .banner-overlay {
@@ -2352,8 +2377,13 @@ header {
     #servicos,
     #galeria,
     #depoimentos,
-    #contato {
-        padding: 3rem 1rem;
+    #contato,
+    #roteiros-buggy,
+    #passeio-quadriciclo,
+    #drone-fotos,
+    #galeria-buggy-quadri,
+    #faq-buggy {
+        padding: 3.5rem 1.25rem;
     }
 
     .secao-cabecalho h2 {
@@ -2443,6 +2473,7 @@ header {
 /* --- BANNERS INTERNOS --- */
 #banner-lancha,
 #banner-aventura,
+#banner-buggy,
 #banner-sobre,
 #banner-contato,
 #banner-mareas {
@@ -2463,6 +2494,7 @@ header {
 
 #banner-lancha { background-image: url('./assets/img/lancha37.webp'); }
 #banner-aventura { background-image: url('./assets/img/jet8.webp'); }
+#banner-buggy { background-image: url('./assets/img/buggy-hero.webp'); }
 #banner-sobre { background-image: url('./assets/img/lancha2.webp'); }
 #banner-contato { background-image: url('./assets/img/sobre.webp'); }
 #banner-mareas { background-image: url('./assets/img/imagem19.webp'); }
@@ -2470,6 +2502,7 @@ header {
 /* Internal banner content animations */
 #banner-lancha .banner-conteudo,
 #banner-aventura .banner-conteudo,
+#banner-buggy .banner-conteudo,
 #banner-sobre .banner-conteudo,
 #banner-contato .banner-conteudo,
 #banner-mareas .banner-conteudo {
@@ -2479,6 +2512,7 @@ header {
 
 #banner-lancha h1,
 #banner-aventura h1,
+#banner-buggy h1,
 #banner-sobre h1,
 #banner-contato h1,
 #banner-mareas h1 {
@@ -2493,6 +2527,7 @@ header {
 
 #banner-lancha p,
 #banner-aventura p,
+#banner-buggy p,
 #banner-sobre p,
 #banner-contato p,
 #banner-mareas p {
@@ -2509,6 +2544,7 @@ header {
 
 #banner-lancha .banner-tag,
 #banner-aventura .banner-tag,
+#banner-buggy .banner-tag,
 #banner-sobre .banner-tag,
 #banner-contato .banner-tag,
 #banner-mareas .banner-tag {
@@ -2708,6 +2744,29 @@ header {
     font-size: 0.75rem;
 }
 
+/* Lista de destaques / paradas dos cards */
+.passeio-destaques {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.passeio-destaques li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--texto-corpo);
+    line-height: 1.7;
+    margin-bottom: 0.45rem;
+}
+
+.passeio-destaques li i {
+    color: var(--turquesa);
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
 .passeio-precos {
     margin-bottom: 1rem;
 }
@@ -2859,7 +2918,8 @@ a.preco-valor {
 }
 
 /* --- FAQ ACCORDION --- */
-#faqs-lancha {
+#faqs-lancha,
+#faq-buggy {
     padding: var(--secao-padding);
     max-width: 800px;
     margin: 0 auto;
@@ -3539,14 +3599,16 @@ a.preco-valor {
 
 /* --- GALERIA / VÍDEOS INTERNAS --- */
 #galeria-lancha,
-#galeria-fotos-aventura {
+#galeria-fotos-aventura,
+#galeria-buggy-quadri {
     padding: var(--secao-padding);
     background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 50%, #F1F5F9 100%);
     position: relative;
 }
 
 #galeria-lancha::before,
-#galeria-fotos-aventura::before {
+#galeria-fotos-aventura::before,
+#galeria-buggy-quadri::before {
     content: '';
     position: absolute;
     top: 0;
@@ -3559,6 +3621,27 @@ a.preco-valor {
 #galeria-videos,
 #galeria-videos-aventura {
     padding: var(--secao-padding);
+}
+
+/* --- SEÇÕES BUGGY E QUADRICICLO --- */
+#roteiros-buggy,
+#drone-fotos {
+    padding: var(--secao-padding);
+    max-width: var(--container-max);
+    margin: 0 auto;
+    position: relative;
+}
+
+#passeio-quadriciclo {
+    padding: var(--secao-padding);
+    background: linear-gradient(180deg, rgba(248, 250, 252, 0.85) 0%, rgba(255, 255, 255, 0.95) 100%);
+    position: relative;
+}
+
+#faq-buggy {
+    padding: var(--secao-padding);
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 /* --- CTA FINAL INTERNAS --- */
@@ -3588,6 +3671,15 @@ a.preco-valor {
     position: absolute;
     inset: 0;
     background: url('./assets/img/jet8.webp') center/cover no-repeat;
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+}
+#contato-final.buggy::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('./assets/img/buggy-hero.webp') center/cover no-repeat;
     opacity: 0.15;
     z-index: 0;
     pointer-events: none;
@@ -4090,30 +4182,8 @@ a.preco-valor {
     }
 }
 
-/* === SEÇÃO PERGUNTAS E RESPOSTAS (FAQ) === */
-.faq-item {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(14, 165, 233, 0.15);
-}
-
 .faq-item:last-child {
-    border-bottom: none;
     margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.faq-item h4 {
-    color: var(--azul-profundo);
-    font-family: var(--font-subtitulo);
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 0.7rem;
-    letter-spacing: 0.5px;
-}
-
-.faq-item p {
-    color: var(--texto-corpo);
 }
 
 /* Accessibility helpers */
@@ -4223,10 +4293,6 @@ textarea:focus-visible {
 
     .tabela-mares {
         min-width: 500px;
-    }
-
-    .faq-item h4 {
-        font-size: 1rem;
     }
 
     .legenda-colors-list span {
@@ -5252,12 +5318,14 @@ body.pagina-mareas .tide-copyright {
     #banner { background-image: url('./assets/img/r/lancha21-900.webp'); }
     #banner-lancha { background-image: url('./assets/img/r/lancha37-900.webp'); }
     #banner-aventura { background-image: url('./assets/img/r/jet8-900.webp'); }
+    #banner-buggy { background-image: url('./assets/img/r/buggy-hero-900.webp'); }
     #banner-sobre { background-image: url('./assets/img/r/lancha2-900.webp'); }
     #banner-contato { background-image: url('./assets/img/r/sobre-900.webp'); }
     #banner-mareas { background-image: url('./assets/img/r/imagem19-900.webp'); }
 
     #contato-final.lancha::before { background-image: url('./assets/img/r/lancha37-900.webp'); }
     #contato-final.aventura::before { background-image: url('./assets/img/r/jet8-900.webp'); }
+    #contato-final.buggy::before { background-image: url('./assets/img/r/buggy-hero-900.webp'); }
     #contato-final.sobre::before { background-image: url('./assets/img/r/lancha2-900.webp'); }
     #contato-final.mares::before { background-image: url('./assets/img/r/imagem19-900.webp'); }
 }

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://meucaribemaragogi.com.br/sitemap.xml
+Sitemap: https://www.meucaribemaragogi.com.br/sitemap.xml
