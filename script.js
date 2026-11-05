@@ -645,8 +645,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCarousel();
     });
 
-    initConsoleEasterEgg();
-
 });
 
 // Barra do topo (maré + clima) — via /api (Vercel)
@@ -869,29 +867,6 @@ document.addEventListener('langchange', function () {
 });
 
 
-/* ----------------------------------------------------------------------------
- * Console Easter Egg
- * ------------------------------------------------------------------------- */
-function initConsoleEasterEgg() {
-  const styles = [
-    'color: #3B82F6',
-    'font-size: 16px',
-    'font-weight: bold',
-    'padding: 10px'
-  ].join(';');
-
-  const styles2 = [
-    'color: #60A5FA',
-    'font-size: 14px'
-  ].join(';');
-
-  console.log('%c👋 Olá, Dev Curioso!', styles);
-  console.log('%cInteressado no código? Vamos conversar!', styles2);
-  console.log('%c💼 jardsonflorentino@gmail.com', styles2);
-  console.log('%c🔗 https://github.com/JardsonFlorentino', styles2);
-  console.log('%c🌐 https://www.jardsonflorentino.com.br/', styles2);
-  console.log('%c\n🚀 Site construído com HTML, CSS e JavaScript', 'color: #9ca3af; font-size: 12px');
-}
 
 /* ----------------------------------------------------------------------------
  * Google Ads - Conversão "WhatsApp - Reserva"
